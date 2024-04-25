@@ -8,6 +8,7 @@ import { todoRoutes } from './todo.routes';
 import { TodoWidgetComponent } from './widgets/todo-widget/todo-widget.component';
 import { TodoCreateFormUiComponent } from './ui/todo-create-form-ui/todo-create-form-ui.component';
 import { FormsModule } from '@angular/forms';
+import { TodoListUiComponent } from './ui/todo-list-ui/todo-list-ui.component';
 
 
 
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
     TodoPageComponent,
     TodoWidgetComponent,
     TodoCreateFormUiComponent,
+    TodoListUiComponent,
 
   ],
   imports: [

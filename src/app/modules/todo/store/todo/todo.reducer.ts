@@ -1,5 +1,5 @@
 import { Todo } from "../../models/todo.model";
-import { TodoCreateAction, todoActionsType } from "./todo.actions";
+import { TodoActions, TodoCreateAction, todoActionsType } from "./todo.actions";
 
 export const TODO_REDUCER_NODE = 'todo';
 
@@ -13,7 +13,7 @@ const initialState: TodoState = {
   todoList: [],
 }
 
-export const todoReducer = (state = initialState, actions: TodoCreateAction) => {
+export const todoReducer = (state = initialState, actions: TodoActions) => {
   switch (actions.type) {
     case todoActionsType.create:
       return {
@@ -28,7 +28,19 @@ export const todoReducer = (state = initialState, actions: TodoCreateAction) => 
           }
         ]
       };
-
+    case todoActionsType.delete:
+      return {
+        ...state,
+        todoList: state.todoList.filter(todo => todo.id != actions.payload.id)
+      };
+    case todoActionsType.toggle:
+      return {
+        ...state,
+        todoList: state.todoList.map(todo => todo.id === actions.payload.id ? {
+          ...todo,
+          completed: !todo.completed,
+        } : todo)
+      }
     default:
       return state
   }

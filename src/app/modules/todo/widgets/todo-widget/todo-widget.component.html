@@ -4,4 +4,6 @@
 <app-todo-list-ui 
   [todoList]="todoList$ | async"
   (deleteItem)="onDelete($event)"
-  (toggle)="onToggle($event)"></app-todo-list-ui>
+  (toggle)="onToggle($event)"
+  (edit)="onEdit($event)">
+</app-todo-list-ui>

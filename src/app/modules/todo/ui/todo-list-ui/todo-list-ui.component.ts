@@ -7,17 +7,19 @@ import { Todo } from '../../models/todo.model';
   styleUrls: ['./todo-list-ui.component.scss']
 })
 export class TodoListUiComponent {
+  edits: number[] = [];
+
   @Input() todoList: Todo[] | null = [];
   @Output() deleteItem = new EventEmitter<number>();
   @Output() toggle = new EventEmitter<number>();
+  @Output() edit = new EventEmitter<{ id: number, name: string }>();
 
-  constructor() {
 
+  onEditMode(id: number) {
+    this.edits.push(id);
   }
 
-
-  onToggle(event: Event, id: number) {
-    event.preventDefault();
+  onToggle(id: number) {
     this.toggle.emit(id);
   }
 
@@ -25,6 +27,9 @@ export class TodoListUiComponent {
     this.deleteItem.emit(id);
   }
 
-
+  onEdit(name: string, id: number) {
+    this.edits = this.edits.filter(item => item !== id);
+    this.edit.emit({ id, name })
+  }
 
 }

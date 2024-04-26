@@ -9,6 +9,8 @@ import { TodoWidgetComponent } from './widgets/todo-widget/todo-widget.component
 import { TodoCreateFormUiComponent } from './ui/todo-create-form-ui/todo-create-form-ui.component';
 import { FormsModule } from '@angular/forms';
 import { TodoListUiComponent } from './ui/todo-list-ui/todo-list-ui.component';
+import { TodoListItemUiComponent } from './ui/todo-list-item-ui/todo-list-item-ui.component';
+import { TodoListEditUiComponent } from './ui/todo-list-edit-ui/todo-list-edit-ui.component';
 
 
 
@@ -18,13 +20,17 @@ import { TodoListUiComponent } from './ui/todo-list-ui/todo-list-ui.component';
     TodoWidgetComponent,
     TodoCreateFormUiComponent,
     TodoListUiComponent,
-
+    TodoListItemUiComponent,
+    TodoListEditUiComponent,
   ],
   imports: [
     CommonModule,
     StoreModule.forFeature(TODO_REDUCER_NODE, todoReducer),
     RouterModule.forChild(todoRoutes),
     FormsModule
+  ],
+  exports: [
+    TodoWidgetComponent
   ]
 })
 export class TodoModule { }

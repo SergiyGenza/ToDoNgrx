@@ -5,7 +5,7 @@ import { todoFeatureSelector } from '../store/todo/todo.selectors';
 import { filter } from 'rxjs';
 import { TodoLoadStateAction } from '../store/todo/todo.actions';
 
-export const TODO_LOCALSTORAGE_KEY = "todo";
+export const TODO_LOCALSTORAGE_KEY = "MyTodoNgrxApp";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class LocalstorageService {
 
   constructor(private store$: Store<TodoState>) { }
 
-  init() {
+  public init() {
     if (this.isInit) {
       return;
     }

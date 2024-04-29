@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+// @import "./assets/styles/reset";
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  // height: 100%;
+}
+
+a,
+a:link,
+a:visited,
+a:hover {
+  text-decoration: none;
+  color: #000;
+}
+
+ul,
+ul li {
+  list-style: none;
+}

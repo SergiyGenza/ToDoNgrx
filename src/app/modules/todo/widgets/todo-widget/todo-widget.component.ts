@@ -13,29 +13,29 @@ import { LocalstorageService } from '../../services/localstorage.service';
   styleUrls: ['./todo-widget.component.scss']
 })
 export class TodoWidgetComponent {
-  todoList$: Observable<Todo[]> = this.store$.pipe(select(todoListSelector))
+  todoList$: Observable<Todo[]> = this.store$.pipe(select(todoListSelector));
 
   constructor(
     private store$: Store<TodoState>,
-    private localstorageService: LocalstorageService,
-  ) { 
+    localstorageService: LocalstorageService,
+  ) {
     localstorageService.init();
   }
 
-  onCreate(name: string) {
+  public onCreate(name: string) {
     console.log(name);
     this.store$.dispatch(new TodoCreateAction({ name }))
   }
 
-  onDelete(id: number) {
+  public onDelete(id: number) {
     this.store$.dispatch(new TodoDeleteAction({ id }))
   }
 
-  onToggle(id: number) {
+  public onToggle(id: number) {
     this.store$.dispatch(new TodoToggleAction({ id }))
   }
 
-  onEdit({ id, name }: { id: number, name: string }) {
+  public onEdit({ id, name }: { id: number, name: string }) {
     this.store$.dispatch(new TodoEditAction({ id, name }))
   }
 }

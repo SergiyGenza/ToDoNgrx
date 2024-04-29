@@ -15,19 +15,19 @@ export class TodoListUiComponent {
   @Output() edit = new EventEmitter<{ id: number, name: string }>();
 
 
-  onEditMode(id: number) {
+  public onEditMode(id: number) {
     this.edits.push(id);
   }
 
-  onToggle(id: number) {
+  public onToggle(id: number) {
     this.toggle.emit(id);
   }
 
-  onDelete(id: number) {
+  public onDelete(id: number) {
     this.deleteItem.emit(id);
   }
 
-  onEdit(name: string, id: number) {
+  public onEdit(name: string, id: number) {
     this.edits = this.edits.filter(item => item !== id);
     this.edit.emit({ id, name })
   }

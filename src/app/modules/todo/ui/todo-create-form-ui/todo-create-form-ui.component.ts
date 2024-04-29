@@ -7,9 +7,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class TodoCreateFormUiComponent {
   @Output() create = new EventEmitter<string>();
-  name = ''
+  name = '';
 
-  onCreate() {
+  public onCreate() {
     this.create.emit(this.name);
     this.name = '';
   }

@@ -1,0 +1,23 @@
+svg {
+  height: 22px;
+  width: 22px;
+}
+
+form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 34px;
+}
+
+input {
+  border: none;
+  padding: 0 10px;
+  max-height: 30px;
+  width: 100%;
+}
+
+.btns-group {
+  display: flex;
+  align-items: center;
+}

@@ -24,5 +24,11 @@ export class TodoListEditUiComponent implements OnInit {
 
   public onCansel() {
     this.name = this.todo.name;
+    this.edit.emit(this.name);
+  }
+
+  public onPriorityAdding(event: Event) {
+    event?.preventDefault();
+
   }
 }

@@ -1,0 +1,31 @@
+svg {
+  width: 22px;
+  height: 22px;
+}
+
+.todo-item-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 34px;
+}
+
+.todo-item {
+  &__text {
+    flex-basis: 100%;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+.btns-group {}
+
+.btn-delete {
+  cursor: pointer;
+}
+
+input {
+  cursor: pointer;
+}

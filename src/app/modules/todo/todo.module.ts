@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { TodoListUiComponent } from './ui/todo-list-ui/todo-list-ui.component';
 import { TodoListItemUiComponent } from './ui/todo-list-item-ui/todo-list-item-ui.component';
 import { TodoListEditUiComponent } from './ui/todo-list-edit-ui/todo-list-edit-ui.component';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -27,7 +27,8 @@ import { TodoListEditUiComponent } from './ui/todo-list-edit-ui/todo-list-edit-u
     CommonModule,
     StoreModule.forFeature(TODO_REDUCER_NODE, todoReducer),
     RouterModule.forChild(todoRoutes),
-    FormsModule
+    FormsModule,
+    DragDropModule
   ],
   exports: [
     TodoWidgetComponent

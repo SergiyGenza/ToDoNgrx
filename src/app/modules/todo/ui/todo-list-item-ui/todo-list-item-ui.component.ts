@@ -12,15 +12,15 @@ export class TodoListItemUiComponent {
   @Output() toggle = new EventEmitter<void>();
   @Output() edit = new EventEmitter<void>();
 
-  onToggle() {
+  public onToggle() {
     this.toggle.emit();
   }
 
-  onDelete() {
+  public onDelete() {
     this.deleteItem.emit();
   }
 
-  onEdit() {
+  public onEdit() {
     this.edit.emit()
   }
 

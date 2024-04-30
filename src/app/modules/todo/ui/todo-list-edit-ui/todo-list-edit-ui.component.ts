@@ -16,13 +16,19 @@ export class TodoListEditUiComponent implements OnInit {
     this.name = this.todo?.name
   }
 
-  onEdit() {
+  public onEdit() {
     if (this.name) {
       this.edit.emit(this.name)
     }
   }
 
-  onCansel() {
+  public onCansel() {
     this.name = this.todo.name;
+    this.edit.emit(this.name);
+  }
+
+  public onPriorityAdding(event: Event) {
+    event?.preventDefault();
+
   }
 }

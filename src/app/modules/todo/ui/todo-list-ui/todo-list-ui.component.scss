@@ -6,6 +6,17 @@
 }
 
 .task-item {
+  width: 354px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  background-color: red;
+  // position: relative;
+}
+
+.task-item-content {
+  // position: absolute;
   border: 2px solid black;
-  width: 320px;
+  background-color: aqua;
+  width: 270px;
 }

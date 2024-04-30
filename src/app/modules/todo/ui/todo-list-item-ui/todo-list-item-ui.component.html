@@ -2,7 +2,7 @@
   <label for="checkbox">
     <input type="checkbox" [checked]="todo?.completed" (click)="onToggle()">
   </label>
-  <div class="todo-item__text" (click)="onEdit()">
+  <div class="todo-item__text">
     <del *ngIf="todo?.completed else completed"><span>{{todo?.name}}</span></del>
     <ng-template #completed>
       <span>{{todo?.name}}</span>

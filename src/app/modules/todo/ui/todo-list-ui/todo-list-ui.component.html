@@ -1,14 +1,24 @@
 <ul class="task-list">
   <li class="task-item" *ngFor="let todo of todoList">
-    <app-todo-list-item-ui *ngIf="!edits.includes(todo.id)"
-      [todo]="todo"
-      (toggle)="onToggle(todo.id)"
-      (deleteItem)="onDelete(todo.id)"
-      (edit)="onEditMode(todo.id)">
-    </app-todo-list-item-ui>
-    <app-todo-list-edit-ui *ngIf="edits.includes(todo.id)"
-      [todo]="todo"
-      (edit)="onEdit($event, todo.id)">
-    </app-todo-list-edit-ui>
+    <div class="task-item-content"
+        cdkDrag cdkDragLockAxis="x"
+        cdkDragBoundary=".task-item"
+        (cdkDragEnded)="dragEnd($event, todo)"
+        [cdkDragFreeDragPosition]="setPosition"
+      >
+      <app-todo-list-item-ui *ngIf="!edits.includes(todo.id)"
+        [todo]="todo"
+        (toggle)="onToggle(todo.id)"
+        (deleteItem)="onDelete(todo.id)"
+        (edit)="onEditMode(todo.id)">
+      </app-todo-list-item-ui>
+      <app-todo-list-edit-ui *ngIf="edits.includes(todo.id)"
+        [todo]="todo"
+        (edit)="onEdit($event, todo.id)">
+      </app-todo-list-edit-ui>
+    </div>
+    <div class="task-item__tool-bar">
+      
+    </div>
   </li>
 </ul>

@@ -23,7 +23,6 @@ export class TodoWidgetComponent {
   }
 
   public onCreate(name: string) {
-    console.log(name);
     this.store$.dispatch(new TodoCreateAction({ name }))
   }
 

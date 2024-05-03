@@ -12,6 +12,7 @@ import { TodoListUiComponent } from './ui/todo-list-ui/todo-list-ui.component';
 import { TodoListItemUiComponent } from './ui/todo-list-item-ui/todo-list-item-ui.component';
 import { TodoListEditUiComponent } from './ui/todo-list-edit-ui/todo-list-edit-ui.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TodoHeaderBarUiComponent } from './ui/todo-header-bar-ui/todo-header-bar-ui.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     TodoListUiComponent,
     TodoListItemUiComponent,
     TodoListEditUiComponent,
+    TodoHeaderBarUiComponent,
   ],
   imports: [
     CommonModule,

@@ -14,10 +14,10 @@ svg {
 .todo-item {
   &__text {
     flex-basis: 100%;
-    cursor: pointer;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    text-align: left;
   }
 }
 

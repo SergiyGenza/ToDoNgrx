@@ -1,14 +1,14 @@
 <div class="todo-item-wrapper todo-border">
-  <label for="checkbox">
-    <input type="checkbox" [checked]="todo?.completed" (click)="onToggle()">
-  </label>
   <div class="todo-item__text">
     <del *ngIf="todo?.completed else completed"><span>{{todo?.name}}</span></del>
     <ng-template #completed>
       <span>{{todo?.name}}</span>
     </ng-template>
   </div>
-  <div class="btns-group">
+    <label for="checkbox">
+      <input type="checkbox" [checked]="todo?.completed" (click)="onToggle()">
+    </label>
+  <!-- <div class="btns-group">
     <div roele="button" class="btn-delete" (click)="onDelete()">
       <svg fill="#000000" viewBox="0 0 24 24" id="delete-alt" class="icon glyph">
         <path d="M17,4V5H15V4H9V5H7V4A2,2,0,0,1,9,2h6A2,2,0,0,1,17,4Z"></path>
@@ -17,5 +17,5 @@
         </path>
       </svg>
     </div>
-  </div>
+  </div> -->
 </div>

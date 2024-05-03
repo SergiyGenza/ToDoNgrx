@@ -37,21 +37,33 @@ export class TodoListUiComponent {
   public dragEnd($event: CdkDragEnd, todo: Todo) {
     let pos: Point = $event.source.getFreeDragPosition();
     this.setPosition.x = pos.x;
-    // let el = $event.source.getRootElement();
     console.log(pos.x);
     console.log(this.setPosition.x);
 
-    if (pos.x >= 39) {
-      this.setPosition.x = 0;
+    if (pos.x >= 45) {
       $event.source.reset();
-      this.onDelete(todo.id);
-
+      // this.onDelete(todo.id);
+      console.log('onEdit');
+      this.setPosition.x = 0;
     }
-    else if (pos.x <= -40) {
+    else if (pos.x >= 20 && pos.x <= 44) {
+      console.log('priority');
+      $event.source.reset();
+    }
+    else if (pos.x <= -20 && pos.x >= -44) {
+      console.log('archive');
+      $event.source.reset();
+    }
+    else if (pos.x <= -45) {
       this.setPosition.x = 0;
       $event.source.reset();
-
-      this.onEditMode(todo.id);
+      // this.onEditMode(todo.id);
+      console.log('onDelete');
+    }
+    else if (20 > pos.x || pos.x > -20) {
+      console.log('none');
+      $event.source.reset();
+      this.setPosition.x = 0;
     }
   }
 

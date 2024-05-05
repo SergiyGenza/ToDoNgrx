@@ -13,6 +13,7 @@ import { TodoListItemUiComponent } from './ui/todo-list-item-ui/todo-list-item-u
 import { TodoListEditUiComponent } from './ui/todo-list-edit-ui/todo-list-edit-ui.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TodoHeaderBarUiComponent } from './ui/todo-header-bar-ui/todo-header-bar-ui.component';
+import { ModalService } from '../modal/services/modal.service';
 
 
 @NgModule({
@@ -34,6 +35,9 @@ import { TodoHeaderBarUiComponent } from './ui/todo-header-bar-ui/todo-header-ba
   ],
   exports: [
     TodoWidgetComponent
+  ],
+  providers: [
+    ModalService,
   ]
 })
 export class TodoModule { }

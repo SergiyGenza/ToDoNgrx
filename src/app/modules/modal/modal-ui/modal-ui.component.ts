@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-ui',
@@ -8,9 +9,15 @@ import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/cor
 export class ModalUiComponent {
   @Input() size? = 'md';
   @Input() title? = 'Modal title';
+  @Input() type? = '';
+
+  form = new FormGroup({
+    categoryName: new FormControl(''),
+  })
 
   @Output() closeEvent = new EventEmitter();
   @Output() submitEvent = new EventEmitter();
+  @Output() createCategoryEvent = new EventEmitter<string | null>();
 
   constructor(private elementRef: ElementRef) { }
 
@@ -20,7 +27,20 @@ export class ModalUiComponent {
   }
 
   submit(): void {
-    this.elementRef.nativeElement.remove();
-    this.submitEvent.emit();
+    switch (this.type) {
+      case 'form': {
+        console.log(this.form.controls.categoryName.value);
+        this.elementRef.nativeElement.remove();
+        this.createCategoryEvent.emit(this.form.controls.categoryName.value)
+        this.form.controls.categoryName.patchValue('');
+        break;
+      }
+      case '': {
+        this.elementRef.nativeElement.remove();
+        this.submitEvent.emit();
+        break;
+      }
+    }
+
   }
 }

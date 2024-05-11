@@ -42,7 +42,8 @@ export class TodoListUiComponent {
 
     if (pos.x >= 45) {
       $event.source.reset();
-      // this.onDelete(todo.id);
+      // this.onEditMode(todo.id);
+
       console.log('onEdit');
       this.setPosition.x = 0;
     }
@@ -57,8 +58,9 @@ export class TodoListUiComponent {
     else if (pos.x <= -45) {
       this.setPosition.x = 0;
       $event.source.reset();
-      // this.onEditMode(todo.id);
       console.log('onDelete');
+      this.onDelete(todo.id);
+
     }
     else if (20 > pos.x || pos.x > -20) {
       console.log('none');

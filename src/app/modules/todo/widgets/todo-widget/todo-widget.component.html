@@ -3,7 +3,9 @@
     (create)="onCreate($event)">
   </app-todo-create-form-ui>
 
-  <app-todo-header-bar-ui></app-todo-header-bar-ui>
+  <app-todo-header-bar-ui
+    (createCategory)="onCategoryCreate($event)">
+  </app-todo-header-bar-ui>
 
   <app-todo-list-ui 
     [todoList]="todoList$ | async"
@@ -12,3 +14,14 @@
     (edit)="onEdit($event)">
   </app-todo-list-ui>
 </div>
+
+<div class="">
+  <h2>categories</h2>
+  <div class=""></div>
+</div>
+
+<!-- <button (click)="openModal(modalTemplate)"> open modal</button>
+
+<ng-template #modalTemplate>
+  <div class="">some template</div>
+</ng-template> -->

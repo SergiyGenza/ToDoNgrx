@@ -15,7 +15,7 @@ export class LocalstorageService {
 
   constructor(private store$: Store<TodoState>) { }
 
-  public init() {
+  public initTodos() {
     if (this.isInit) {
       return;
     }

@@ -1,11 +1,11 @@
 <ul class="task-list">
   <li class="task-item" *ngFor="let todo of todoList">
+    <!-- add li component -->
     <div class="task-item__content" *ngIf="!edits.includes(todo.id)"
         cdkDrag cdkDragLockAxis="x"
         cdkDragBoundary=".task-item"
         (cdkDragEnded)="dragEnd($event, todo)"
-        [cdkDragFreeDragPosition]="setPosition"
-      >
+        [cdkDragFreeDragPosition]="setPosition">
       <app-todo-list-item-ui
         [todo]="todo"
         (toggle)="onToggle(todo.id)"

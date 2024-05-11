@@ -1,5 +1,14 @@
-<div class="bar-btns-group">
-  <button>list type</button>
-  <button>filter</button>
-  <button>archive</button>
+<div class="btns-bar">
+  <button (click)="onAllCategoriesPick()">All</button>
+  <div class="btns-bar__group">
+    <button>some item</button>
+    <button>food</button>
+    <button>tools</button>
+    <button (click)="onCategoryCreate(modalTemplate)">new category</button>
+  </div>
+  <button role="menu">filter</button>
 </div>
+
+<ng-template #modalTemplate>
+
+</ng-template>

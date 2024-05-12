@@ -18,7 +18,7 @@
       (edit)="onEdit($event, todo.id)">
     </app-todo-list-edit-ui>
     <!-- tool-bar -->
-    <div class="task-item__tool-bar">
+    <div class="task-item__tool-bar" *ngIf="!edits.includes(todo.id)">
       <div class="task-item__tool-bar__item">
         <div>
           <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"

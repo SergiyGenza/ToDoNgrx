@@ -1,12 +1,13 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
-import { TodoCreateAction, TodoDeleteAction, TodoEditAction, TodoToggleAction } from '../../store/todo/todo.actions';
-import { todoListSelector } from '../../store/todo/todo.selectors';
+import { TodoCategoryCreateAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoEditAction, TodoToggleAction } from '../../store/todo/todo.actions';
+import { categoriesListSelector, todoListSelector } from '../../store/todo/todo.selectors';
 import { Observable } from 'rxjs';
 import { Todo } from '../../models/todo.model';
 import { LocalstorageService } from '../../services/localstorage.service';
 import { ModalService } from 'src/app/modules/modal/services/modal.service';
+import { Category } from '../../models/category.model';
 
 @Component({
   selector: 'app-todo-widget',
@@ -15,6 +16,7 @@ import { ModalService } from 'src/app/modules/modal/services/modal.service';
 })
 export class TodoWidgetComponent implements OnInit {
   todoList$: Observable<Todo[]> = this.todoStore$.pipe(select(todoListSelector));
+  categoriesList$: Observable<Category[]> = this.todoStore$.pipe(select(categoriesListSelector));
 
   constructor(
     private todoStore$: Store<TodoState>,
@@ -26,6 +28,7 @@ export class TodoWidgetComponent implements OnInit {
 
   ngOnInit(): void {
     this.todoList$.subscribe((item) => console.log(item))
+    this.categoriesList$.subscribe((item) => console.log(item))
 
   }
 
@@ -46,7 +49,16 @@ export class TodoWidgetComponent implements OnInit {
   }
 
   public onCategoryCreate(name: string | null) {
+    console.log(name);
+    if (name) {
+      this.todoStore$.dispatch(new TodoCategoryCreateAction({ name }));
+    }
+  }
 
+  public onFolderCreate(folderName: string | null, categoryName: string) {
+    if (folderName) {
+      this.todoStore$.dispatch(new TodoCategoryFolderCreateAction({ categoryName, folderName }))
+    }
   }
 
   openModal(modalTemplate: TemplateRef<any>) {

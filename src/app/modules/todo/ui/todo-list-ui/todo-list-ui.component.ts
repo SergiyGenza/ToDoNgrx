@@ -42,8 +42,7 @@ export class TodoListUiComponent {
 
     if (pos.x >= 45) {
       $event.source.reset();
-      // this.onEditMode(todo.id);
-
+      this.onEditMode(todo.id);
       console.log('onEdit');
       this.setPosition.x = 0;
     }

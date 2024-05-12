@@ -2,15 +2,17 @@ import { Action } from "@ngrx/store";
 import { TodoState } from "./todo.reducer";
 
 export enum todoActionsType {
-  create = '[Todo] create todo item',
+  createTodo = '[Todo] create todo item',
   toggle = '[Todo] toogle todo item',
   edit = '[Todo] edit todo item',
   delete = '[Todo] delete todo item',
   load = '[Todo] load todo item',
+  createCategory = '[Todo] create Category item',
+  createFolder = '[Todo] create Folder item',
 };
 
 export class TodoCreateAction implements Action {
-  readonly type = todoActionsType.create;
+  readonly type = todoActionsType.createTodo;
 
   constructor(public payload: {
     name: string;
@@ -48,4 +50,25 @@ export class TodoLoadStateAction implements Action {
   }) { }
 }
 
-export type TodoActions = TodoCreateAction | TodoDeleteAction | TodoToggleAction | TodoEditAction | TodoLoadStateAction;
+
+export class TodoCategoryCreateAction implements Action {
+  readonly type = todoActionsType.createCategory;
+
+  constructor(public payload: {
+    name: string;
+  }) { }
+}
+
+export class TodoCategoryFolderCreateAction implements Action {
+  readonly type = todoActionsType.createFolder;
+
+  constructor(public payload: {
+    categoryName: string,
+    folderName: string;
+  }) { }
+}
+
+export type TodoActions = TodoCreateAction |
+  TodoDeleteAction | TodoToggleAction |
+  TodoEditAction | TodoLoadStateAction |
+  TodoCategoryCreateAction | TodoCategoryFolderCreateAction;

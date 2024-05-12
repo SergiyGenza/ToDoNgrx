@@ -17,7 +17,13 @@
 
 <div class="">
   <h2>categories</h2>
-  <div class=""></div>
+  <div class="" *ngFor="let category of categoriesList$ | async">
+    <span>{{category.name}}</span> <br>
+    <button (click)="onFolderCreate('old folders name', category.name)">create folder</button>
+    <div class="" *ngFor="let folder of category.foldersList">
+      <span>folderName: {{ folder.name }}</span>
+    </div>
+  </div>
 </div>
 
 <!-- <button (click)="openModal(modalTemplate)"> open modal</button>

@@ -15,6 +15,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TodoHeaderBarUiComponent } from './ui/todo-header-bar-ui/todo-header-bar-ui.component';
 import { ModalService } from '../modal/services/modal.service';
 import { ModalModule } from '../modal/modal.module';
+import { CategoryListItemUiComponent } from './ui/category-list-item-ui/category-list-item-ui.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ModalModule } from '../modal/modal.module';
     TodoListItemUiComponent,
     TodoListEditUiComponent,
     TodoHeaderBarUiComponent,
+    CategoryListItemUiComponent,
   ],
   imports: [
     CommonModule,

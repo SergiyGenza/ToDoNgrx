@@ -1,7 +1,6 @@
 .todo-edit-form {
   width: 270px;
-  padding: 0 10px;
-  max-height: 38px;
+  padding: 10px;
 }
 
 svg {
@@ -11,10 +10,8 @@ svg {
 
 form {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   gap: 10px;
-  height: 36px;
 }
 
 input {
@@ -22,6 +19,22 @@ input {
   max-height: 30px;
   width: 100%;
   height: 38px;
+}
+
+.todo-edit-form {
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
 }
 
 // .btns-group {

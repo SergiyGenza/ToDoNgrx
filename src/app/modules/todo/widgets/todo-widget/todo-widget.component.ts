@@ -29,10 +29,9 @@ export class TodoWidgetComponent implements OnInit {
   ngOnInit(): void {
     this.todoList$.subscribe((item) => console.log(item))
     this.categoriesList$.subscribe((item) => console.log(item))
-
   }
 
-  public onCreate(name: string) {
+  public onTodoCreate(name: string) {
     this.todoStore$.dispatch(new TodoCreateAction({ name }))
   }
 
@@ -55,10 +54,9 @@ export class TodoWidgetComponent implements OnInit {
     }
   }
 
-  public onFolderCreate(folderName: string | null, categoryName: string) {
-    if (folderName) {
-      this.todoStore$.dispatch(new TodoCategoryFolderCreateAction({ categoryName, folderName }))
-    }
+  public onFolderCreate(folder: { folderName: string; categoryName: string; }) {
+    const { folderName, categoryName } = folder;
+    this.todoStore$.dispatch(new TodoCategoryFolderCreateAction({ categoryName, folderName }));
   }
 
   openModal(modalTemplate: TemplateRef<any>) {

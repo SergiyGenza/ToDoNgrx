@@ -1,0 +1,11 @@
+<span>{{category.name}}</span> <br>
+<app-todo-create-form-ui (create)="onFolderCreate($event)">
+
+</app-todo-create-form-ui>
+<!-- <form>
+    <input type="text" placeholder="type name">
+    <button (click)="onFolderCreate('old folders name', category.name)">create folder</button>
+  </form> -->
+<div class="" *ngFor="let folder of category.foldersList">
+  <span>folderName: {{ folder.name }}</span>
+</div>

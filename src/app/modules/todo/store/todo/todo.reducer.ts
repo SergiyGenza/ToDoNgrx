@@ -1,5 +1,4 @@
 import { Category } from "../../models/category.model";
-import { Folder } from "../../models/folder.model";
 import { Todo } from "../../models/todo.model";
 import { TodoActions, todoActionsType } from "./todo.actions";
 

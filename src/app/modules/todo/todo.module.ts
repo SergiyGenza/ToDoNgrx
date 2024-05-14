@@ -16,6 +16,7 @@ import { TodoHeaderBarUiComponent } from './ui/todo-header-bar-ui/todo-header-ba
 import { ModalService } from '../modal/services/modal.service';
 import { ModalModule } from '../modal/modal.module';
 import { CategoryListItemUiComponent } from './ui/category-list-item-ui/category-list-item-ui.component';
+import { CategoryFilterPipe } from './pipes/category-filter.pipe';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { CategoryListItemUiComponent } from './ui/category-list-item-ui/category
     TodoListEditUiComponent,
     TodoHeaderBarUiComponent,
     CategoryListItemUiComponent,
+    CategoryFilterPipe,
   ],
   imports: [
     CommonModule,

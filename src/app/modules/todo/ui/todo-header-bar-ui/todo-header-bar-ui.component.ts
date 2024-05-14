@@ -10,6 +10,7 @@ import { Category } from '../../models/category.model';
 export class TodoHeaderBarUiComponent {
   @Input() categoriesList?: Category[] | null;
   @Output() createCategory = new EventEmitter<string | null>();
+  @Output() currentCategory = new EventEmitter<string>();
 
   constructor(
     private modalServeice: ModalService,
@@ -23,7 +24,11 @@ export class TodoHeaderBarUiComponent {
     })
   }
 
-  public onAllCategoriesPick() {
+  public onCategoryPick(catagory: Category) {
+    this.currentCategory.emit(catagory.name);
+  }
 
+  public onAllCategoriesPick() {
+    this.currentCategory.emit('all');
   }
 }

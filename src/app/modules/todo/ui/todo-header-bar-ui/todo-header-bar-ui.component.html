@@ -1,7 +1,7 @@
 <div class="btns-bar">
   <button (click)="onAllCategoriesPick()">All</button>
   <div class="btns-bar__group" *ngIf="categoriesList">
-    <button *ngFor="let category of categoriesList">{{category.name}}</button>
+    <button *ngFor="let category of categoriesList" (click)="onCategoryPick(category)">{{category.name}}</button>
     <button (click)="onCategoryCreate(modalTemplate)">+</button>
   </div>
   <button role="menu">filter</button>

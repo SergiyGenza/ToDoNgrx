@@ -17,6 +17,7 @@ import { Category } from '../../models/category.model';
 export class TodoWidgetComponent implements OnInit {
   todoList$: Observable<Todo[]> = this.todoStore$.pipe(select(todoListSelector));
   categoriesList$: Observable<Category[]> = this.todoStore$.pipe(select(categoriesListSelector));
+  currentCategory: any
 
   constructor(
     private todoStore$: Store<TodoState>,
@@ -27,8 +28,8 @@ export class TodoWidgetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.todoList$.subscribe((item) => console.log(item))
-    this.categoriesList$.subscribe((item) => console.log(item))
+    // this.todoList$.subscribe((item) => console.log(item))
+    // this.categoriesList$.subscribe((item) => console.log(item))
   }
 
   public onTodoCreate(name: string) {
@@ -57,6 +58,10 @@ export class TodoWidgetComponent implements OnInit {
   public onFolderCreate(folder: { folderName: string; categoryName: string; }) {
     const { folderName, categoryName } = folder;
     this.todoStore$.dispatch(new TodoCategoryFolderCreateAction({ categoryName, folderName }));
+  }
+
+  public onCategoryPick(pickedCategory: string) {
+    this.currentCategory = pickedCategory;
   }
 
   openModal(modalTemplate: TemplateRef<any>) {

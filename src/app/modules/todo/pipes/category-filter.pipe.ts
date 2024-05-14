@@ -7,7 +7,7 @@ import { Category } from '../models/category.model';
 })
 export class CategoryFilterPipe implements PipeTransform {
 
-  transform(categoryList: Category[] | null, currentCategory: any = 'first cat'): Category[] | null {
+  transform(categoryList: Category[] | null, currentCategory: string): Category[] | null {
     if (currentCategory === 'all') {
       return categoryList;
     } else if (categoryList) {

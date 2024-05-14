@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { ModalService } from 'src/app/modules/modal/services/modal.service';
 import { Category } from '../../models/category.model';
+import { LocalstorageService } from '../../services/localstorage.service';
 
 @Component({
   selector: 'app-todo-header-bar-ui',
@@ -14,6 +15,7 @@ export class TodoHeaderBarUiComponent {
 
   constructor(
     private modalServeice: ModalService,
+    private localStorageService: LocalstorageService,
   ) { }
 
   public onCategoryCreate(modalTemplate: TemplateRef<any>) {

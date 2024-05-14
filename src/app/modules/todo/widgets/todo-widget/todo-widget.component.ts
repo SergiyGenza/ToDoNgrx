@@ -17,14 +17,15 @@ import { Category } from '../../models/category.model';
 export class TodoWidgetComponent implements OnInit {
   todoList$: Observable<Todo[]> = this.todoStore$.pipe(select(todoListSelector));
   categoriesList$: Observable<Category[]> = this.todoStore$.pipe(select(categoriesListSelector));
-  currentCategory: any
+  currentCategory: string;
 
   constructor(
     private todoStore$: Store<TodoState>,
     private modalServeice: ModalService,
-    localstorageService: LocalstorageService,
+    private localStorageService: LocalstorageService,
   ) {
-    localstorageService.initTodos();
+    this.currentCategory = localStorageService.loadCurrentCategoryFromStorage();
+    localStorageService.initTodos();
   }
 
   ngOnInit(): void {
@@ -32,39 +33,40 @@ export class TodoWidgetComponent implements OnInit {
     // this.categoriesList$.subscribe((item) => console.log(item))
   }
 
-  public onTodoCreate(name: string) {
-    this.todoStore$.dispatch(new TodoCreateAction({ name }))
+  public onTodoCreate(name: string): void {
+    this.todoStore$.dispatch(new TodoCreateAction({ name }));
   }
 
-  public onDelete(id: number) {
-    this.todoStore$.dispatch(new TodoDeleteAction({ id }))
+  public onDelete(id: number): void {
+    this.todoStore$.dispatch(new TodoDeleteAction({ id }));
   }
 
-  public onToggle(id: number) {
-    this.todoStore$.dispatch(new TodoToggleAction({ id }))
+  public onToggle(id: number): void {
+    this.todoStore$.dispatch(new TodoToggleAction({ id }));
   }
 
-  public onEdit({ id, name }: { id: number, name: string }) {
-    this.todoStore$.dispatch(new TodoEditAction({ id, name }))
+  public onEdit({ id, name }: { id: number, name: string }): void {
+    this.todoStore$.dispatch(new TodoEditAction({ id, name }));
   }
 
-  public onCategoryCreate(name: string | null) {
+  public onCategoryCreate(name: string | null): void {
     console.log(name);
     if (name) {
       this.todoStore$.dispatch(new TodoCategoryCreateAction({ name }));
     }
   }
 
-  public onFolderCreate(folder: { folderName: string; categoryName: string; }) {
+  public onFolderCreate(folder: { folderName: string; categoryName: string; }): void {
     const { folderName, categoryName } = folder;
     this.todoStore$.dispatch(new TodoCategoryFolderCreateAction({ categoryName, folderName }));
   }
 
-  public onCategoryPick(pickedCategory: string) {
+  public onCategoryPick(pickedCategory: string): void {
     this.currentCategory = pickedCategory;
+    this.localStorageService.setCurrentCategoryInLocalstorage(pickedCategory);
   }
 
-  openModal(modalTemplate: TemplateRef<any>) {
+  public openModal(modalTemplate: TemplateRef<any>): void {
     this.modalServeice.open(modalTemplate, { size: 'lg', title: 'title' }).subscribe((action: any) => {
       console.log('modalAction', action);
     })

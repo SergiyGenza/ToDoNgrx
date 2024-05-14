@@ -6,6 +6,7 @@ import { filter } from 'rxjs';
 import { TodoLoadStateAction } from '../store/todo/todo.actions';
 
 export const TODO_LOCALSTORAGE_KEY = "MyTodoNgrxApp";
+export const CURRENT_CATEGORY_LOCALSTOREGE_KEY = "MyTodoNgrxAppCurrentCategory";
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,17 @@ export class LocalstorageService {
         state: JSON.parse(storageState)
       }))
     }
+  }
+
+
+  public setCurrentCategoryInLocalstorage(currentCategory: string): void {
+    localStorage.setItem(CURRENT_CATEGORY_LOCALSTOREGE_KEY, JSON.stringify(currentCategory));
+  }
+
+  public loadCurrentCategoryFromStorage(): string {
+    const currentCategory = localStorage.getItem(CURRENT_CATEGORY_LOCALSTOREGE_KEY);
+    if (currentCategory) {
+      return JSON.parse(currentCategory)
+    } else return 'all';
   }
 }

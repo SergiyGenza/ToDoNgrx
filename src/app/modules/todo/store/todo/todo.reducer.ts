@@ -29,7 +29,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             name: action.payload.name,
             completed: false,
             currentFolderName: '',
-            currentCategoryName: '',
+            currentCategoryName: action.payload.currentCategoryName,
           }
         ]
       };

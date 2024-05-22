@@ -16,6 +16,7 @@ export class TodoCreateAction implements Action {
 
   constructor(public payload: {
     name: string;
+    currentCategoryName: string;
   }) { }
 }
 export class TodoDeleteAction implements Action {

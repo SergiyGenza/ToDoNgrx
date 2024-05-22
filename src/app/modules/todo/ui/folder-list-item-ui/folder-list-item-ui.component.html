@@ -1,0 +1,13 @@
+<div class="">
+  <div class=""> <span (click)="open = !open">open</span> {{folder?.name}}</div>
+  <div class="" *ngIf="open">
+    <div class="">
+        <app-todo-list-ui 
+          [todoList]="folder!.todoItems"
+          (deleteItem)="onDelete($event)"
+          (toggle)="onToggle($event)"
+          (edit)="onEdit($event)">
+        </app-todo-list-ui>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,11 @@
     (createCategory)="onCategoryCreate($event)"
     (currentCategory)="onCategoryPick($event)">
   </app-todo-header-bar-ui>
+  <div class="">
+    <app-category-list-item-ui *ngFor="let category of categoriesList$ | async | categoryFilter:currentCategory"
+      [category]="category" (folderCreate)="onFolderCreate($event)">
+    </app-category-list-item-ui>
+  </div>
 
   <app-todo-list-ui 
     [todoList]="todoList$ | async"
@@ -17,16 +22,6 @@
   </app-todo-list-ui>
 </div>
 
-<div class="">
-  <h2>categories</h2>
-  <div class="">
-    <app-category-list-item-ui 
-      *ngFor="let category of categoriesList$ | async | categoryFilter:currentCategory"
-      [category]="category"
-      (folderCreate)="onFolderCreate($event)">
-    </app-category-list-item-ui>
-  </div>  
-</div>
 
 <!-- <button (click)="openModal(modalTemplate)"> open modal</button>
 

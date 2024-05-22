@@ -2,8 +2,10 @@
 
 <app-todo-create-form-ui (create)="onFolderCreate($event)"></app-todo-create-form-ui>
 
-<div class="" *ngFor="let folder of category.foldersList">
-  <span>folderName: {{ folder.name }}</span>
-</div>
+<app-folder-list-item-ui *ngFor="let folder of category.foldersList"
+  [folder]="folder">
+</app-folder-list-item-ui>
+
+
 
 <div class="devider"></div>

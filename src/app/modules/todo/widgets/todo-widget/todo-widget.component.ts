@@ -33,8 +33,11 @@ export class TodoWidgetComponent implements OnInit {
     // this.categoriesList$.subscribe((item) => console.log(item))
   }
 
+  // перенести це в сервіси, щоб не дублювати
+
   public onTodoCreate(name: string): void {
-    this.todoStore$.dispatch(new TodoCreateAction({ name }));
+    let currentCategoryName = this.currentCategory;
+    this.todoStore$.dispatch(new TodoCreateAction({ name, currentCategoryName }));
   }
 
   public onDelete(id: number): void {

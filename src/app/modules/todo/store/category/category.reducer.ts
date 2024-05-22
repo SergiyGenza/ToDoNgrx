@@ -13,7 +13,8 @@ export const initialCategoryState: CategoryState = {
   idIncrement: 1,
   categoryList: [{
     id: 2,
-    name: 'Some'
+    name: 'Some',
+    foldersList: [],
   }],
 }
 

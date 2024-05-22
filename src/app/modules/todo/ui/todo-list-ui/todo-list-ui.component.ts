@@ -16,7 +16,6 @@ export class TodoListUiComponent {
   @Output() toggle = new EventEmitter<number>();
   @Output() edit = new EventEmitter<{ id: number, name: string }>();
 
-
   public onEditMode(id: number) {
     this.edits.push(id);
   }

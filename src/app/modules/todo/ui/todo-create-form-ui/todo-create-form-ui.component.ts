@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-todo-create-form-ui',
@@ -6,6 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./todo-create-form-ui.component.scss']
 })
 export class TodoCreateFormUiComponent {
+  @Input() placeholder!: string;
   @Output() create = new EventEmitter<string>();
   name = '';
 

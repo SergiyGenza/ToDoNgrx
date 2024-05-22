@@ -4,5 +4,5 @@ export interface Folder {
   id: number;
   name: string;
   favourite: boolean;
-  todoItems: Todo[] | null;
+  todoItems: string[];
 }

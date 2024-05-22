@@ -6,7 +6,6 @@ import { Category } from '../../models/category.model';
   pure: true,
 })
 export class CategoryFilterPipe implements PipeTransform {
-
   transform(categoryList: Category[] | null, currentCategory: string): Category[] | null {
     if (currentCategory === 'all') {
       return categoryList;
@@ -16,5 +15,4 @@ export class CategoryFilterPipe implements PipeTransform {
     console.log(categoryList);
     return categoryList;
   }
-
 }

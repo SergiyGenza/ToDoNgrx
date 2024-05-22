@@ -1,8 +1,19 @@
 <span>{{category.name}}</span> <br>
 
-<app-todo-create-form-ui (create)="onFolderCreate($event)"></app-todo-create-form-ui>
+<app-todo-create-form-ui
+  [placeholder]="'create folder'"
+  (create)="onFolderCreate($event)">
+</app-todo-create-form-ui>
+
+<app-todo-list-ui 
+  [todoList]="todoList$ | async | todo:category" 
+  (deleteItem)="onDelete($event)" 
+  (toggle)="onToggle($event)"
+  (edit)="onEdit($event)">
+</app-todo-list-ui>
 
 <app-folder-list-item-ui *ngFor="let folder of category.foldersList"
+  [todoList$]="todoList$" 
   [folder]="folder">
 </app-folder-list-item-ui>
 

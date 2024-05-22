@@ -16,8 +16,9 @@ import { TodoHeaderBarUiComponent } from './ui/todo-header-bar-ui/todo-header-ba
 import { ModalService } from '../modal/services/modal.service';
 import { ModalModule } from '../modal/modal.module';
 import { CategoryListItemUiComponent } from './ui/category-list-item-ui/category-list-item-ui.component';
-import { CategoryFilterPipe } from './pipes/category-filter.pipe';
+import { CategoryFilterPipe } from './pipes/category/category-filter.pipe';
 import { FolderListItemUiComponent } from './ui/folder-list-item-ui/folder-list-item-ui.component';
+import { TodoPipe } from './pipes/todo/todo.pipe';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { FolderListItemUiComponent } from './ui/folder-list-item-ui/folder-list-
     CategoryListItemUiComponent,
     CategoryFilterPipe,
     FolderListItemUiComponent,
+    TodoPipe,
   ],
   imports: [
     CommonModule,

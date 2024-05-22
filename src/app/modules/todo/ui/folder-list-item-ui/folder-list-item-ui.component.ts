@@ -3,6 +3,8 @@ import { Folder } from '../../models/folder.model';
 import { Store } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
 import { TodoDeleteAction, TodoEditAction, TodoToggleAction } from '../../store/todo/todo.actions';
+import { Observable } from 'rxjs';
+import { Todo } from '../../models/todo.model';
 
 @Component({
   selector: 'app-folder-list-item-ui',
@@ -10,7 +12,9 @@ import { TodoDeleteAction, TodoEditAction, TodoToggleAction } from '../../store/
   styleUrls: ['./folder-list-item-ui.component.scss']
 })
 export class FolderListItemUiComponent {
-  @Input() folder: Folder | undefined;
+  @Input() todoList$: Observable<Todo[]> | undefined;
+  @Input() folder!: Folder;
+
 
   open: boolean = true;
   constructor(

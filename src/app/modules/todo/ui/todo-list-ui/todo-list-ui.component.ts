@@ -11,7 +11,7 @@ export class TodoListUiComponent {
   edits: number[] = [];
   setPosition = { x: 0, y: 0 };
 
-  @Input() todoList: Todo[] | null = [];
+  @Input() todoList: Todo[] | null | undefined = [];
   @Output() deleteItem = new EventEmitter<number>();
   @Output() toggle = new EventEmitter<number>();
   @Output() edit = new EventEmitter<{ id: number, name: string }>();

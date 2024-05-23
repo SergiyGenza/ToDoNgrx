@@ -58,7 +58,6 @@ export class TodoListUiComponent {
       $event.source.reset();
       console.log('onDelete');
       this.onDelete(todo.id);
-
     }
     else if (20 > pos.x || pos.x > -20) {
       console.log('none');

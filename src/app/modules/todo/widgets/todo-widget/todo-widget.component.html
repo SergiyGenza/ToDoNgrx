@@ -11,7 +11,7 @@
   </app-todo-header-bar-ui>
 
   <app-todo-list-ui *ngIf="this.currentCategory == 'all'"
-    [todoList]="todoList$ | async"
+    [todoList]="todoList$ | async | todo:'all'"
     (deleteItem)="onDelete($event)"
     (toggle)="onToggle($event)"
     (edit)="onEdit($event)">

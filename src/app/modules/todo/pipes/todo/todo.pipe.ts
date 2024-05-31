@@ -8,10 +8,15 @@ import { Folder } from '../../models/folder.model';
   pure: true,
 })
 export class TodoPipe implements PipeTransform {
-  transform(todoList: Todo[] | null | undefined, todoSearchItem: string[] | Category | Folder): Todo[] | undefined | null {
+  transform(todoList: Todo[] | null | undefined, todoSearchItem: string | string[] | Category | Folder): Todo[] | undefined | null {
     if (Array.isArray(todoSearchItem)) {
       return todoList?.filter(todo => {
         return todoSearchItem.includes(todo.name);
+      })
+    } else if (todoSearchItem === 'all') {
+      console.log('works');
+      return todoList?.filter(todo => {
+        return todo.currentCategoryName! == 'all';
       })
     } else if (typeof todoSearchItem === 'object' && 'foldersList' in todoSearchItem) {
       return todoList?.filter(todo => {

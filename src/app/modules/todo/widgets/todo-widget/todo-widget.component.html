@@ -10,6 +10,13 @@
     (currentCategory)="onCategoryPick($event)">
   </app-todo-header-bar-ui>
 
+  <app-todo-list-ui *ngIf="this.currentCategory == 'all'"
+    [todoList]="todoList$ | async"
+    (deleteItem)="onDelete($event)"
+    (toggle)="onToggle($event)"
+    (edit)="onEdit($event)">
+  </app-todo-list-ui>
+
   <app-category-list-item-ui 
     *ngFor="let category of categoriesList$ | async | categoryFilter:currentCategory"
     [todoList$]="todoList$"

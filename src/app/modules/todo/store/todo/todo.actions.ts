@@ -3,48 +3,45 @@ import { TodoState } from "./todo.reducer";
 
 export enum todoActionsType {
   createTodo = '[Todo] create todo item',
-  toggle = '[Todo] toogle todo item',
-  edit = '[Todo] edit todo item',
-  delete = '[Todo] delete todo item',
-  load = '[Todo] load todo item',
+  toggleTodo = '[Todo] toogle todo item',
+  editTodo = '[Todo] editTodo todo item',
+  deleteTodo = '[Todo] deleteTodo todo item',
+  loadTodo = '[Todo] loadTodo todo item',
   createCategory = '[Todo] create Category item',
   createFolder = '[Todo] create Folder item',
+  deleteFolder = '[Todo] delete Folder item'
 };
 
 export class TodoCreateAction implements Action {
   readonly type = todoActionsType.createTodo;
-
   constructor(public payload: {
     name: string;
     currentCategoryName: string;
   }) { }
 }
 export class TodoDeleteAction implements Action {
-  readonly type = todoActionsType.delete;
-
+  readonly type = todoActionsType.deleteTodo;
   constructor(public payload: {
     id: number;
   }) { }
 }
 
 export class TodoEditAction implements Action {
-  readonly type = todoActionsType.edit;
-
+  readonly type = todoActionsType.editTodo;
   constructor(public payload: {
     id: number;
     name: string
   }) { }
 }
 export class TodoToggleAction implements Action {
-  readonly type = todoActionsType.toggle;
-
+  readonly type = todoActionsType.toggleTodo;
   constructor(public payload: {
     id: number;
   }) { }
 }
 
 export class TodoLoadStateAction implements Action {
-  readonly type = todoActionsType.load;
+  readonly type = todoActionsType.loadTodo;
 
   constructor(public payload: {
     state: TodoState
@@ -54,7 +51,6 @@ export class TodoLoadStateAction implements Action {
 
 export class TodoCategoryCreateAction implements Action {
   readonly type = todoActionsType.createCategory;
-
   constructor(public payload: {
     name: string;
   }) { }
@@ -62,14 +58,22 @@ export class TodoCategoryCreateAction implements Action {
 
 export class TodoCategoryFolderCreateAction implements Action {
   readonly type = todoActionsType.createFolder;
-
   constructor(public payload: {
     categoryName: string,
     folderName: string;
   }) { }
 }
 
+export class TodoDeleteFolderAction implements Action {
+  readonly type = todoActionsType.deleteFolder;
+  constructor(public payload: {
+    id: number;
+    name: string;
+  }) { }
+}
+
 export type TodoActions = TodoCreateAction |
   TodoDeleteAction | TodoToggleAction |
   TodoEditAction | TodoLoadStateAction |
-  TodoCategoryCreateAction | TodoCategoryFolderCreateAction;
+  TodoCategoryCreateAction | TodoCategoryFolderCreateAction |
+  TodoDeleteFolderAction;

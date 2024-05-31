@@ -33,12 +33,12 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           }
         ]
       };
-    case todoActionsType.delete:
+    case todoActionsType.deleteTodo:
       return {
         ...state,
         todoList: state.todoList.filter(todo => todo.id != action.payload.id)
       };
-    case todoActionsType.toggle:
+    case todoActionsType.toggleTodo:
       return {
         ...state,
         todoList: state.todoList.map(todo => todo.id === action.payload.id ? {
@@ -46,7 +46,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           completed: !todo.completed,
         } : todo)
       }
-    case todoActionsType.edit:
+    case todoActionsType.editTodo:
       return {
         ...state,
         todoList: state.todoList.map(todo => todo.id === action.payload.id ? {
@@ -54,7 +54,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           name: action.payload.name
         } : todo)
       };
-    case todoActionsType.load:
+    case todoActionsType.loadTodo:
       return {
         ...action.payload.state
       }
@@ -88,6 +88,21 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
         } : category)
 
       }
+    case todoActionsType.deleteFolder:
+      return {
+        ...state,
+        todoList: state.todoList.map(todo =>
+          todo.currentFolderName === action.payload.name
+            ? { ...todo, currentFolderName: '' }
+            : todo
+        ),
+        categoriesList: state.categoriesList.map(cat => {
+          return {
+            ...cat,
+            foldersList: cat.foldersList.filter(folder => folder.id !== action.payload.id)
+          };
+        })
+      };
     default:
       return state
   }

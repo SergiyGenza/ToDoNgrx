@@ -103,6 +103,16 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           };
         })
       };
+    // case todoActionsType.deleteCategory:
+    //   return {
+    //     ...state,
+    //     todoList: state.todoList.map(todo =>
+    //       todo.currentCategoryName === action.payload.name
+    //         ? { ...todo, currentCategoryName: '' }
+    //         : todo
+    //     ),
+    //     categoriesList: state.categoriesList.map()
+    //   }
     default:
       return state
   }

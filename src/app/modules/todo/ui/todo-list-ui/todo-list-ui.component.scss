@@ -6,17 +6,36 @@
 }
 
 .task-item {
-  width: 354px;
-  height: 38px;
+  position: relative;
   display: flex;
   justify-content: center;
-  background-color: red;
-  // position: relative;
+  width: 354px;
+  // height: 38px;
+
+  &__content {
+    background-color: white;
+    z-index: 1;
+    width: 250px;
+    transition: all 0.05s ease-out;
+    cursor: grab;
+  }
+
+  &__tool-bar {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 38px;
+    width: 250px;
+
+    &__item {
+      display: flex;
+      gap: 8px;
+    }
+  }
 }
 
-.task-item-content {
-  // position: absolute;
-  border: 2px solid black;
-  background-color: aqua;
-  width: 270px;
+svg {
+  width: 22px;
+  height: 22px;
 }

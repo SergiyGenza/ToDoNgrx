@@ -7,3 +7,7 @@ export const todoListSelector = createSelector(
   todoFeatureSelector,
   state => state.todoList
 )
+export const categoriesListSelector = createSelector(
+  todoFeatureSelector,
+  state => state.categoriesList
+)

@@ -1,4 +1,4 @@
 <form (ngSubmit)="onCreate()">
-  <input  type="text" name="text" [(ngModel)]="name">
-  <button class=" btn btn__big btn__add-todo" [disabled]="!name" type="submit">Add New Task</button>
+  <input type="text" name="text" [(ngModel)]="name" placeholder="{{placeholder}}">
+  <button class="btn btn__big btn__add-todo" [disabled]="!name" type="submit">+</button>
 </form>

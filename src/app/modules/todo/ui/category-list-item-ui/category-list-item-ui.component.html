@@ -1,0 +1,41 @@
+<div class="category__head">
+  <div class="category__open-content" role="btn" (click)="showContent = !showContent">
+    <svg fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve">
+      <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393
+    	c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393
+    	s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z" />
+    </svg>
+  </div>
+  <span class="category__title">{{category.name}}</span>
+  <div class="category__create-folder" (click)="onFolderCreate(modalTemplate)">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="36" height="36" rx="5" fill="#676127" />
+      <path
+        d="M24.762 18.5745C24.9144 18.4222 25 18.2155 25 18C25 17.7845 24.9144 17.5778 24.762 17.4255C24.6097 17.2731 24.403 17.1875 24.1875 17.1875H18.8125V11.8125C18.8125 11.597 18.7269 11.3903 18.5745 11.238C18.4222 11.0856 18.2155 11 18 11C17.7845 11 17.5778 11.0856 17.4255 11.238C17.2731 11.3903 17.1875 11.597 17.1875 11.8125V17.1875H11.8125C11.597 17.1875 11.3903 17.2731 11.238 17.4255C11.0856 17.5778 11 17.7845 11 18C11 18.2155 11.0856 18.4222 11.238 18.5745C11.3903 18.7269 11.597 18.8125 11.8125 18.8125H17.1875V24.1875C17.1875 24.403 17.2731 24.6097 17.4255 24.762C17.5778 24.9144 17.7845 25 18 25C18.2155 25 18.4222 24.9144 18.5745 24.762C18.7269 24.6097 18.8125 24.403 18.8125 24.1875V18.8125H24.1875C24.403 18.8125 24.6097 18.7269 24.762 18.5745Z"
+        fill="#F7F0E5" stroke="#F7F0E5" stroke-width="0.5" />
+    </svg>
+  </div>
+</div>
+
+<ng-template [ngIf]="showContent">
+  <app-todo-list-ui 
+    [todoList]="todoList$ | async | todo:category" 
+    (deleteItem)="onDelete($event)" 
+    (toggle)="onToggle($event)"
+    (edit)="onEdit($event)">
+  </app-todo-list-ui>
+
+  <app-folder-list-item-ui 
+  *ngFor="let folder of category.foldersList"
+  [todoList$]="todoList$" 
+  [folder]="folder">
+  </app-folder-list-item-ui>
+</ng-template>
+
+<div class="devider"></div>
+
+<!-- modal -->
+<ng-template #modalTemplate>
+
+</ng-template>

@@ -1,3 +1,8 @@
+.todo-edit-form {
+  width: 270px;
+  padding: 10px;
+}
+
 svg {
   height: 22px;
   width: 22px;
@@ -5,19 +10,35 @@ svg {
 
 form {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 34px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 input {
   border: none;
-  padding: 0 10px;
   max-height: 30px;
   width: 100%;
+  height: 38px;
 }
 
-.btns-group {
-  display: flex;
-  align-items: center;
+.todo-edit-form {
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
 }
+
+// .btns-group {
+//   display: flex;
+//   align-items: center;
+//   gap: 6px;
+// }

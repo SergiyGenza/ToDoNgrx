@@ -1,0 +1,24 @@
+.devider {
+  width: 100%;
+  background-color: black;
+  height: 2px;
+}
+
+svg {
+  width: 16px;
+}
+
+.category {
+  &__head {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  &__open-content svg {}
+
+  &__open-content svg,
+  &__create-folder svg {
+    cursor: pointer;
+  }
+}

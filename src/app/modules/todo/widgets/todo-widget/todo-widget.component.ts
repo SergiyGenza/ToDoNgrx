@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
 import { TodoCategoryCreateAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoEditAction, TodoToggleAction } from '../../store/todo/todo.actions';
@@ -38,18 +38,18 @@ export class TodoWidgetComponent implements OnInit {
 
   // перенести це в сервіси, щоб не дублювати
 
-  public onItemCreate(createItem: CreateItem) {
-    console.log(createItem);
+  public onItemCreate(createItem: CreateItem): void {
     const { name, type, currentFolderName, currentCategoryName } = createItem;
     switch (type) {
       case 'todo':
         return this.todoStore$.dispatch(new TodoCreateAction({ name, currentCategoryName, currentFolderName }));
+      case 'folder':
+        let categoryName = currentCategoryName;
+        let folderName = name;
+        return this.todoStore$.dispatch(new TodoCategoryFolderCreateAction({ categoryName, folderName }));
+      case 'category':
+        return this.todoStore$.dispatch(new TodoCategoryCreateAction({ name }));
     }
-  }
-
-  public onTodoCreate(name: string): void {
-    let currentCategoryName = this.currentCategory;
-    // this.todoStore$.dispatch(new TodoCreateAction({ name, currentCategoryName }));
   }
 
   public onDelete(id: number): void {
@@ -62,18 +62,6 @@ export class TodoWidgetComponent implements OnInit {
 
   public onEdit({ id, name }: { id: number, name: string }): void {
     this.todoStore$.dispatch(new TodoEditAction({ id, name }));
-  }
-
-  // public onCategoryCreate(name: string | null): void {
-  //   console.log(name);
-  //   if (name) {
-  //     this.todoStore$.dispatch(new TodoCategoryCreateAction({ name }));
-  //   }
-  // }
-
-  public onFolderCreate(folder: { folderName: string; categoryName: string; }): void {
-    const { folderName, categoryName } = folder;
-    this.todoStore$.dispatch(new TodoCategoryFolderCreateAction({ categoryName, folderName }));
   }
 
   public onCategoryPick(pickedCategory: string): void {

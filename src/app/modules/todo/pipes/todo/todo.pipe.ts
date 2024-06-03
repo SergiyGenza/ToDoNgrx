@@ -14,7 +14,6 @@ export class TodoPipe implements PipeTransform {
         return todoSearchItem.includes(todo.name);
       })
     } else if (todoSearchItem === 'all') {
-      console.log('works');
       return todoList?.filter(todo => {
         return todo.currentCategoryName! == 'all';
       })

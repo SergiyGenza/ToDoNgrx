@@ -25,27 +25,26 @@ export class TodoCreateFormUiComponent {
     currentCategoryName: new FormControl(''),
   })
 
-  public onCreate() {
+  public onCreate(): void {
     this.createItem.emit({
       type: this.formType,
       name: this.form.controls.name.value ?? '',
       currentFolderName: this.form.controls.currentFolderName.value ?? '',
       currentCategoryName: this.form.controls.currentCategoryName.value ?? '',
     });
-
     this.name = '';
   }
 
-  public onFolderPick(folderName: string) {
+  public onFolderPick(folderName: string): void {
     this.form.controls.currentFolderName.patchValue(folderName);
   }
 
-  public onCategotyPick(category: Category) {
+  public onCategotyPick(category: Category): void {
     this.form.controls.currentCategoryName.patchValue(category.name);
     this.currentFoldersList = category.foldersList;
   }
 
-  public clearCategoryPick() {
+  public clearCategoryPick(): void {
     this.form.controls.currentCategoryName.patchValue('');
   }
 

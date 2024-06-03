@@ -9,7 +9,6 @@
       <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name">
       <button (click)="onCreate()" type="submit" role="submit" class="btn btn__big btn__add-todo"
         [disabled]="!form.valid">+</button>
-      <span>some</span>
     </div>
     <ng-container [ngSwitch]="formType">
       <ul class="categories-list" *ngSwitchCase="'folder'">

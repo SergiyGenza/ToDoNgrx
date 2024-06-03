@@ -20,6 +20,7 @@ export class TodoCreateAction implements Action {
   constructor(public payload: {
     name: string;
     currentCategoryName: string;
+    currentFolderName: string;
   }) { }
 }
 export class TodoDeleteAction implements Action {

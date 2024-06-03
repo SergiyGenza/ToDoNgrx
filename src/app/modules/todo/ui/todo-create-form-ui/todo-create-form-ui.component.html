@@ -1,4 +1,41 @@
-<form (ngSubmit)="onCreate()">
-  <input type="text" name="text" [(ngModel)]="name" placeholder="{{placeholder}}">
-  <button class="btn btn__big btn__add-todo" [disabled]="!name" type="submit">+</button>
+<form [formGroup]="form" id="form">
+  <select #value name="select" form="form" (change)="changeFormType()">
+    <option value="todo" selected>Todo</option>
+    <option value="folder">Folder</option>
+    <option value="category" >Category</option>
+  </select>
+  <div class="form__content">
+    <div class="form__header">
+      <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name">
+      <button (click)="onCreate()" type="submit" role="submit" class="btn btn__big btn__add-todo"
+        [disabled]="!form.valid">+</button>
+      <span>some</span>
+    </div>
+    <ng-container [ngSwitch]="formType">
+      <ul class="categories-list" *ngSwitchCase="'folder'">
+        <button role="button" (click)="clearCategoryPick()">none</button>
+        <li *ngFor="let category of categoriesList">
+          <button role="button" (click)="onCategotyPick(category)">
+            {{category.name}}
+          </button>
+        </li>
+      </ul>
+      <ng-container *ngSwitchCase="'todo'">
+        <ul class="categories-list">
+          <button (click)="clearCategoryPick()" role="button">none</button>
+          <li *ngFor="let category of categoriesList">
+            <button (click)="onCategotyPick(category)" role="button">
+              {{category.name}}
+            </button>
+          </li>
+        </ul>
+        <ul class="folder-list">
+          <button role="button" (click)="onFolderPick('')">none</button>
+          <li *ngFor="let folder of currentFoldersList">
+            <button *ngIf="folder" (click)="onFolderPick(folder.name)" role="button">{{folder.name}}</button>
+          </li>
+        </ul>
+      </ng-container>
+    </ng-container>
+  </div>
 </form>

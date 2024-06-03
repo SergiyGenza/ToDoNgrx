@@ -28,7 +28,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             id: state.idIncrement,
             name: action.payload.name,
             completed: false,
-            currentFolderName: '',
+            currentFolderName: action.payload.currentFolderName,
             currentCategoryName: action.payload.currentCategoryName,
           }
         ]

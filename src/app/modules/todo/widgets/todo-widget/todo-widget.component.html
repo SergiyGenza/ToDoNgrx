@@ -1,14 +1,15 @@
 <div class="todo-widget-wrapper">
   <app-todo-create-form-ui
-    [placeholder]="'add new todo'"
-    (create)="onTodoCreate($event)">
+    [categoriesList]="categoriesList$ | async"
+    [currentCategory]="currentCategory"
+    (createItem)="onItemCreate($event)">
   </app-todo-create-form-ui>
 
   <app-todo-header-bar-ui
     [categoriesList]="categoriesList$ | async"
-    (createCategory)="onCategoryCreate($event)"
     (currentCategory)="onCategoryPick($event)">
   </app-todo-header-bar-ui>
+  <!-- (createCategory)="onCategoryCreate($event)" -->
 
   <app-todo-list-ui *ngIf="this.currentCategory == 'all'"
     [todoList]="todoList$ | async | todo:'all'"

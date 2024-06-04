@@ -1,4 +1,11 @@
+select {
+  height: 42px;
+}
+
 form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 input {
@@ -6,8 +13,13 @@ input {
   padding-left: 10px;
 }
 
-.btn {
+.categories-list,
+.folder-list {
+  display: flex;
+  gap: 1rem;
+}
 
+.btn {
   &__big {}
 
   &__add-todo {
@@ -18,5 +30,9 @@ input {
   &__add-todo:disabled {
     background-color: rgb(220, 220, 220);
   }
+}
 
+button {
+  background-color: rgb(226, 226, 226);
+  padding: 0.7rem 1rem;
 }

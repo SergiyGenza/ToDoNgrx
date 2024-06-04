@@ -8,6 +8,7 @@ import { Todo } from '../../models/todo.model';
 import { LocalstorageService } from '../../services/localstorage.service';
 import { ModalService } from 'src/app/modules/modal/services/modal.service';
 import { Category } from '../../models/category.model';
+import { CreateItem } from '../../models/create-item.model';
 
 @Component({
   selector: 'app-todo-widget',
@@ -15,8 +16,8 @@ import { Category } from '../../models/category.model';
   styleUrls: ['./todo-widget.component.scss']
 })
 export class TodoWidgetComponent implements OnInit {
-  todoList$: Observable<Todo[]> = this.todoStore$.pipe(select(todoListSelector));
-  categoriesList$: Observable<Category[]> = this.todoStore$.pipe(select(categoriesListSelector));
+  todoList$: Observable<Todo[]>;
+  categoriesList$: Observable<Category[]>;
   currentCategory: string;
 
   constructor(
@@ -24,8 +25,10 @@ export class TodoWidgetComponent implements OnInit {
     private modalServeice: ModalService,
     private localStorageService: LocalstorageService,
   ) {
-    this.currentCategory = localStorageService.loadCurrentCategoryFromStorage();
     localStorageService.initTodos();
+    this.currentCategory = localStorageService.loadCurrentCategoryFromStorage();
+    this.todoList$ = this.todoStore$.pipe(select(todoListSelector));
+    this.categoriesList$ = this.todoStore$.pipe(select(categoriesListSelector));
   }
 
   ngOnInit(): void {
@@ -35,9 +38,18 @@ export class TodoWidgetComponent implements OnInit {
 
   // перенести це в сервіси, щоб не дублювати
 
-  public onTodoCreate(name: string): void {
-    let currentCategoryName = this.currentCategory;
-    this.todoStore$.dispatch(new TodoCreateAction({ name, currentCategoryName }));
+  public onItemCreate(createItem: CreateItem): void {
+    const { name, type, currentFolderName, currentCategoryName } = createItem;
+    switch (type) {
+      case 'todo':
+        return this.todoStore$.dispatch(new TodoCreateAction({ name, currentCategoryName, currentFolderName }));
+      case 'folder':
+        let categoryName = currentCategoryName;
+        let folderName = name;
+        return this.todoStore$.dispatch(new TodoCategoryFolderCreateAction({ categoryName, folderName }));
+      case 'category':
+        return this.todoStore$.dispatch(new TodoCategoryCreateAction({ name }));
+    }
   }
 
   public onDelete(id: number): void {
@@ -52,18 +64,6 @@ export class TodoWidgetComponent implements OnInit {
     this.todoStore$.dispatch(new TodoEditAction({ id, name }));
   }
 
-  public onCategoryCreate(name: string | null): void {
-    console.log(name);
-    if (name) {
-      this.todoStore$.dispatch(new TodoCategoryCreateAction({ name }));
-    }
-  }
-
-  public onFolderCreate(folder: { folderName: string; categoryName: string; }): void {
-    const { folderName, categoryName } = folder;
-    this.todoStore$.dispatch(new TodoCategoryFolderCreateAction({ categoryName, folderName }));
-  }
-
   public onCategoryPick(pickedCategory: string): void {
     this.currentCategory = pickedCategory;
     this.localStorageService.setCurrentCategoryInLocalstorage(pickedCategory);
@@ -74,4 +74,5 @@ export class TodoWidgetComponent implements OnInit {
       console.log('modalAction', action);
     })
   }
+
 }

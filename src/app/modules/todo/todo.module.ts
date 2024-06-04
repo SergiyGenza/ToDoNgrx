@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { todoRoutes } from './todo.routes';
 import { TodoWidgetComponent } from './widgets/todo-widget/todo-widget.component';
 import { TodoCreateFormUiComponent } from './ui/todo-create-form-ui/todo-create-form-ui.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoListUiComponent } from './ui/todo-list-ui/todo-list-ui.component';
 import { TodoListItemUiComponent } from './ui/todo-list-item-ui/todo-list-item-ui.component';
 import { TodoListEditUiComponent } from './ui/todo-list-edit-ui/todo-list-edit-ui.component';
@@ -19,6 +19,7 @@ import { CategoryListItemUiComponent } from './ui/category-list-item-ui/category
 import { CategoryFilterPipe } from './pipes/category/category-filter.pipe';
 import { FolderListItemUiComponent } from './ui/folder-list-item-ui/folder-list-item-ui.component';
 import { TodoPipe } from './pipes/todo/todo.pipe';
+
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { TodoPipe } from './pipes/todo/todo.pipe';
     RouterModule.forChild(todoRoutes),
     FormsModule,
     DragDropModule,
-    ModalModule
+    ModalModule,
+    ReactiveFormsModule
   ],
   exports: [
     TodoWidgetComponent

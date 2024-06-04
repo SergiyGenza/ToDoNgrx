@@ -12,7 +12,6 @@ export class CategoryFilterPipe implements PipeTransform {
     } else if (categoryList) {
       categoryList = categoryList.filter(items => items.name === currentCategory)
     }
-    console.log(categoryList);
     return categoryList;
   }
 }

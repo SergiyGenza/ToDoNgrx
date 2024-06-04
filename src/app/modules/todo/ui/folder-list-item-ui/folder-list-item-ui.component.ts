@@ -1,8 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Folder } from '../../models/folder.model';
-import { Store } from '@ngrx/store';
-import { TodoState } from '../../store/todo/todo.reducer';
-import { TodoDeleteAction, TodoDeleteFolderAction, TodoEditAction, TodoToggleAction } from '../../store/todo/todo.actions';
 import { Observable } from 'rxjs';
 import { Todo } from '../../models/todo.model';
 
@@ -14,28 +11,26 @@ import { Todo } from '../../models/todo.model';
 export class FolderListItemUiComponent {
   @Input() todoList$: Observable<Todo[]> | undefined;
   @Input() folder!: Folder;
-
+  @Output() deleteItem = new EventEmitter<number>();
+  @Output() toggle = new EventEmitter<number>();
+  @Output() edit = new EventEmitter<{ id: number, name: string }>();
+  @Output() deleteFolder = new EventEmitter<{ id: number, name: string }>();
 
   open: boolean = true;
-  constructor(
-    private todoStore$: Store<TodoState>,
-  ) {
-
-  }
 
   public onDelete(id: number): void {
-    this.todoStore$.dispatch(new TodoDeleteAction({ id }));
+    this.deleteItem.emit(id);
   }
 
   public onToggle(id: number): void {
-    this.todoStore$.dispatch(new TodoToggleAction({ id }));
+    this.toggle.emit(id);
   }
 
   public onEdit({ id, name }: { id: number, name: string }): void {
-    this.todoStore$.dispatch(new TodoEditAction({ id, name }));
+    this.edit.emit({ id, name });
   }
 
   public onFolderDelete(id: number, name: string): void {
-    this.todoStore$.dispatch(new TodoDeleteFolderAction({ id, name }));
+    this.deleteFolder.emit({ id, name });
   }
 }

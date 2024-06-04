@@ -21,7 +21,9 @@
   <app-folder-list-item-ui 
     *ngFor="let folder of category.foldersList"
     [todoList$]="todoList$" 
-    [folder]="folder">
+    [folder]="folder"
+    (deleteItem)="onDelete($event)"
+    (deleteFolder)="onFolderDelete($event)">
   </app-folder-list-item-ui>
 </ng-template>
 

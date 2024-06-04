@@ -1,7 +1,6 @@
 <div class="modal {{ size }}">
   <div class="modal-header">
     {{ title }}
-    {{ type }}
     <span class="modal-close" (click)="close()">✕</span>
   </div>
   <!-- <div *ngIf="!type else form">
@@ -13,7 +12,7 @@
     </div>
   </div>
   <ng-template #form> -->
-  <form action="" [formGroup]="form" (ngSubmit)="submit()">
+  <!-- <form action="" [formGroup]="form" (ngSubmit)="submit()">
     <input type="text" name="title" formControlName="categoryName">
     <button type="submit">Submit</button>
     <div class="modal-content">
@@ -21,8 +20,12 @@
     </div>
     <div class="modal-footer">
     </div>
-  </form>
+  </form> -->
   <!-- </ng-template> -->
+  <div class="" *ngIf="type === 'folderDelete'">
+    <div class=""><button (click)="deleteAllFoldersItems(true)">delete all</button></div>
+    <button (click)="deleteAllFoldersItems(false)">delete only folder</button>
+  </div>
 </div>
 
 <div class="modal-backdrop" (click)="close()"></div>

@@ -1,7 +1,7 @@
 <div class="todo-widget-wrapper">
   <app-todo-create-form-ui
     [categoriesList]="categoriesList$ | async"
-    [currentCategory]="currentCategory"
+    [currentCategoryName]="currentCategory"
     (createItem)="onItemCreate($event)">
   </app-todo-create-form-ui>
 
@@ -20,15 +20,14 @@
   
   <app-category-list-item-ui 
     *ngFor="let category of categoriesList$ | async | categoryFilter:currentCategory"
+    [currentCategory]="currentCategory"
     [todoList$]="todoList$"
     [category]="category"
-    [currentCategory]="currentCategory">
+    (deleteItem)="onDelete($event)"
+    (deleteFolder)="onFolderDelete($event)">
   </app-category-list-item-ui>
 </div>
 
-
-<!-- <button (click)="openModal(modalTemplate)"> open modal</button>
-
 <ng-template #modalTemplate>
   <div class="">some template</div>
-</ng-template> -->
+</ng-template>

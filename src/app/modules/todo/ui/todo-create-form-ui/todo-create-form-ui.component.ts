@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Category } from '../../models/category.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Folder } from '../../models/folder.model';
@@ -9,21 +9,26 @@ import { CreateItem } from '../../models/create-item.model';
   templateUrl: './todo-create-form-ui.component.html',
   styleUrls: ['./todo-create-form-ui.component.scss']
 })
-export class TodoCreateFormUiComponent {
-  @Input() categoriesList!: Category[] | null;
-  @Input() currentCategory!: string;
+export class TodoCreateFormUiComponent implements OnInit {
+  @Input() public categoriesList!: Category[] | null;
+  @Input() public currentCategoryName!: string;
   @Output() createItem = new EventEmitter<CreateItem>();
   @ViewChild('value') value!: ElementRef;
-  currentFoldersList!: Folder[];
-  formType: string = 'todo';
-  placeholder: string = 'add new category';
-  name = '';
+  public currentFoldersList!: Folder[];
+  public formType: string = 'todo';
+  public placeholder: string = 'add new category';
 
   form = new FormGroup({
     name: new FormControl('', Validators.required),
     currentFolderName: new FormControl(''),
     currentCategoryName: new FormControl(''),
   })
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.setCategotyByDefault();
+  }
 
   public onCreate(): void {
     this.createItem.emit({
@@ -32,7 +37,7 @@ export class TodoCreateFormUiComponent {
       currentFolderName: this.form.controls.currentFolderName.value ?? '',
       currentCategoryName: this.form.controls.currentCategoryName.value ?? '',
     });
-    this.name = '';
+    this.form.reset();
   }
 
   public onFolderPick(folderName: string): void {
@@ -61,4 +66,14 @@ export class TodoCreateFormUiComponent {
         return this.placeholder = 'add new todo';
     }
   }
+
+  private setCategotyByDefault(): void {
+    this.form.controls.currentCategoryName.patchValue(this.currentCategoryName);
+    let filteredCategory = this.categoriesList?.find(category => category.name === this.currentCategoryName);
+    // check this
+    filteredCategory ? this.onCategotyPick(filteredCategory) : (() => {
+      throw new Error('filteredCategory equal undefined');
+    })();
+  }
+
 }

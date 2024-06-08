@@ -30,7 +30,7 @@ export class TodoListUiComponent {
 
   public onEdit(name: string, id: number) {
     this.edits = this.edits.filter(item => item !== id);
-    this.edit.emit({ id, name })
+    this.edit.emit({ id, name });
   }
 
   public dragEnd($event: CdkDragEnd, todo: Todo) {

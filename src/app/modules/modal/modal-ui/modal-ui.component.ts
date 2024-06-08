@@ -18,6 +18,7 @@ export class ModalUiComponent {
   @Output() closeEvent = new EventEmitter();
   @Output() submitEvent = new EventEmitter();
   @Output() createCategoryEvent = new EventEmitter<string | null>();
+  @Output() deleteFoldersItems = new EventEmitter<boolean>();
 
   constructor(private elementRef: ElementRef) { }
 
@@ -41,6 +42,10 @@ export class ModalUiComponent {
         break;
       }
     }
+  }
 
+  public deleteAllFoldersItems(result: boolean) {
+    this.deleteFoldersItems.emit(result);
+    this.close();
   }
 }

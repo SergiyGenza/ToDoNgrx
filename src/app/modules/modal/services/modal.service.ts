@@ -23,14 +23,15 @@ export class ModalService {
     modalComponent.instance.size = options?.size;
     modalComponent.instance.title = options?.title;
     modalComponent.instance.type = options?.type;
-    modalComponent.instance.closeEvent.subscribe(() => this.closeModal())
-    modalComponent.instance.submitEvent.subscribe(() => this.submitModal())
-    modalComponent.instance.createCategoryEvent.subscribe((item) => this.submitForm(item))
+    modalComponent.instance.closeEvent.subscribe(() => this.closeModal());
+    modalComponent.instance.submitEvent.subscribe(() => this.submitModal());
+    modalComponent.instance.createCategoryEvent.subscribe((item) => this.submitForm(item));
+    modalComponent.instance.deleteFoldersItems.subscribe((item) => this.onFolderDelete(item));
 
     modalComponent.hostView.detectChanges()
     this.document.body.appendChild(modalComponent.location.nativeElement);
     this.modalNotifired = new Subject();
-    
+
     return this.modalNotifired.asObservable();
   }
 
@@ -45,6 +46,11 @@ export class ModalService {
 
   submitForm(item: any) {
     this.modalNotifired?.next(item)
+  }
+
+  onFolderDelete(item: any) {
+    this.modalNotifired?.next(item);
+    this.closeModal();
   }
 
 }

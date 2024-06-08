@@ -19,6 +19,8 @@ import { CategoryListItemUiComponent } from './ui/category-list-item-ui/category
 import { CategoryFilterPipe } from './pipes/category/category-filter.pipe';
 import { FolderListItemUiComponent } from './ui/folder-list-item-ui/folder-list-item-ui.component';
 import { TodoPipe } from './pipes/todo/todo.pipe';
+import { CategoryService } from './services/category.service';
+import { LocalstorageService } from './services/localstorage.service';
 
 
 
@@ -50,6 +52,8 @@ import { TodoPipe } from './pipes/todo/todo.pipe';
   ],
   providers: [
     ModalService,
+    CategoryService,
+    LocalstorageService
   ]
 })
 export class TodoModule { }

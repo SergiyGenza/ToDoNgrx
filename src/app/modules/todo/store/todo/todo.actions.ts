@@ -76,7 +76,7 @@ export class TodoDeleteFolderAction implements Action {
   }) { }
 }
 export class TodoDeleteFolderWithAllItemsAction implements Action {
-  readonly type = todoActionsType.deleteFolder;
+  readonly type = todoActionsType.deleteFolderWithAllItems;
   constructor(public payload: {
     id: number;
     name: string;

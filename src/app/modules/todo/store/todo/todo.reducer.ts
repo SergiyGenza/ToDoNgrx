@@ -103,6 +103,17 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           };
         })
       };
+    case todoActionsType.deleteFolderWithAllItems:
+      return {
+        ...state,
+        todoList: state.todoList.filter(todo => todo.currentFolderName !== action.payload.name),
+        categoriesList: state.categoriesList.map(cat => {
+          return {
+            ...cat,
+            foldersList: cat.foldersList.filter(folder => folder.id !== action.payload.id)
+          };
+        })
+      }
     // case todoActionsType.deleteCategory:
     //   return {
     //     ...state,

@@ -19,34 +19,49 @@ body {
   margin: 0 auto;
 }
 
-button {
-  padding: 6px 6px;
+.btn {
+  padding: 6px 10px;
   background-color: $btn-primary;
   color: $white;
   border-radius: $border-radius;
   height: 32px;
   min-width: 32px;
+  text-align: center;
   transition: all 0.3s;
+
+  &__no-item {
+    background-color: $none-atribute-btn !important;
+    padding: 6px 10px;
+  }
+
+  &__no-item:active {
+    background-color: $none-atribute-btn !important;
+  }
+
+  &__pick-item {
+    background-color: $create-tool-btn-not-active;
+  }
+
+  &__pick-item:active {
+    background-color: $create-tool-btn-not-active;
+  }
+
+  &__favourite {
+    width: 40px;
+  }
 }
 
-button:active {
+.btn-primary:active {
   background-color: $btn-active;
 }
 
 
-button:disabled {
+.btn:disabled {
   background-color: $btn-disabled;
 }
 
 
-button[data-atribute="none"] {
-  background-color: $none-atribute-btn;
-  padding: 6px 10px;
-}
 
-button[data-atribute="create-tool-btn"] {
-  background-color: $create-tool-btn-not-active;
-}
 
 // button[data-atribute="create-tool-btn"]:active {
 //   background-color: $btn-active;

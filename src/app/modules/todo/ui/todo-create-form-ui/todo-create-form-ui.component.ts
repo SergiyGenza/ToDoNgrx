@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Category } from '../../common/models/category.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Category } from '../../common/models/category.model';
 import { Folder } from '../../common/models/folder.model';
 import { CreateItem } from '../../common/models/create-item.model';
 
@@ -14,16 +14,18 @@ export class TodoCreateFormUiComponent implements OnInit {
   @Input() public currentCategoryName!: string;
   @Output() createItem = new EventEmitter<CreateItem>();
 
-  maxHeigth!: number;
-  activeCategory!: Category;
-  activeFolder!: string;
+  public maxHeigth!: number;
+  public activeCategory: Category | null = null;
+  public activeFolder!: string;
+  public activeNoneCat: boolean = true;
+  public activeNoneFolder: boolean = true;
 
   public currentFoldersList!: Folder[];
   public formType: string = 'category';
-  public btnTitle: string = this.formType;
   public placeholder: string = 'Add category';
+  public btnTitle: string = this.formType;
 
-  form = new FormGroup({
+  public form = new FormGroup({
     name: new FormControl('', Validators.required),
     currentFolderName: new FormControl(''),
     currentCategoryName: new FormControl(''),
@@ -52,28 +54,40 @@ export class TodoCreateFormUiComponent implements OnInit {
       this.form.controls.currentFolderName.patchValue('');
       this.activeFolder = '';
     }
-
     this.activeCategory = category;
     this.form.controls.currentCategoryName.patchValue(category.name);
     this.currentFoldersList = category.foldersList;
+    this.activeNoneCat = false;
+    this.activeNoneCat = false;
   }
 
   public onFolderPick(folderName: string): void {
     this.activeFolder = folderName;
     this.form.controls.currentFolderName.patchValue(folderName);
+    folderName === ''
+      ? this.activeNoneFolder = true
+      : this.activeNoneFolder = false;
   }
 
   public clearCategoryPick(): void {
     this.form.controls.currentCategoryName.patchValue('');
+    this.form.controls.currentFolderName.patchValue('');
+    this.activeCategory = null;
+    this.activeNoneCat = true;
+    this.activeNoneFolder = true;
+    this.activeFolder = '';
   }
 
   public changeFormType(): string {
+
     switch (this.btnTitle) {
       case 'category':
         this.btnTitle = 'folder'
         this.formType = this.btnTitle;
         this.maxHeigth = 74;
+        this.clearCategoryPick();
         return this.placeholder = 'Add folder';
+
       case 'todo':
         this.btnTitle = 'category'
         this.formType = this.btnTitle;
@@ -88,6 +102,8 @@ export class TodoCreateFormUiComponent implements OnInit {
         return this.placeholder = 'Add todo';
     }
   }
+
+
 
   private setDefaultCategory(): void {
     this.form.controls.currentCategoryName.patchValue(this.currentCategoryName);

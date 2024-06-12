@@ -20,6 +20,10 @@
     gap: 12px;
   }
 
+  &__group>.btn {
+    width: max-content;
+  }
+
   &__group span {
     text-align: center;
   }
@@ -29,14 +33,25 @@
   }
 }
 
+.btns-bar>:last-child {
+  width: 32px;
+  padding: 0;
+}
+
+.btns-bar>:last-child svg {
+  width: 20px;
+  height: 20px;
+}
+
 input {
   border: 1px solid black;
   border-radius: 6px;
   padding: 0 1rem;
 }
 
-.btn-all {
+.btn {
   font-size: 16px;
   font-weight: 500;
   line-height: 16px;
+  width: 40px;
 }

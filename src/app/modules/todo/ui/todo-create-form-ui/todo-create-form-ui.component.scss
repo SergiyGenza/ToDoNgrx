@@ -12,7 +12,7 @@ form {
 
 }
 
-.btn__change-form-type {
+span.btn {
   min-width: 88px;
 }
 
@@ -56,6 +56,11 @@ form {
       margin-top: 8px;
     }
   }
+}
+
+form>:last-child {
+  width: 32px;
+  padding: 0;
 }
 
 .categories-list,

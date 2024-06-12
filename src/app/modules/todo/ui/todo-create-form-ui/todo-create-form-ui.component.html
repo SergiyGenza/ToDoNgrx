@@ -1,33 +1,46 @@
-<form [formGroup]="form" id="form" (keydown)="onCreate()">
-  <button class="btn__change-form-type" (click)="changeFormType()">
+<form [formGroup]="form" id="form" (keydown.enter)="onCreate()">
+  <span class="btn btn-primary" (click)="changeFormType()">
     {{btnTitle}}
-  </button>
+  </span>
   <div class="form__content" [style.maxHeight.px]="maxHeigth">
     <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name">
     <ng-container [ngSwitch]="formType">
       <ul class="categories-list" *ngSwitchCase="'folder'">
-        <button data-atribute="none" role="button" (click)="clearCategoryPick()">None</button>
+        <button class="btn btn__pick-item"
+          [ngClass]="{'btn__no-item': activeNoneCat}"
+          (click)="clearCategoryPick()">None
+        </button>
         <li *ngFor="let category of categoriesList">
-          <button data-atribute="create-tool-btn" role="button" (click)="onCategotyPick(category)"
+          <button class="btn btn__pick-item" 
+            (click)="onCategotyPick(category)"
             [class.active]="category === activeCategory">{{category.name}}
           </button>
         </li>
       </ul>
       <ng-container *ngSwitchCase="'todo'">
         <ul class="categories-list">
-          <button data-atribute="none" (click)="clearCategoryPick()" role="button">None</button>
+          <button class="btn btn__pick-item"
+            [ngClass]="{'btn__no-item': activeNoneCat}"
+            (click)="clearCategoryPick()" role="button">None
+          </button>
           <li *ngFor="let category of categoriesList">
-            <button data-atribute="create-tool-btn" role="button" (click)="onCategotyPick(category)"
+            <button class="btn btn__pick-item" (click)="onCategotyPick(category)"
               [class.active]="category === activeCategory">{{category.name}}
             </button>
           </li>
         </ul>
         <div class="devider"></div>
         <ul class="folder-list">
-          <button data-atribute="none" role="button" (click)="onFolderPick('')">None</button>
+          <button class="btn btn__pick-item"
+            (click)="onFolderPick('')"
+            [ngClass]="{'btn__no-item': activeNoneFolder}">None
+          </button>
           <li *ngFor="let folder of currentFoldersList">
-            <button *ngIf="folder" data-atribute="create-tool-btn" role="button" (click)="onFolderPick(folder.name)"
-              [class.active]="activeFolder === folder.name">{{folder.name}}
+            <button class="btn btn__pick-item"
+              *ngIf="folder"
+              [disabled]="this.activeCategory === null"
+              [class.active]="activeFolder === folder.name"
+              (click)="onFolderPick(folder.name)">{{folder.name}}
             </button>
           </li>
         </ul>

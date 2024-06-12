@@ -21,6 +21,7 @@ import { FolderListItemUiComponent } from './ui/folder-list-item-ui/folder-list-
 import { TodoPipe } from './pipes/todo/todo.pipe';
 import { CategoryService } from './services/category.service';
 import { LocalstorageService } from './services/localstorage.service';
+import { SwipeComponent } from './ui/swipe/swipe.component';
 
 
 
@@ -37,6 +38,7 @@ import { LocalstorageService } from './services/localstorage.service';
     CategoryFilterPipe,
     FolderListItemUiComponent,
     TodoPipe,
+    SwipeComponent,
   ],
   imports: [
     CommonModule,

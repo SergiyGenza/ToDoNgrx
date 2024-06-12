@@ -74,7 +74,7 @@ export class TodoWidgetComponent implements OnInit {
     this.todoStore$.dispatch(new TodoToggleAction({ id }));
   }
 
-  public onEdit({ id, name }: { id: number, name: string }): void {
+  public onItemEdit({ id, name }: { id: number, name: string }): void {
     this.todoStore$.dispatch(new TodoEditAction({ id, name }));
   }
 

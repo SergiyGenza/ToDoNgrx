@@ -15,7 +15,7 @@
     [todoList]="todoList$ | async | todo:'all'"
     (deleteItem)="onDelete($event)"
     (toggle)="onToggle($event)"
-    (edit)="onEdit($event)">
+    (edit)="onItemEdit($event)">
   </app-todo-list-ui>
   
   <app-category-list-item-ui 
@@ -24,7 +24,8 @@
     [todoList$]="todoList$"
     [category]="category"
     (deleteItem)="onDelete($event)"
-    (deleteFolder)="onFolderDelete($event)">
+    (deleteFolder)="onFolderDelete($event)"
+    (edit)="onItemEdit($event)">
   </app-category-list-item-ui>
 </div>
 

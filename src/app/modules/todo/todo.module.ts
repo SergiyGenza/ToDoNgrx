@@ -22,6 +22,7 @@ import { TodoPipe } from './pipes/todo/todo.pipe';
 import { CategoryService } from './services/category.service';
 import { LocalstorageService } from './services/localstorage.service';
 import { SwipeComponent } from './ui/swipe/swipe.component';
+import { SvgIconComponent } from './ui/svg-icon/svg-icon.component';
 
 
 
@@ -39,6 +40,7 @@ import { SwipeComponent } from './ui/swipe/swipe.component';
     FolderListItemUiComponent,
     TodoPipe,
     SwipeComponent,
+    SvgIconComponent,
   ],
   imports: [
     CommonModule,
@@ -50,7 +52,8 @@ import { SwipeComponent } from './ui/swipe/swipe.component';
     ReactiveFormsModule
   ],
   exports: [
-    TodoWidgetComponent
+    TodoWidgetComponent,
+    SvgIconComponent
   ],
   providers: [
     ModalService,

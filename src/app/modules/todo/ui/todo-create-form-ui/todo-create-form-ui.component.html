@@ -1,40 +1,48 @@
 <form [formGroup]="form" id="form">
-  <select #value name="select" form="form" (change)="changeFormType()">
-    <option value="todo" selected>Todo</option>
-    <option value="folder">Folder</option>
-    <option value="category">Category</option>
-  </select>
-  <div class="form__content">
-    <div class="form__header">
-      <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name">
-      <button (click)="onCreate()" type="submit" role="submit" class="btn btn__big btn__add-todo"
-        [disabled]="!form.valid">+</button>
-    </div>
+  <button class="btn__change-form-type" role="button" (click)="changeFormType()">
+    {{btnTitle}}
+  </button>
+  <div class="form__content" [style.maxHeight.px]="maxHeigth">
+    <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name">
     <ng-container [ngSwitch]="formType">
       <ul class="categories-list" *ngSwitchCase="'folder'">
-        <button role="button" (click)="clearCategoryPick()">none</button>
+        <button data-atribute="none" role="button" (click)="clearCategoryPick()">None</button>
         <li *ngFor="let category of categoriesList">
-          <button role="button" (click)="onCategotyPick(category)">
-            {{category.name}}
+          <button data-atribute="create-tool-btn" role="button"
+            (click)="onCategotyPick(category)"
+            [class.active]="category === activeCategory">{{category.name}}
           </button>
         </li>
       </ul>
       <ng-container *ngSwitchCase="'todo'">
-        <ul class="categories-list">
-          <button (click)="clearCategoryPick()" role="button">none</button>
+        <ul class=" categories-list">
+          <button data-atribute="none" (click)="clearCategoryPick()" role="button">None</button>
           <li *ngFor="let category of categoriesList">
-            <button (click)="onCategotyPick(category)" role="button">
-              {{category.name}}
+            <button data-atribute="create-tool-btn" role="button"
+              (click)="onCategotyPick(category)"
+              [class.active]="category === activeCategory">{{category.name}}
             </button>
           </li>
         </ul>
+        <div class="devider"></div>
         <ul class="folder-list">
-          <button role="button" (click)="onFolderPick('')">none</button>
+          <button data-atribute="none" role="button" (click)="onFolderPick('')">None</button>
           <li *ngFor="let folder of currentFoldersList">
-            <button *ngIf="folder" (click)="onFolderPick(folder.name)" role="button">{{folder.name}}</button>
+            <button *ngIf="folder"
+              data-atribute="create-tool-btn" role="button"
+              (click)="onFolderPick(folder.name)"
+              [class.active]="activeFolder === folder.name">{{folder.name}}
+            </button>
           </li>
         </ul>
       </ng-container>
     </ng-container>
   </div>
+  <button type="submit" role="submit" class="btn btn__big btn__add-todo" (click)="onCreate()" [disabled]="!form.valid">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M2.50628 9.38128L2.50628 9.38128C2.34219 9.54538 2.25 9.76794 2.25 10C2.25 10.2321 2.34219 10.4546 2.50628 10.6187C2.67038 10.7828 2.89294 10.875 3.125 10.875H9.125V16.875C9.125 17.1071 9.21719 17.3296 9.38128 17.4937C9.54538 17.6578 9.76794 17.75 10 17.75C10.2321 17.75 10.4546 17.6578 10.6187 17.4937C10.7828 17.3296 10.875 17.1071 10.875 16.875V10.875H16.875C17.1071 10.875 17.3296 10.7828 17.4937 10.6187C17.6578 10.4546 17.75 10.2321 17.75 10C17.75 9.76794 17.6578 9.54538 17.4937 9.38128C17.3296 9.21719 17.1071 9.125 16.875 9.125H10.875V3.125C10.875 2.89294 10.7828 2.67038 10.6187 2.50628C10.4546 2.34219 10.2321 2.25 10 2.25C9.76794 2.25 9.54538 2.34219 9.38128 2.50628L9.38128 2.50628C9.21719 2.67038 9.125 2.89294 9.125 3.125V9.125H3.125C2.89294 9.125 2.67038 9.21719 2.50628 9.38128Z"
+        fill="#F8F1E5" stroke="#F8F1E5" stroke-width="0.5" />
+    </svg>
+  </button>
 </form>

@@ -1,16 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./assets/styles/reset";
+@import "./assets/styles/color-variables";
 
 body {
   margin: 0;
-  padding: 0;
+  padding: 1rem 0;
+  font-family: "Metrophobic", sans-serif;
+  font-style: normal;
+  background-color: $body-bg;
 }
 
 .todo-border {
   border: 2px solid black;
 }
 
-button {
-  background-color: rgb(226, 226, 226);
-  padding: 0.7rem 1rem;
+.container {
+  max-width: 630px;
+  margin: 0 auto;
 }
+
+button {
+  padding: 6px 6px;
+  background-color: $btn-primary;
+  color: $white;
+  border-radius: $border-radius;
+  height: 32px;
+  min-width: 32px;
+  transition: all 0.3s;
+}
+
+button:active {
+  background-color: $btn-active;
+}
+
+
+button:disabled {
+  background-color: $btn-disabled;
+}
+
+
+button[data-atribute="none"] {
+  background-color: $none-atribute-btn;
+  padding: 6px 10px;
+}
+
+button[data-atribute="create-tool-btn"] {
+  background-color: $create-tool-btn-not-active;
+}
+
+// button[data-atribute="create-tool-btn"]:active {
+//   background-color: $btn-active;
+// }

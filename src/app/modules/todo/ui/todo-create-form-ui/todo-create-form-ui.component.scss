@@ -1,16 +1,61 @@
+@import "../../../../../assets/styles/color-variables";
+
 select {
   height: 42px;
 }
 
 form {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+
 }
 
-input {
-  border: 1px solid black;
-  padding-left: 10px;
+.btn__change-form-type {
+  min-width: 88px;
+}
+
+.form {
+  &__content {
+    border: 1px solid $header-border-color;
+    border-radius: $border-radius;
+    flex-grow: 2;
+    padding: 4px;
+    max-height: 34px;
+    transition: max-height 0.2s ease-in-out;
+    overflow: hidden;
+
+    input {
+      padding-left: 10px;
+      height: 24px;
+      width: 100%;
+      background-color: $input-bg;
+      border-radius: $border-radius;
+      color: black;
+      font-family: "Metrophobic";
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 19.73px;
+      text-align: left;
+    }
+
+    input::placeholder {
+      color: $input-text-color;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .devider {
+      background-color: $devider-bg;
+      margin: 4px 0;
+      height: 1px;
+    }
+
+    .categories-list {
+      margin-top: 8px;
+    }
+  }
 }
 
 .categories-list,
@@ -19,20 +64,7 @@ input {
   gap: 1rem;
 }
 
-.btn {
-  &__big {}
 
-  &__add-todo {
-    border: 1px solid black;
-    padding: 0.7rem 1rem;
-  }
-
-  &__add-todo:disabled {
-    background-color: rgb(220, 220, 220);
-  }
-}
-
-button {
-  background-color: rgb(226, 226, 226);
-  padding: 0.7rem 1rem;
+.active {
+  background-color: $btn-active;
 }

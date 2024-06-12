@@ -32,8 +32,7 @@ export class TodoWidgetComponent implements OnInit {
     this.categoriesList$ = this.todoStore$.pipe(select(categoriesListSelector));
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   // add category delete method
   // delete with or without content

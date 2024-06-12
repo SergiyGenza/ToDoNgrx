@@ -7,7 +7,8 @@
 
   <app-todo-header-bar-ui
     [categoriesList]="categoriesList$ | async"
-    (currentCategory)="onCategoryPick($event)">
+    [currentCategory]="currentCategory"
+    (currentCategoryEmmiter)="onCategoryPick($event)">
   </app-todo-header-bar-ui>
 
   <app-todo-list-ui

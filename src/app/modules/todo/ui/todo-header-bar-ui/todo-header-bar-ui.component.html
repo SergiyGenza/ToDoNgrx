@@ -1,7 +1,12 @@
 <div class="btns-bar container">
   <div class="btns-bar__left">
-    <button class="btn btn-primary" (click)="onAllCategoriesPick()">All</button>
-    <button class="btn btn-primary btn__favourite" (click)="onAllCategoriesPick()">
+    <button class="btn btn-primary"
+      [ngClass]="{'active': currentCategory == 'all'}"
+      (click)="onAllCategoriesPick()">All
+    </button>
+    <button class="btn btn-primary btn__favourite"
+      [ngClass]="{'active': currentCategory == 'favourite'}"
+      (click)="onAllCategoriesPick()">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M1.6665 7.61413C1.6665 11.6665 5.01603 13.826 7.46795 15.759C8.33317 16.441 9.16651 17.0832 9.99984 17.0832C10.8332 17.0832 11.6665 16.441 12.5318 15.759C14.9837 13.826 18.3332 11.6665 18.3332 7.61413C18.3332 3.56168 13.7497 0.687766 9.99984 4.58374C6.24997 0.687766 1.6665 3.56168 1.6665 7.61413Z"
@@ -9,13 +14,16 @@
       </svg>
     </button>
   </div>
-  <div class="btns-bar__group" *ngIf="categoriesList">
+  <div class="btns-bar__group"*ngIf="categoriesList">
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M20.3859 7.60943C19.8653 7.08876 19.021 7.08876 18.5003 7.60943L11.9837 14.1324C10.9432 15.174 10.9436 16.8617 11.9847 17.9028L18.5051 24.4232C19.0258 24.9439 19.8701 24.9439 20.3907 24.4232C20.9115 23.9025 20.9115 23.0583 20.3907 22.5376L14.8099 16.9568C14.2893 16.436 14.2893 15.5918 14.8099 15.0712L20.3859 9.49503C20.9066 8.97436 20.9066 8.13009 20.3859 7.60943Z"
         fill="#676127" />
     </svg>
-    <button class="btn btn-primary" *ngFor="let category of categoriesList" (click)="onCategoryPick(category)">
+    <button class="btn btn-primary"
+      *ngFor="let category of categoriesList" 
+      [ngClass]="{'active': currentCategory == category.name}"
+      (click)="onCategoryPick(category)">
       {{category.name}}
     </button>
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

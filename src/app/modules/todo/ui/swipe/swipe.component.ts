@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Todo } from '../../models/todo.model';
+import { Todo } from '../../common/models/todo.model';
 import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 
 @Component({

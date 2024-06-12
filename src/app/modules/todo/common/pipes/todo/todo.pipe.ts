@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Todo } from '../../models/todo.model';
 import { Category } from '../../models/category.model';
 import { Folder } from '../../models/folder.model';
+import { Todo } from '../../models/todo.model';
 
 @Pipe({
   name: 'todo',

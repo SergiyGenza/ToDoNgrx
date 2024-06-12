@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Category } from '../../models/category.model';
+import { Category } from '../../common/models/category.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Folder } from '../../models/folder.model';
-import { CreateItem } from '../../models/create-item.model';
+import { Folder } from '../../common/models/folder.model';
+import { CreateItem } from '../../common/models/create-item.model';
 
 @Component({
   selector: 'app-todo-create-form-ui',
@@ -36,13 +36,15 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   public onCreate(): void {
-    this.createItem.emit({
-      type: this.formType,
-      name: this.form.controls.name.value ?? '',
-      currentFolderName: this.form.controls.currentFolderName.value ?? '',
-      currentCategoryName: this.form.controls.currentCategoryName.value ?? '',
-    });
-    this.form.reset();
+    if (this.form.valid) {
+      this.createItem.emit({
+        type: this.formType,
+        name: this.form.controls.name.value ?? '',
+        currentFolderName: this.form.controls.currentFolderName.value ?? '',
+        currentCategoryName: this.form.controls.currentCategoryName.value ?? '',
+      });
+      this.form.reset();
+    }
   }
 
   public onCategotyPick(category: Category): void {

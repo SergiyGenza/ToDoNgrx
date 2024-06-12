@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { filter } from 'rxjs';
-import { CATEGORY_REDUCER_NODE, CategoryState } from '../store/category/category.reducer';
-import { categoryListSelector } from '../store/category/category.selector';
-import { CategoryLoadStateAction } from '../store/category/category.actions';
+import { CategoryLoadStateAction } from '../../store/category/category.actions';
+import { CategoryState } from '../../store/category/category.reducer';
+import { categoryListSelector } from '../../store/category/category.selector';
 export const CATEGORY_LOCALSTORAGE_KEY = "Category-MyTodoNgrxApp";
 
 @Injectable({

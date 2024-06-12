@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { TodoState } from '../store/todo/todo.reducer';
-import { todoFeatureSelector } from '../store/todo/todo.selectors';
 import { filter } from 'rxjs';
-import { TodoLoadStateAction } from '../store/todo/todo.actions';
+import { TodoLoadStateAction } from '../../store/todo/todo.actions';
+import { TodoState } from '../../store/todo/todo.reducer';
+import { todoFeatureSelector } from '../../store/todo/todo.selectors';
 
 export const TODO_LOCALSTORAGE_KEY = "MyTodoNgrxApp";
 export const CURRENT_CATEGORY_LOCALSTOREGE_KEY = "MyTodoNgrxAppCurrentCategory";

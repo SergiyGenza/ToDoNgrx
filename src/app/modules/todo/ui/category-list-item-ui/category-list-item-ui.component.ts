@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Category } from '../../models/category.model';
-import { Todo } from '../../models/todo.model';
+import { Category } from '../../common/models/category.model';
+import { Todo } from '../../common/models/todo.model';
 import { Observable } from 'rxjs';
 
 @Component({

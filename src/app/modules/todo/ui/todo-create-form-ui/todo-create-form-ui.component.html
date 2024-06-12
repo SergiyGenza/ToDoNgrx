@@ -1,5 +1,5 @@
-<form [formGroup]="form" id="form">
-  <button class="btn__change-form-type" role="button" (click)="changeFormType()">
+<form [formGroup]="form" id="form" (keydown)="onCreate()">
+  <button class="btn__change-form-type" (click)="changeFormType()">
     {{btnTitle}}
   </button>
   <div class="form__content" [style.maxHeight.px]="maxHeigth">
@@ -8,18 +8,16 @@
       <ul class="categories-list" *ngSwitchCase="'folder'">
         <button data-atribute="none" role="button" (click)="clearCategoryPick()">None</button>
         <li *ngFor="let category of categoriesList">
-          <button data-atribute="create-tool-btn" role="button"
-            (click)="onCategotyPick(category)"
+          <button data-atribute="create-tool-btn" role="button" (click)="onCategotyPick(category)"
             [class.active]="category === activeCategory">{{category.name}}
           </button>
         </li>
       </ul>
       <ng-container *ngSwitchCase="'todo'">
-        <ul class=" categories-list">
+        <ul class="categories-list">
           <button data-atribute="none" (click)="clearCategoryPick()" role="button">None</button>
           <li *ngFor="let category of categoriesList">
-            <button data-atribute="create-tool-btn" role="button"
-              (click)="onCategotyPick(category)"
+            <button data-atribute="create-tool-btn" role="button" (click)="onCategotyPick(category)"
               [class.active]="category === activeCategory">{{category.name}}
             </button>
           </li>
@@ -28,9 +26,7 @@
         <ul class="folder-list">
           <button data-atribute="none" role="button" (click)="onFolderPick('')">None</button>
           <li *ngFor="let folder of currentFoldersList">
-            <button *ngIf="folder"
-              data-atribute="create-tool-btn" role="button"
-              (click)="onFolderPick(folder.name)"
+            <button *ngIf="folder" data-atribute="create-tool-btn" role="button" (click)="onFolderPick(folder.name)"
               [class.active]="activeFolder === folder.name">{{folder.name}}
             </button>
           </li>

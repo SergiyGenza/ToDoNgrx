@@ -38,3 +38,13 @@ svg {
   width: 22px;
   height: 22px;
 }
+
+.folder-item {
+  position: relative;
+
+  &__tool-bar {
+    position: absolute;
+    top: 0;
+    display: flex;
+  }
+}

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Todo } from '../../common/models/todo.model';
 import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
+import { Folder } from '../../common/models/folder.model';
 
 @Component({
   selector: 'app-swipe',
@@ -10,6 +11,7 @@ import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 export class SwipeComponent {
   @Input() isEdit!: boolean;
   @Input() todo!: Todo;
+  @Input() folder!: Folder;
   @Output() deleteItem = new EventEmitter<number>();
   @Output() openEditMode = new EventEmitter<Todo>();
 

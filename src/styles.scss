@@ -19,6 +19,23 @@ body {
   margin: 0 auto;
 }
 
+.wrapper-title>:first-child {
+  font-family: Hind;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.wrapper-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #DCD483;
+  padding: 0 20px;
+  border-radius: 5px 5px 0px 0px;
+  height: 44px;
+}
+
 .btn {
   padding: 6px 10px;
   background-color: $btn-primary;
@@ -55,14 +72,6 @@ body {
   background-color: $btn-active;
 }
 
-
 .btn:disabled {
   background-color: $btn-disabled;
 }
-
-
-
-
-// button[data-atribute="create-tool-btn"]:active {
-//   background-color: $btn-active;
-// }

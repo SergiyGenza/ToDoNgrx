@@ -38,12 +38,14 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   public onCreate(): void {
-    if (this.form.valid) {
+    let currentCategoryName: string | null;
+    currentCategoryName = this.form.controls.currentCategory.value === '' ? 'all' : this.form.controls.currentCategory.value;
+    if (this.form.valid && currentCategoryName) {
       this.createItem.emit({
         type: this.formType,
         name: this.form.controls.name.value ?? '',
         currentFolderName: this.form.controls.currentFolderName.value ?? '',
-        currentCategoryName: this.form.controls.currentCategory.value ?? '',
+        currentCategoryName: currentCategoryName,
       });
       this.form.reset();
     }

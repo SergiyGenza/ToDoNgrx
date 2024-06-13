@@ -33,11 +33,10 @@
     </div>
   </div>
 </div>
-
 <div class="folder-item" *ngIf="folder">
-  <div class="folder-swipe-wrapper"
+  <div class="folder-item__swipe-wrapper"
     cdkDrag cdkDragLockAxis="x"
-    cdkDragBoundary=".container"
+    cdkDragBoundary=""
     (cdkDragEnded)="dragEnd($event, todo)"
     [cdkDragFreeDragPosition]="setPosition">
     <ng-content selector="app-folder-list-item-ui"></ng-content>
@@ -62,15 +61,15 @@
     <div class="folder-item__tool-bar__item">
       <div class="">
         <app-svg-icon
-          [svgPath]="'../../../../../assets/icons/heart-dark_svgrepo.com.svg'"
+          [svgPath]="'../../../../../assets/icons/trash-bin_svgrepo.com.svg'"
           [width]="'20'"
           [height]="'20'">
         </app-svg-icon>
       </div>
       <div class="">
         <app-svg-icon
-          [svgPath]="'../../../../../assets/icons/trash-bin_svgrepo.com.svg'"
-          [width]="'20'"
+          [svgPath]="'../../../../../assets/icons/heart-dark_svgrepo.com.svg'"
+          [width]="'20'" 
           [height]="'20'">
         </app-svg-icon>
       </div>

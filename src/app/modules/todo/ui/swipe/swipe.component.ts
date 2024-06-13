@@ -21,8 +21,12 @@ export class SwipeComponent {
     this.openEditMode.emit();
   }
 
-  public onDelete(id: number) {
-    this.deleteItem.emit(id);
+  public onDelete() {
+    if (this.todo) {
+      this.deleteItem.emit(this.todo.id);
+    } else if (this.folder) {
+      this.deleteItem.emit(this.folder.id);
+    }
   }
 
   // mb try derective
@@ -49,7 +53,7 @@ export class SwipeComponent {
     else if (pos.x <= -45) {
       this.setPosition.x = 0;
       console.log('onDelete');
-      this.onDelete(todo.id);
+      this.onDelete();
       $event.source.reset();
     }
     else if (20 > pos.x || pos.x > -20) {

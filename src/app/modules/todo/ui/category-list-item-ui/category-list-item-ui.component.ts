@@ -17,9 +17,9 @@ export class CategoryListItemUiComponent implements OnInit {
   @Output() edit = new EventEmitter<{ id: number, name: string }>();
   @Output() deleteFolder = new EventEmitter<{ id: number, name: string }>();
 
-  showContent: boolean = true;
-  showCreateComponent: boolean = false;
-  showHeader: boolean = false;
+  public showContent: boolean = true;
+  public showCreateComponent: boolean = false;
+  public showHeader: boolean = false;
 
   constructor() { }
 
@@ -28,19 +28,23 @@ export class CategoryListItemUiComponent implements OnInit {
   }
 
   public onDelete(id: number): void {
+    console.log('onDelete', id);
+
     this.deleteItem.emit(id);
   }
 
   public onFolderDelete({ id, name }: { id: number, name: string }): void {
+    console.log('onFolderDelete', id, name);
     this.deleteFolder.emit({ id, name });
   }
-  
+
   public onToggle(id: number): void {
     this.toggle.emit(id);
   }
 
   public onEdit({ id, name }: { id: number, name: string }): void {
-    this.edit.emit({ id, name });
+    console.log(id, name);
+    // this.edit.emit({ id, name });
   }
 
   private checkCurrentCategory(): void {

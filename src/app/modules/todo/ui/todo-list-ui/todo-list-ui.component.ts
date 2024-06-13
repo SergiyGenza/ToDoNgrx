@@ -17,6 +17,7 @@ export class TodoListUiComponent {
   constructor() { }
 
   public onEditMode(id: number) {
+    // need check 
     this.edits.push(id);
     this.isEdit = this.edits.includes(id);
   }

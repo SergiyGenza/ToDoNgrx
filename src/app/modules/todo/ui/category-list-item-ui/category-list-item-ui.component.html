@@ -15,7 +15,9 @@
   </app-todo-list-ui>
   
   <app-swipe *ngFor="let folder of category.foldersList"
-    [folder]="folder">
+    [folder]="folder"
+    (openEditMode)="onEdit(folder)"
+    (deleteItem)="onFolderDelete(folder)">
     <app-folder-list-item-ui
       [todoList$]="todoList$" 
       [folder]="folder"

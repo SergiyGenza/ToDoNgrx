@@ -23,6 +23,7 @@ export class FolderListItemUiComponent {
   }
 
   public onToggle(id: number): void {
+    console.log('works');
     this.toggle.emit(id);
   }
 

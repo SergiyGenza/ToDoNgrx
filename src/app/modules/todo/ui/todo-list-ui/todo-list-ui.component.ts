@@ -23,6 +23,7 @@ export class TodoListUiComponent {
   }
 
   public onToggle(id: number) {
+    console.log('works');
     this.toggle.emit(id);
   }
 

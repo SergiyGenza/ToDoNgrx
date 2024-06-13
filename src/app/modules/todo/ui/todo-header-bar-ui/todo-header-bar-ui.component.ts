@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
-// import { ModalService } from 'src/app/modules/modal/services/modal.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category } from '../../common/models/category.model';
 
 @Component({
@@ -10,30 +9,16 @@ import { Category } from '../../common/models/category.model';
 export class TodoHeaderBarUiComponent {
   @Input() categoriesList?: Category[] | null;
   @Input() currentCategory?: string;
-  // @Output() createCategory = new EventEmitter<string | null>();
   @Output() currentCategoryEmmiter = new EventEmitter<string>();
 
+  constructor() { }
 
-  constructor(
-    // private modalServeice: ModalService,
-  ) { }
-
-  // public onCategoryCreate(modalTemplate: TemplateRef<any>) {
-  //   this.modalServeice.open(modalTemplate, { size: 'lg', title: 'Add new catagory', type: 'form' }).subscribe((action: any) => {
-  //     if (action) {
-  //       this.createCategory.emit(action);
-  //     }
-  //   })
-  // }
-
-  public onCategoryPick(catagory: Category) {
-    console.log();
-
+  public onCategoryPick(catagory: Category): void {
     this.currentCategory = catagory.name;
     this.currentCategoryEmmiter.emit(catagory.name);
   }
 
-  public onAllCategoriesPick() {
+  public onAllCategoriesPick(): void {
     this.currentCategory = 'all';
     this.currentCategoryEmmiter.emit('all');
   }

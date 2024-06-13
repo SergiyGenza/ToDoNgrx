@@ -45,8 +45,7 @@ export class CategoryListItemUiComponent implements OnInit, OnChanges {
   }
 
   public onEdit({ id, name }: { id: number, name: string }): void {
-    console.log(id, name);
-    // this.edit.emit({ id, name });
+    this.edit.emit({ id, name });
   }
 
   private checkCurrentCategory(): void {

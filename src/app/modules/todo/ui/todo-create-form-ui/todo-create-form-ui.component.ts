@@ -27,7 +27,7 @@ export class TodoCreateFormUiComponent implements OnInit {
 
   public form = new FormGroup({
     name: new FormControl('', Validators.required),
-    currentFolderName: new FormControl(''),
+    currentFolderName: new FormControl('',),
     currentCategory: new FormControl(''),
   })
 
@@ -38,6 +38,9 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   public onCreate(): void {
+    if (this.formType == 'folder' && (this.form.controls.currentCategory.value === '' || this.form.controls.currentCategory.value === 'all')) {
+      throw Error()
+    }
     let currentCategoryName: string | null;
     currentCategoryName = this.form.controls.currentCategory.value === '' ? 'all' : this.form.controls.currentCategory.value;
     if (this.form.valid && currentCategoryName) {

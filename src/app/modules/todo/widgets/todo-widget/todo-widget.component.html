@@ -1,4 +1,4 @@
-<div class="todo-widget-wrapper">
+<div class="todo-widget-wrapper container">
   <app-todo-create-form-ui
     [categoriesList]="categoriesList$ | async"
     [currentCategoryName]="currentCategory"
@@ -7,7 +7,8 @@
 
   <app-todo-header-bar-ui
     [categoriesList]="categoriesList$ | async"
-    (currentCategory)="onCategoryPick($event)">
+    [currentCategory]="currentCategory"
+    (currentCategoryEmmiter)="onCategoryPick($event)">
   </app-todo-header-bar-ui>
 
   <app-todo-list-ui
@@ -15,7 +16,7 @@
     [todoList]="todoList$ | async | todo:'all'"
     (deleteItem)="onDelete($event)"
     (toggle)="onToggle($event)"
-    (edit)="onEdit($event)">
+    (edit)="onItemEdit($event)">
   </app-todo-list-ui>
   
   <app-category-list-item-ui 
@@ -24,7 +25,8 @@
     [todoList$]="todoList$"
     [category]="category"
     (deleteItem)="onDelete($event)"
-    (deleteFolder)="onFolderDelete($event)">
+    (deleteFolder)="onFolderDelete($event)"
+    (edit)="onItemEdit($event)">
   </app-category-list-item-ui>
 </div>
 

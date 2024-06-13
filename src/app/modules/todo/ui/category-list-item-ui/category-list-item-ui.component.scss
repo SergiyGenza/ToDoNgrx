@@ -1,18 +1,19 @@
-.devider {
-  width: 100%;
-  background-color: black;
-  height: 2px;
-}
+// .devider {
+//   width: 100%;
+//   background-color: black;
+//   height: 2px;
+// }
 
 svg {
-  width: 16px;
+  width: 28px;
+  height: 28px;
 }
 
+.title-wrapper {}
+
 .category {
-  &__head {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
+  &__title {
+
   }
 
   &__open-content svg {}

@@ -4,11 +4,11 @@ import { TodoState } from '../../store/todo/todo.reducer';
 import { TodoCategoryCreateAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoToggleAction } from '../../store/todo/todo.actions';
 import { categoriesListSelector, todoListSelector } from '../../store/todo/todo.selectors';
 import { Observable } from 'rxjs';
-import { Todo } from '../../models/todo.model';
-import { LocalstorageService } from '../../services/localstorage.service';
+import { Todo } from '../../common/models/todo.model';
 import { ModalService } from 'src/app/modules/modal/services/modal.service';
-import { Category } from '../../models/category.model';
-import { CreateItem } from '../../models/create-item.model';
+import { Category } from '../../common/models/category.model';
+import { CreateItem } from '../../common/models/create-item.model';
+import { LocalstorageService } from '../../common/services/localstorage.service';
 
 @Component({
   selector: 'app-todo-widget',
@@ -32,8 +32,7 @@ export class TodoWidgetComponent implements OnInit {
     this.categoriesList$ = this.todoStore$.pipe(select(categoriesListSelector));
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   // add category delete method
   // delete with or without content
@@ -74,7 +73,7 @@ export class TodoWidgetComponent implements OnInit {
     this.todoStore$.dispatch(new TodoToggleAction({ id }));
   }
 
-  public onEdit({ id, name }: { id: number, name: string }): void {
+  public onItemEdit({ id, name }: { id: number, name: string }): void {
     this.todoStore$.dispatch(new TodoEditAction({ id, name }));
   }
 

@@ -1,8 +1,8 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { Category } from '../../models/category.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Folder } from '../../models/folder.model';
-import { CreateItem } from '../../models/create-item.model';
+import { Category } from '../../common/models/category.model';
+import { Folder } from '../../common/models/folder.model';
+import { CreateItem } from '../../common/models/create-item.model';
 
 @Component({
   selector: 'app-todo-create-form-ui',
@@ -13,12 +13,19 @@ export class TodoCreateFormUiComponent implements OnInit {
   @Input() public categoriesList!: Category[] | null;
   @Input() public currentCategoryName!: string;
   @Output() createItem = new EventEmitter<CreateItem>();
-  @ViewChild('value') value!: ElementRef;
-  public currentFoldersList!: Folder[];
-  public formType: string = 'todo';
-  public placeholder: string = 'add new category';
 
-  form = new FormGroup({
+  public maxHeigth!: number;
+  public activeCategory: Category | null = null;
+  public activeFolder!: string;
+  public activeNoneCat: boolean = true;
+  public activeNoneFolder: boolean = true;
+
+  public currentFoldersList!: Folder[];
+  public formType: string = 'category';
+  public placeholder: string = 'Add category';
+  public btnTitle: string = this.formType;
+
+  public form = new FormGroup({
     name: new FormControl('', Validators.required),
     currentFolderName: new FormControl(''),
     currentCategoryName: new FormControl(''),
@@ -27,47 +34,78 @@ export class TodoCreateFormUiComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.setCategotyByDefault();
+    this.setDefaultCategory();
   }
 
   public onCreate(): void {
-    this.createItem.emit({
-      type: this.formType,
-      name: this.form.controls.name.value ?? '',
-      currentFolderName: this.form.controls.currentFolderName.value ?? '',
-      currentCategoryName: this.form.controls.currentCategoryName.value ?? '',
-    });
-    this.form.reset();
-  }
-
-  public onFolderPick(folderName: string): void {
-    this.form.controls.currentFolderName.patchValue(folderName);
+    if (this.form.valid) {
+      this.createItem.emit({
+        type: this.formType,
+        name: this.form.controls.name.value ?? '',
+        currentFolderName: this.form.controls.currentFolderName.value ?? '',
+        currentCategoryName: this.form.controls.currentCategoryName.value ?? '',
+      });
+      this.form.reset();
+    }
   }
 
   public onCategotyPick(category: Category): void {
+    if (this.activeCategory != category) {
+      this.form.controls.currentFolderName.patchValue('');
+      this.activeFolder = '';
+    }
+    this.activeCategory = category;
     this.form.controls.currentCategoryName.patchValue(category.name);
     this.currentFoldersList = category.foldersList;
+    this.activeNoneCat = false;
+    this.activeNoneCat = false;
+  }
+
+  public onFolderPick(folderName: string): void {
+    this.activeFolder = folderName;
+    this.form.controls.currentFolderName.patchValue(folderName);
+    folderName === ''
+      ? this.activeNoneFolder = true
+      : this.activeNoneFolder = false;
   }
 
   public clearCategoryPick(): void {
     this.form.controls.currentCategoryName.patchValue('');
+    this.form.controls.currentFolderName.patchValue('');
+    this.activeCategory = null;
+    this.activeNoneCat = true;
+    this.activeNoneFolder = true;
+    this.activeFolder = '';
   }
 
   public changeFormType(): string {
-    this.formType = this.value.nativeElement.value;
-    switch (this.value.nativeElement.value) {
-      case 'folder':
-        return this.placeholder = 'add new folder';
+
+    switch (this.btnTitle) {
       case 'category':
-        return this.placeholder = 'add new category';
+        this.btnTitle = 'folder'
+        this.formType = this.btnTitle;
+        this.maxHeigth = 74;
+        this.clearCategoryPick();
+        return this.placeholder = 'Add folder';
+
       case 'todo':
-        return this.placeholder = 'add new todo';
+        this.btnTitle = 'category'
+        this.formType = this.btnTitle;
+        this.maxHeigth = 34;
+        return this.placeholder = 'Add category';
+      case 'folder':
+        this.btnTitle = 'todo'
+        this.formType = this.btnTitle;
+        this.maxHeigth = 116;
+        return this.placeholder = 'Add todo';
       default:
-        return this.placeholder = 'add new todo';
+        return this.placeholder = 'Add todo';
     }
   }
 
-  private setCategotyByDefault(): void {
+
+
+  private setDefaultCategory(): void {
     this.form.controls.currentCategoryName.patchValue(this.currentCategoryName);
     let filteredCategory = this.categoriesList?.find(category => category.name === this.currentCategoryName);
     // check this

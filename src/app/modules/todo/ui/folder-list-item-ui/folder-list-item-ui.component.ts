@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Folder } from '../../models/folder.model';
+import { Folder } from '../../common/models/folder.model';
 import { Observable } from 'rxjs';
-import { Todo } from '../../models/todo.model';
+import { Todo } from '../../common/models/todo.model';
 
 @Component({
   selector: 'app-folder-list-item-ui',

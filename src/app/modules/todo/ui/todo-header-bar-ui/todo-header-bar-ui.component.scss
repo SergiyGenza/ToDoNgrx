@@ -1,21 +1,56 @@
+@import "../../../../../assets/styles/color-variables";
+
 .btns-bar {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  gap: 12px;
   padding: 1rem 0;
 
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
   &__group {
-    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+  }
+
+  &__group>.btn {
+    width: max-content;
+  }
+
+  &__group span {
+    text-align: center;
+  }
+
+  &__group>:last-child {
+    transform: rotate(180deg);
   }
 }
 
-button {
-  background-color: rgb(226, 226, 226);
-  padding: 0.7rem 1rem;
+.btns-bar>:last-child {
+  width: 32px;
+  padding: 0;
 }
 
 input {
   border: 1px solid black;
   border-radius: 6px;
   padding: 0 1rem;
+}
+
+.btn {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  width: 40px;
+}
+
+.active {
+  background-color: $btn-active;
 }

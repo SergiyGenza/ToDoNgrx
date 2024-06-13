@@ -1,5 +1,5 @@
-import { Category } from "../../models/category.model";
-import { Todo } from "../../models/todo.model";
+import { Category } from "../../common/models/category.model";
+import { Todo } from "../../common/models/todo.model";
 import { TodoActions, todoActionsType } from "./todo.actions";
 
 export const TODO_REDUCER_NODE = 'todo';

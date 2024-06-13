@@ -16,11 +16,13 @@ import { TodoHeaderBarUiComponent } from './ui/todo-header-bar-ui/todo-header-ba
 import { ModalService } from '../modal/services/modal.service';
 import { ModalModule } from '../modal/modal.module';
 import { CategoryListItemUiComponent } from './ui/category-list-item-ui/category-list-item-ui.component';
-import { CategoryFilterPipe } from './pipes/category/category-filter.pipe';
 import { FolderListItemUiComponent } from './ui/folder-list-item-ui/folder-list-item-ui.component';
-import { TodoPipe } from './pipes/todo/todo.pipe';
-import { CategoryService } from './services/category.service';
-import { LocalstorageService } from './services/localstorage.service';
+import { SwipeComponent } from './ui/swipe/swipe.component';
+import { SvgIconComponent } from './ui/svg-icon/svg-icon.component';
+import { CategoryFilterPipe } from './common/pipes/category/category-filter.pipe';
+import { CategoryService } from './common/services/category.service';
+import { LocalstorageService } from './common/services/localstorage.service';
+import { TodoPipe } from './common/pipes/todo/todo.pipe';
 
 
 
@@ -37,6 +39,8 @@ import { LocalstorageService } from './services/localstorage.service';
     CategoryFilterPipe,
     FolderListItemUiComponent,
     TodoPipe,
+    SwipeComponent,
+    SvgIconComponent,
   ],
   imports: [
     CommonModule,
@@ -48,7 +52,8 @@ import { LocalstorageService } from './services/localstorage.service';
     ReactiveFormsModule
   ],
   exports: [
-    TodoWidgetComponent
+    TodoWidgetComponent,
+    SvgIconComponent
   ],
   providers: [
     ModalService,

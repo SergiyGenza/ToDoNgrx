@@ -1,5 +1,5 @@
 
-import { Category } from "../../models/category.model";
+import { Category } from "../../common/models/category.model";
 import { CategoryActions, categoryActionsType } from "./category.actions";
 
 export const CATEGORY_REDUCER_NODE = 'category';

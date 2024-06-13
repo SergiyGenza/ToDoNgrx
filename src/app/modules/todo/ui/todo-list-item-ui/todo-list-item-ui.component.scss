@@ -1,14 +1,12 @@
-svg {
-  width: 22px;
-  height: 22px;
-}
+@import "../../../../../assets/styles/color-variables";
 
 .todo-item-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 38px;
+  min-height: 40px;
   padding: 0px 10px;
+  background-color: $todo-bg-yellow;
 }
 
 .todo-item {
@@ -21,12 +19,64 @@ svg {
   }
 }
 
-.btns-group {}
+/* Стиль контейнера для чекбокса */
+.round-checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+}
 
-.btn-delete {
+/* Приховати стандартний чекбокс */
+.round-checkbox-container input {
+  position: absolute;
+  opacity: 0;
   cursor: pointer;
 }
 
-input {
-  cursor: pointer;
+/* Стиль кастомного чекбокса */
+.checkmark {
+  position: absolute;
+  top: -6px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* Стиль при натисканні */
+.round-checkbox-container:hover input~.checkmark {
+  background-color: #ccc;
+}
+
+/* Стиль для активного чекбокса */
+.round-checkbox-container input:checked~.checkmark {
+  background-color: #2196F3;
+}
+
+/* Стиль для позначки (галочки) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Показувати галочку для активного чекбокса */
+.round-checkbox-container input:checked~.checkmark:after {
+  display: block;
+}
+
+/* Стиль галочки */
+.round-checkbox-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
 }

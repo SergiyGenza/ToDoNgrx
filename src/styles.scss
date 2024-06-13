@@ -10,8 +10,14 @@ body {
   background-color: $body-bg;
 }
 
-.todo-border {
-  border: 2px solid black;
+input {
+  cursor: pointer;
+}
+
+.app-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .container {

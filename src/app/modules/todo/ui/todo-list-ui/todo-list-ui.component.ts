@@ -7,8 +7,8 @@ import { Todo } from '../../common/models/todo.model';
   styleUrls: ['./todo-list-ui.component.scss']
 })
 export class TodoListUiComponent {
-  edits: number[] = [];
-  isEdit: boolean = false;
+  public edits: number[] = [];
+  public isEdit: boolean = false;
   @Input() todoList: Todo[] | null | undefined = [];
   @Output() deleteItem = new EventEmitter<number>();
   @Output() toggle = new EventEmitter<number>();

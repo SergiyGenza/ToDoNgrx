@@ -14,11 +14,9 @@
     </svg>
   </span> -->
 </div>
-<div *ngIf="open">
-  <app-todo-list-ui 
-    [todoList]="todoList$ | async | todo:folder" 
-    (deleteItem)="onDelete($event)"
-    (toggle)="onToggle($event)" 
-    (edit)="onEdit($event)">
-  </app-todo-list-ui>
-</div>
+<app-todo-list-ui  *ngIf="open"
+  [todoList]="todoList$ | async | todo:folder" 
+  (deleteItem)="onDelete($event)"
+  (toggle)="onToggle($event)" 
+  (edit)="onEdit($event)">
+</app-todo-list-ui>

@@ -1,21 +1,17 @@
-<div class="todo-item-wrapper todo-border">
+<div class="todo-item-wrapper">
+  <label class="round-checkbox-container">
+    <input type="checkbox" [checked]="todo?.completed" (click)="onToggle()" />
+    <span class="checkmark"></span>
+  </label>
   <div class="todo-item__text">
     <del *ngIf="todo?.completed else completed"><span>{{todo?.name}}</span></del>
     <ng-template #completed>
       <span>{{todo?.name}}</span>
     </ng-template>
   </div>
-    <label for="checkbox">
-      <input type="checkbox" [checked]="todo?.completed" (click)="onToggle()">
-    </label>
-  <!-- <div class="btns-group">
-    <div roele="button" class="btn-delete" (click)="onDelete()">
-      <svg fill="#000000" viewBox="0 0 24 24" id="delete-alt" class="icon glyph">
-        <path d="M17,4V5H15V4H9V5H7V4A2,2,0,0,1,9,2h6A2,2,0,0,1,17,4Z"></path>
-        <path
-          d="M20,6H4A1,1,0,0,0,4,8H5V20a2,2,0,0,0,2,2H17a2,2,0,0,0,2-2V8h1a1,1,0,0,0,0-2ZM11,17a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Zm4,0a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Z">
-        </path>
-      </svg>
-    </div>
-  </div> -->
+ 
+
+  <!-- <label for="checkbox">
+    <input type="checkbox" [checked]="todo?.completed" (click)="onToggle()">
+  </label> -->
 </div>

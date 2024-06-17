@@ -16,6 +16,14 @@ span.btn {
   min-width: 88px;
 }
 
+.flex {
+  display: flex;
+  gap: 12px;
+  max-height: 34px;
+  transition: max-height 0.3s ease-in-out;
+  overflow: hidden;
+}
+
 .form {
   &__content {
     border: 1px solid $header-border-color;
@@ -23,8 +31,9 @@ span.btn {
     flex-grow: 2;
     padding: 4px;
     max-height: 34px;
-    transition: max-height 0.2s ease-in-out;
-    overflow: hidden;
+    // ????
+    width: 1px;
+    // ????
 
     input {
       padding-left: 10px;
@@ -58,11 +67,6 @@ span.btn {
   }
 }
 
-form>:last-child {
-  width: 32px;
-  padding: 6px 0;
-}
-
 .categories-list,
 .folder-list {
   display: flex;
@@ -85,4 +89,9 @@ form>:last-child {
 
 .btn__pick-item {
   min-width: max-content;
+}
+
+button[type=submit] {
+  width: 32px;
+  padding: 6px 0;
 }

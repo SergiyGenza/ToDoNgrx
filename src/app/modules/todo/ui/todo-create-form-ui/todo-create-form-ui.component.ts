@@ -29,7 +29,16 @@ export class TodoCreateFormUiComponent implements OnInit {
     name: new FormControl('', Validators.required),
     currentFolderName: new FormControl('',),
     currentCategory: new FormControl(''),
-  })
+  });
+
+  public folderForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    currentCategory: new FormControl('', Validators.required),
+  });
+
+  public categoryForm = new FormGroup({
+    name: new FormControl('', Validators.required)
+  });
 
   constructor() { }
 
@@ -38,10 +47,6 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   public onCreate(): void {
-    // onkeyEnter checkong form.valid
-    if (!this.todoForm.valid) {
-      throw Error('form invalid');
-    }
     switch (this.formType) {
       case 'todo':
         return this.createTodo();
@@ -53,8 +58,7 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   private createTodo() {
-    let currentCategoryName: string | null;
-    currentCategoryName =
+    let currentCategoryName: string | null =
       this.todoForm.controls.currentCategory.value === ''
         ? 'all'
         : this.todoForm.controls.currentCategory.value;
@@ -68,35 +72,32 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   private createFolder() {
-    if (this.formType === 'folder' && (this.todoForm.controls.currentCategory.value === '' || this.todoForm.controls.currentCategory.value === 'all')) {
-      throw new Error('Pick category for folder');
-    }
     this.createItem.emit({
       type: this.formType,
-      name: this.todoForm.controls.name.value!,
+      name: this.folderForm.controls.name.value!,
       currentFolderName: '',
-      currentCategoryName: this.todoForm.controls.currentCategory.value!,
+      currentCategoryName: this.folderForm.controls.currentCategory.value!,
     });
-    this.todoForm.controls.name.patchValue('');
+    this.folderForm.controls.name.patchValue('');
   }
 
   private createCategory() {
     this.createItem.emit({
       type: this.formType,
-      name: this.todoForm.controls.name.value!,
+      name: this.categoryForm.controls.name.value!,
       currentFolderName: '',
       currentCategoryName: '',
     });
-    this.todoForm.controls.name.patchValue('');
+    this.categoryForm.controls.name.patchValue('');
   }
 
   public onCategotyPick(category: Category): void {
-    if (this.activeCategory != category) {
-      this.todoForm.controls.currentFolderName.patchValue('');
-      this.activeFolder = '';
-    }
     this.activeCategory = category;
-    this.todoForm.controls.currentCategory.patchValue(category.name);
+    if (this.formType === 'todo') {
+      this.todoForm.controls.currentCategory.patchValue(category.name);
+    } else if (this.formType === 'folder') {
+      this.folderForm.controls.currentCategory.patchValue(category.name);
+    }
     this.currentFoldersList = category.foldersList;
     this.activeNoneCat = false;
     this.activeNoneCat = false;
@@ -125,17 +126,29 @@ export class TodoCreateFormUiComponent implements OnInit {
         this.btnTitle = 'folder'
         this.formType = this.btnTitle;
         this.maxHeigth = 74;
+        this.todoForm.reset();
         this.clearCategoryPick();
+        this.activeCategory = null;
+        this.activeFolder = '';
         return this.placeholder = 'Add folder';
       case 'todo':
         this.btnTitle = 'category'
         this.formType = this.btnTitle;
         this.maxHeigth = 34;
+        this.categoryForm.reset();
+        this.activeCategory = null;
+        this.activeFolder = '';
         return this.placeholder = 'Add category';
       case 'folder':
         this.btnTitle = 'todo'
         this.formType = this.btnTitle;
         this.maxHeigth = 116;
+        this.folderForm.reset();
+        this.activeCategory = null;
+        this.activeFolder = '';
+        this.activeNoneCat = true;
+        console.log(this.todoForm.controls);
+
         return this.placeholder = 'Add todo';
       default:
         return this.placeholder = 'Add todo';

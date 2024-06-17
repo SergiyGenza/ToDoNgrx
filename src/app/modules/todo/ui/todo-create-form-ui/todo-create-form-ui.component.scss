@@ -66,10 +66,23 @@ form>:last-child {
 .categories-list,
 .folder-list {
   display: flex;
-  gap: 1rem;
+  gap: 4px;
+  overflow-y: hidden;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
+.categories-list::-webkit-scrollbar,
+.folder-list::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
 
 .active {
   background-color: $btn-active;
+}
+
+.btn__pick-item {
+  min-width: max-content;
 }

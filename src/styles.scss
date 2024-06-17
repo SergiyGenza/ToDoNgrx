@@ -55,6 +55,7 @@ input {
   &__no-item {
     background-color: $none-atribute-btn !important;
     padding: 6px 10px;
+    min-width: min-content;
   }
 
   &__no-item:active {

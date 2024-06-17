@@ -16,8 +16,12 @@
   &__group {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
-    gap: 12px;
+    gap: 6px;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   &__group>.btn {
@@ -28,9 +32,26 @@
     text-align: center;
   }
 
-  &__group>:last-child {
-    transform: rotate(180deg);
-  }
+  &__group>:last-child {}
+}
+
+app-svg-icon[data-atribute="reverse"] {
+  transform: rotate(180deg);
+}
+
+.categoty-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-y: hidden;
+  flex-grow: 1;
+}
+
+.categoty-group::-webkit-scrollbar {
+  width: 0;
+  display: none;
 }
 
 .btns-bar>:last-child {
@@ -49,6 +70,10 @@ input {
   font-weight: 500;
   line-height: 16px;
   width: 40px;
+}
+
+.btn.btn-primary {
+  min-width: max-content;
 }
 
 .active {

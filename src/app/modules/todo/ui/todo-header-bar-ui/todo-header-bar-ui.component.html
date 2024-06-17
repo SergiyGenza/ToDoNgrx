@@ -11,16 +11,18 @@
       </app-svg-icon>
     </button>
   </div>
-  <div class="btns-bar__group"*ngIf="categoriesList">
+  <div class="btns-bar__group">
     <app-svg-icon [svgPath]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" [width]="'32'" [height]="'32'">
     </app-svg-icon>
-    <button class="btn btn-primary"
-      *ngFor="let category of categoriesList" 
-      [ngClass]="{'active': currentCategory == category.name}"
-      (click)="onCategoryPick(category)">
-      {{category.name}}
-    </button>
-    <app-svg-icon [svgPath]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" [width]="'32'" [height]="'32'">
+      <div class="btns-bar__group__ categoty-group"*ngIf="categoriesList">
+        <button class="btn btn-primary"
+          *ngFor="let category of categoriesList" 
+          [ngClass]="{'active': currentCategory == category.name}"
+          (click)="onCategoryPick(category)">
+          {{category.name}}
+        </button>
+      </div>
+    <app-svg-icon data-atribute="reverse" [svgPath]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" [width]="'32'" [height]="'32'">
     </app-svg-icon>
   </div>
   <button class="btn btn-primary" role="menu">

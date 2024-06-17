@@ -1,17 +1,13 @@
-<form [formGroup]="form" id="form" (keydown.enter)="onCreate()">
+<form [formGroup]="todoForm" id="form" (keydown.enter)="onCreate()">
   <span class="btn btn-primary" (click)="changeFormType()">
     {{btnTitle}}
   </span>
   <div class="form__content" [style.maxHeight.px]="maxHeigth">
-    <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name">
+    <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name" >
     <ng-container [ngSwitch]="formType">
       <ul class="categories-list" *ngSwitchCase="'folder'">
-        <!-- <button class="btn btn__pick-item"
-          [ngClass]="{'btn__no-item': activeNoneCat}"
-          (click)="clearCategoryPick()">None
-        </button> -->
         <li *ngFor="let category of categoriesList">
-          <button class="btn btn__pick-item" 
+          <button type="button" role="text" class="btn btn__pick-item" 
             (click)="onCategotyPick(category)"
             [class.active]="category.id === activeCategory?.id">
             {{category.name}}
@@ -20,24 +16,25 @@
       </ul>
       <ng-container *ngSwitchCase="'todo'">
         <ul class="categories-list">
-          <button class="btn btn__pick-item"
+          <button type="button" class="btn btn__pick-item"
             [ngClass]="{'btn__no-item': activeNoneCat}"
             (click)="clearCategoryPick()" role="button">None
           </button>
           <li *ngFor="let category of categoriesList">
-            <button class="btn btn__pick-item" (click)="onCategotyPick(category)"
+            <button type="button" class="btn btn__pick-item" 
+              (click)="onCategotyPick(category)"
               [class.active]="category === activeCategory">{{category.name}}
             </button>
           </li>
         </ul>
         <div class="devider"></div>
         <ul class="folder-list">
-          <button class="btn btn__pick-item"
+          <button type="button" class="btn btn__pick-item"
             (click)="onFolderPick('')"
             [ngClass]="{'btn__no-item': activeNoneFolder}">None
           </button>
           <li *ngFor="let folder of currentFoldersList">
-            <button class="btn btn__pick-item"
+            <button type="button" class="btn btn__pick-item"
               *ngIf="folder"
               [disabled]="this.activeCategory === null"
               [class.active]="activeFolder === folder.name"
@@ -48,8 +45,9 @@
       </ng-container>
     </ng-container>
   </div>
-  <button type="submit" role="submit" class="btn btn__big btn__add-todo" (click)="onCreate()" 
-    [disabled]="!form.valid || (formType == 'folder' && form.controls.currentCategory.value === '') ">
+  <button type="submit" class="btn btn__big btn__add-todo" 
+    (click)="onCreate()"  
+    [disabled]="!todoForm.valid || (formType == 'folder' && todoForm.controls.currentCategory.value === '') ">
     <app-svg-icon [svgPath]="'../../../../../assets/icons/plus.svg'" [width]="'20'" [height]="'20'">
     </app-svg-icon>
   </button>

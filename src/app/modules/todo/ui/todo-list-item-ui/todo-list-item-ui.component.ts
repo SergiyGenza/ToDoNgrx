@@ -13,6 +13,7 @@ export class TodoListItemUiComponent {
   @Output() edit = new EventEmitter<void>();
 
   public onToggle() {
+    console.log('works');
     this.toggle.emit();
   }
 

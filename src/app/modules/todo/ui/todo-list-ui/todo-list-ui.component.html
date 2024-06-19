@@ -7,7 +7,8 @@
       (deleteItem)="checkDeleteOnSwipe($event)">
       <!-- todo-item -->
       <app-todo-list-item-ui 
-        [todo]="todo" (toggle)="onToggle(todo.id)"
+        [todo]="todo"
+        (toggle)="onToggle(todo.id)"
         (deleteItem)="onDelete(todo.id)"
         (edit)="onEditMode(todo.id)">
       </app-todo-list-item-ui>

@@ -18,7 +18,7 @@
     (toggle)="onToggle($event)"
     (edit)="onItemEdit($event)">
   </app-todo-list-ui>
-  
+
   <app-category-list-item-ui 
     *ngFor="let category of categoriesList$ | async | categoryFilter:currentCategory"
     [currentCategory]="currentCategory"
@@ -26,7 +26,8 @@
     [category]="category"
     (deleteItem)="onDelete($event)"
     (deleteFolder)="onFolderDelete($event)"
-    (edit)="onItemEdit($event)">
+    (edit)="onItemEdit($event)"
+    (toggle)="onToggle($event)">
   </app-category-list-item-ui>
 </div>
 

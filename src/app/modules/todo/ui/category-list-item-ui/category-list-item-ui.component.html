@@ -22,6 +22,7 @@
       [todoList$]="todoList$" 
       [folder]="folder"
       (deleteItem)="onDelete($event)"
+      (toggle)="onToggle($event)"
       (deleteFolder)="onFolderDelete($event)"
       (edit)="onEdit($event)">
     </app-folder-list-item-ui>

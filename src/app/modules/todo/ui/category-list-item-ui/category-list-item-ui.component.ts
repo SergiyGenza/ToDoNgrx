@@ -41,6 +41,7 @@ export class CategoryListItemUiComponent implements OnInit, OnChanges {
   }
 
   public onToggle(id: number): void {
+    console.log('works');
     this.toggle.emit(id);
   }
 

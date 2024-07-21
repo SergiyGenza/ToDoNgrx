@@ -90,7 +90,7 @@ export class TodoDeleteCategoryAction implements Action {
   }) { }
 }
 export class TodoDeleteCategoryWithAllItemsAction implements Action {
-  readonly type = todoActionsType.deleteCategory;
+  readonly type = todoActionsType.deleteCategoryWithAllItems;
   constructor(public payload: {
     id: number;
     name: string;

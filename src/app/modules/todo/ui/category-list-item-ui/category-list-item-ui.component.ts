@@ -25,7 +25,7 @@ export class CategoryListItemUiComponent implements OnInit, OnChanges {
   public showHeader: boolean = false;
 
   constructor(
-     private todoStore$: Store<TodoState>,
+    private todoStore$: Store<TodoState>,
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -35,9 +35,14 @@ export class CategoryListItemUiComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
+  onAllInfoCategoryDelete() {
+    const { id, name } = this.category;
+    this.todoStore$.dispatch(new TodoDeleteCategoryWithAllItemsAction({ id, name }));
+  }
+
   onCategoryDelete() {
     const { id, name } = this.category;
-    this.todoStore$.dispatch(new TodoDeleteCategoryWithAllItemsAction({id, name}));
+    this.todoStore$.dispatch(new TodoDeleteCategoryAction({ id, name }));
   }
 
   public onDelete(id: number): void {

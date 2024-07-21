@@ -1,7 +1,13 @@
 <div class="wrapper-title category" *ngIf="!showHeader">
   <span class="category__title">{{category.name}}</span>
-  <div class="category__open-content" role="btn" (click)="showContent = !showContent">
-    <img src="../../../../../assets/icons/arrow-up_svgrepo.com.png" alt="">
+  <div class="">
+    delete: 
+    <button (click)="onAllInfoCategoryDelete()" >all</button>
+    |
+    <button (click)="onCategoryDelete()" >only category</button>
+  </div>
+  <div class="category__open-content" role="btn" >
+    <img src="../../../../../assets/icons/arrow-up_svgrepo.com.png" alt="arrow" (click)="showContent = !showContent">
   </div>
 </div>
 

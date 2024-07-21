@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { Category } from '../../common/models/category.model';
 import { Todo } from '../../common/models/todo.model';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { TodoState } from '../../store/todo/todo.reducer';
+import { TodoDeleteCategoryAction, TodoDeleteCategoryWithAllItemsAction } from '../../store/todo/todo.actions';
 
 @Component({
   selector: 'app-category-list-item-ui',
@@ -21,13 +24,25 @@ export class CategoryListItemUiComponent implements OnInit, OnChanges {
   public showCreateComponent: boolean = false;
   public showHeader: boolean = false;
 
-  constructor() { }
+  constructor(
+    private todoStore$: Store<TodoState>,
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.checkCurrentCategory();
   }
 
   ngOnInit(): void {
+  }
+
+  onAllInfoCategoryDelete() {
+    const { id, name } = this.category;
+    this.todoStore$.dispatch(new TodoDeleteCategoryWithAllItemsAction({ id, name }));
+  }
+
+  onCategoryDelete() {
+    const { id, name } = this.category;
+    this.todoStore$.dispatch(new TodoDeleteCategoryAction({ id, name }));
   }
 
   public onDelete(id: number): void {

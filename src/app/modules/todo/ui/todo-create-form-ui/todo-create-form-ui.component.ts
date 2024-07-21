@@ -25,7 +25,7 @@ export class TodoCreateFormUiComponent implements OnInit {
 
   public todoForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    currentFolderName: new FormControl('',),
+    currentFolderName: new FormControl(''),
     currentCategory: new FormControl(''),
   });
 
@@ -85,6 +85,7 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   public clearCategoryPick(): void {
+    this.todoForm.controls.currentCategory.patchValue('all');
     this.activeCategory = null;
     this.activeFolder = '';
   }
@@ -128,10 +129,7 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   private createTodo() {
-    let currentCategoryName: string | null =
-      this.todoForm.controls.currentCategory.value === ''
-        ? 'all'
-        : this.todoForm.controls.currentCategory.value;
+    let currentCategoryName: string = this.todoForm.controls.currentCategory.value || 'all';
     this.createItem.emit({
       type: this.formType,
       name: this.todoForm.controls.name.value!,

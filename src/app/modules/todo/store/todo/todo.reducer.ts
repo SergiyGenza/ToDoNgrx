@@ -114,16 +114,25 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           };
         })
       }
-    // case todoActionsType.deleteCategory:
-    //   return {
-    //     ...state,
-    //     todoList: state.todoList.map(todo =>
-    //       todo.currentCategoryName === action.payload.name
-    //         ? { ...todo, currentCategoryName: '' }
-    //         : todo
-    //     ),
-    //     categoriesList: state.categoriesList.map()
-    //   }
+    case todoActionsType.deleteCategory:
+      return {
+        ...state,
+        todoList: state.todoList.map(todo =>
+          todo.currentCategoryName === action.payload.name
+            ? { ...todo, currentCategoryName: 'all', currentFolderName: '' }
+            : todo
+        ),
+        categoriesList: state.categoriesList.filter(cat => cat.id !== action.payload.id)
+      }
+
+    case todoActionsType.deleteCategoryWithAllItems:
+      return {
+        ...state,
+        todoList: state.todoList.filter(todo =>
+          todo.currentCategoryName !== action.payload.name
+        ),
+        categoriesList: state.categoriesList.filter(cat => cat.id !== action.payload.id)
+      }
     default:
       return state
   }

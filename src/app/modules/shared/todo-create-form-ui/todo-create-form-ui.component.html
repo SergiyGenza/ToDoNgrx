@@ -1,9 +1,21 @@
 <div class="flex" [style.maxHeight.px]="maxHeigth">
-<span class="btn btn-primary" (click)="changeFormType()">
+<span *ngIf="formType !== 'folderEdit' && formType !== 'todoEdit'" class="btn btn-primary" (click)="changeFormType()">
   {{btnTitle}}
 </span>
-
-<form *ngIf="formType === 'todo'" id="form" [formGroup]="todoForm" (ngSubmit)="onCreate()">
+<!-- edit item -->
+<form *ngIf="modalType" 
+    id="form"
+    [formGroup]="editForm" 
+    (ngSubmit)="onSubmit()">
+    <div class="form__content">
+      <input required type="text" name="text" placeholder="Edit Name" formControlName="name">
+    </div>
+</form>
+<!-- create todo -->
+<form *ngIf="formType === 'todo'" 
+    id="form"
+    [formGroup]="todoForm" 
+    (ngSubmit)="onSubmit()">
   <div class="form__content" [style.maxHeight.px]="maxHeigth">
     <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name" >
       <ng-container *ngTemplateOutlet="categoriesPick"></ng-container>
@@ -24,27 +36,31 @@
       </ul>
   </div>
 </form>
-
-<form *ngIf="formType === 'folder'" id="form" [formGroup]="folderForm" (ngSubmit)="onCreate()">
+<!-- create folder -->
+<form id="form"
+    *ngIf="formType === 'folder'"
+    [formGroup]="folderForm"
+    (ngSubmit)="onSubmit()">
   <div class="form__content" [style.maxHeight.px]="maxHeigth">
     <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name" >
     <ng-container *ngTemplateOutlet="categoriesPick"></ng-container>
   </div>
 </form>
-
-<form *ngIf="formType === 'category'" id="form" [formGroup]="categoryForm" (ngSubmit)="onCreate()">
+<!-- create category -->
+<form *ngIf="formType === 'category'" id="form" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
   <div class="form__content" >
     <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name" >
   </div>
 </form>
-
+<!-- submit btn -->
 <button type="submit" class="btn btn__big btn__add-todo" 
-  [disabled]="isValid(formType)" 
-  (click)="onCreate()">
-  <app-svg-icon 
-    [svgPath]="'../../../../../assets/icons/plus.svg'" 
+  [disabled]="isValid()" 
+  (click)="onSubmit()">
+  <app-svg-icon *ngIf="formType != 'folderEdit'"
+    [svgPath]="'../../../../assets/icons/plus.svg'" 
     [width]="'20'" [height]="'20'">
   </app-svg-icon>
+  <span *ngIf="modalType">edit</span>
 </button>
 </div>
 

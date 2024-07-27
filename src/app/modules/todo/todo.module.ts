@@ -6,7 +6,6 @@ import { TodoPageComponent } from './pages/todo-page/todo-page.component';
 import { RouterModule } from '@angular/router';
 import { todoRoutes } from './todo.routes';
 import { TodoWidgetComponent } from './widgets/todo-widget/todo-widget.component';
-import { TodoCreateFormUiComponent } from './ui/todo-create-form-ui/todo-create-form-ui.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoListUiComponent } from './ui/todo-list-ui/todo-list-ui.component';
 import { TodoListItemUiComponent } from './ui/todo-list-item-ui/todo-list-item-ui.component';
@@ -23,6 +22,7 @@ import { CategoryFilterPipe } from './common/pipes/category/category-filter.pipe
 import { CategoryService } from './common/services/category.service';
 import { LocalstorageService } from './common/services/localstorage.service';
 import { TodoPipe } from './common/pipes/todo/todo.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -30,7 +30,6 @@ import { TodoPipe } from './common/pipes/todo/todo.pipe';
   declarations: [
     TodoPageComponent,
     TodoWidgetComponent,
-    TodoCreateFormUiComponent,
     TodoListUiComponent,
     TodoListItemUiComponent,
     TodoListEditUiComponent,
@@ -40,7 +39,7 @@ import { TodoPipe } from './common/pipes/todo/todo.pipe';
     FolderListItemUiComponent,
     TodoPipe,
     SwipeComponent,
-    SvgIconComponent,
+    // SvgIconComponent,
   ],
   imports: [
     CommonModule,
@@ -49,11 +48,12 @@ import { TodoPipe } from './common/pipes/todo/todo.pipe';
     FormsModule,
     DragDropModule,
     ModalModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   exports: [
     TodoWidgetComponent,
-    SvgIconComponent
+    // SvgIconComponent
   ],
   providers: [
     ModalService,

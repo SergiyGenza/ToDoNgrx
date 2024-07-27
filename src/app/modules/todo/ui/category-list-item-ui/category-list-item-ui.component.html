@@ -22,14 +22,13 @@
   
   <app-swipe *ngFor="let folder of category.foldersList"
     [folder]="folder"
-    (openEditMode)="onEdit(folder)"
+    (openEditMode)="onEditFolder(folder)"
     (deleteItem)="onFolderDelete(folder)">
     <app-folder-list-item-ui
       [todoList$]="todoList$" 
       [folder]="folder"
       (deleteItem)="onDelete($event)"
       (toggle)="onToggle($event)"
-      (deleteFolder)="onFolderDelete($event)"
       (edit)="onEdit($event)">
     </app-folder-list-item-ui>
   </app-swipe>

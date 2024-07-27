@@ -9,6 +9,7 @@ import { ModalService } from 'src/app/modules/modal/services/modal.service';
 import { Category } from '../../common/models/category.model';
 import { CreateItem } from '../../common/models/create-item.model';
 import { LocalstorageService } from '../../common/services/localstorage.service';
+import { Folder } from '../../common/models/folder.model';
 
 @Component({
   selector: 'app-todo-widget',
@@ -56,10 +57,23 @@ export class TodoWidgetComponent implements OnInit {
     this.todoStore$.dispatch(new TodoDeleteAction({ id }));
   }
 
+  public onFolderEdit(folder: Folder): void {
+    let option = this.modalServeice.open(this.modalTemplate, {
+      size: 'lg',
+      title: 'Edit Folder',
+      type: 'folderEdit',
+      folder: folder
+    });
+    option.subscribe(option => {
+      console.log(option);
+      // this.todoStore$.dispatch(new TodoEditAction({ id, name }));
+    });
+  }
+
   public onFolderDelete({ id, name }: { id: number, name: string }): void {
     let option = this.modalServeice.open(this.modalTemplate, {
       size: 'lg',
-      title: "Delete Folder",
+      title: 'Delete Folder',
       type: 'folderDelete'
     });
     option.subscribe(option => {
@@ -75,6 +89,19 @@ export class TodoWidgetComponent implements OnInit {
 
   public onItemEdit({ id, name }: { id: number, name: string }): void {
     this.todoStore$.dispatch(new TodoEditAction({ id, name }));
+  }
+
+  public onTodoItemEdit(todo: Todo) {
+    let option = this.modalServeice.open(this.modalTemplate, {
+      size: 'lg',
+      title: 'Edit Todo',
+      type: 'todoEdit',
+      todo: todo
+    });
+    option.subscribe(option => {
+      const {id, name} = option;
+      this.todoStore$.dispatch(new TodoEditAction({ id, name }));
+    });
   }
 
   public onCategoryPick(pickedCategory: string): void {

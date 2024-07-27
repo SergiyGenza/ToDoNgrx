@@ -1,5 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Folder } from '../../todo/common/models/folder.model';
+import { Todo } from '../../todo/common/models/todo.model';
+import { EditItem } from '../../todo/common/models/create-item.model';
 
 @Component({
   selector: 'app-modal-ui',
@@ -10,6 +13,8 @@ export class ModalUiComponent {
   @Input() size? = 'md';
   @Input() title? = 'Modal title';
   @Input() type? = '';
+  @Input() folder?: Folder;
+  @Input() todo?: Todo;
 
   form = new FormGroup({
     categoryName: new FormControl(''),
@@ -19,6 +24,8 @@ export class ModalUiComponent {
   @Output() submitEvent = new EventEmitter();
   @Output() createCategoryEvent = new EventEmitter<string | null>();
   @Output() deleteFoldersItems = new EventEmitter<boolean>();
+  @Output() editFolder = new EventEmitter<Folder>();
+  @Output() editTodo = new EventEmitter<Todo>();
 
   constructor(private elementRef: ElementRef) { }
 
@@ -27,21 +34,9 @@ export class ModalUiComponent {
     this.closeEvent.emit();
   }
 
-  submit(): void {
-    switch (this.type) {
-      case 'form': {
-        console.log(this.form.controls.categoryName.value);
-        this.elementRef.nativeElement.remove();
-        this.createCategoryEvent.emit(this.form.controls.categoryName.value)
-        this.form.controls.categoryName.patchValue('');
-        break;
-      }
-      case '': {
-        this.elementRef.nativeElement.remove();
-        this.submitEvent.emit();
-        break;
-      }
-    }
+  public onItemEdit(editItem: EditItem) {
+    this.editTodo.emit(editItem.item);
+    this.close();
   }
 
   public deleteAllFoldersItems(result: boolean) {

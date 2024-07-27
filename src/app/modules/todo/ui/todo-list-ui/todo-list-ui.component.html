@@ -3,21 +3,17 @@
     <app-swipe 
       [todo]="todo"
       [isEdit]="isEdit"
-      (openEditMode)="onEditMode(todo.id)"
+      (openEditMode)="onEditMode($event)"
       (deleteItem)="checkDeleteOnSwipe($event)">
       <!-- todo-item -->
       <app-todo-list-item-ui 
         [todo]="todo"
         (toggle)="onToggle(todo.id)"
         (deleteItem)="onDelete(todo.id)"
-        (edit)="onEditMode(todo.id)">
+        (edit)="onEdit(todo)">
+        <!-- (edit)="onEditMode(todo.id)"> -->
       </app-todo-list-item-ui>
       <!-- edit-todo-item -->
-      <app-todo-list-edit-ui 
-        *ngIf="isEdit"
-        [todo]="todo"
-        (edit)="onEdit($event, todo.id)">
-      </app-todo-list-edit-ui>
     </app-swipe>
   </li>
 </ul>

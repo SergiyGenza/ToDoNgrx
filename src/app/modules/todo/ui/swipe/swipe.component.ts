@@ -18,7 +18,7 @@ export class SwipeComponent {
   setPosition = { x: 0, y: 0 };
 
   public onEdit() {
-    this.openEditMode.emit();
+    this.openEditMode.emit(this.todo);
   }
 
   public onDelete() {

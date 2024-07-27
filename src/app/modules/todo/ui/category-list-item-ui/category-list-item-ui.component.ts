@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
 import { TodoDeleteCategoryAction, TodoDeleteCategoryWithAllItemsAction } from '../../store/todo/todo.actions';
+import { Folder } from '../../common/models/folder.model';
 
 @Component({
   selector: 'app-category-list-item-ui',
@@ -17,7 +18,8 @@ export class CategoryListItemUiComponent implements OnInit, OnChanges {
   @Input() todoList$: Observable<Todo[]> | undefined;
   @Output() deleteItem = new EventEmitter<number>();
   @Output() toggle = new EventEmitter<number>();
-  @Output() edit = new EventEmitter<{ id: number, name: string }>();
+  @Output() editTodo = new EventEmitter<{ id: number, name: string }>();
+  @Output() editFolder = new EventEmitter<Folder>();
   @Output() deleteFolder = new EventEmitter<{ id: number, name: string }>();
 
   public showContent: boolean = true;
@@ -61,7 +63,15 @@ export class CategoryListItemUiComponent implements OnInit, OnChanges {
   }
 
   public onEdit({ id, name }: { id: number, name: string }): void {
-    this.edit.emit({ id, name });
+    console.log(name);
+    
+    this.editTodo.emit({ id, name });
+  }
+
+  public onEditFolder(folder: Folder) {
+    console.log('onEditFolder');
+    
+    this.editFolder.emit(folder);
   }
 
   private checkCurrentCategory(): void {

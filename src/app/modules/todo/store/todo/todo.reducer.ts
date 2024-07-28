@@ -71,6 +71,24 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           }
         ]
       }
+    case todoActionsType.editCategory:
+      return {
+        ...state,
+        categoriesList: state.categoriesList.map(c => c.id === action.payload.id ? {
+          ...c,
+          name: action.payload.name
+        } : c)
+      }
+    case todoActionsType.deleteCategory:
+      return {
+        ...state,
+        todoList: state.todoList.map(todo =>
+          todo.currentCategoryName === action.payload.name
+            ? { ...todo, currentCategoryName: 'all', currentFolderName: '' }
+            : todo
+        ),
+        categoriesList: state.categoriesList.filter(cat => cat.id !== action.payload.id)
+      }
     case todoActionsType.createFolder:
       return {
         ...state,
@@ -125,16 +143,6 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             foldersList: cat.foldersList.filter(folder => folder.id !== action.payload.id)
           };
         })
-      }
-    case todoActionsType.deleteCategory:
-      return {
-        ...state,
-        todoList: state.todoList.map(todo =>
-          todo.currentCategoryName === action.payload.name
-            ? { ...todo, currentCategoryName: 'all', currentFolderName: '' }
-            : todo
-        ),
-        categoriesList: state.categoriesList.filter(cat => cat.id !== action.payload.id)
       }
 
     case todoActionsType.deleteCategoryWithAllItems:

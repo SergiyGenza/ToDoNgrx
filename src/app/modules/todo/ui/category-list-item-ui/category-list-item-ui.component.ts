@@ -42,6 +42,10 @@ export class CategoryListItemUiComponent implements OnInit, OnChanges {
     this.todoStore$.dispatch(new TodoDeleteCategoryWithAllItemsAction({ id, name }));
   }
 
+  onCategoryEdit() {
+    console.log(this.category);
+  }
+
   onCategoryDelete() {
     const { id, name } = this.category;
     this.todoStore$.dispatch(new TodoDeleteCategoryAction({ id, name }));

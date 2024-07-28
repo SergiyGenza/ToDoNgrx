@@ -1,5 +1,6 @@
 <div class="wrapper-title category" *ngIf="!showHeader">
   <span class="category__title">{{category.name}}</span>
+  <button (click)="onCategoryEdit()">edit</button>
   <div class="">
     delete: 
     <button (click)="onAllInfoCategoryDelete()">all</button>

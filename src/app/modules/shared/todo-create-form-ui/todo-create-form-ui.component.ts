@@ -82,8 +82,6 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log('onSubmit');
-    
     switch (this.formType) {
       case 'todo':
         return this.createTodo();
@@ -176,7 +174,7 @@ export class TodoCreateFormUiComponent implements OnInit {
         name: this.editForm.controls.name.value
       }
       console.log('new', todo);
-      
+
       this.editItem.emit({
         type: this.formType,
         todo: todo
@@ -200,8 +198,6 @@ export class TodoCreateFormUiComponent implements OnInit {
         ...this.folderForEdit,
         name: this.editForm.controls.name.value
       }
-      console.log('new', folder);
-
       this.editItem.emit({
         type: this.formType,
         folder: folder

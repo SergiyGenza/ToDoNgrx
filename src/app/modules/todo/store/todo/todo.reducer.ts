@@ -86,7 +86,19 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
               todoItems: [],
             }]
         } : category)
-
+      }
+    case todoActionsType.editFolder:
+      return {
+        ...state,
+        categoriesList: state.categoriesList.map(cat => {
+          return {
+            ...cat,
+            foldersList: cat.foldersList.map(f => f.id === action.payload.id ? {
+              ...f,
+              name: action.payload.name
+            } : f)
+          }
+        })
       }
     case todoActionsType.deleteFolder:
       return {

@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
-import { TodoCategoryCreateAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoToggleAction } from '../../store/todo/todo.actions';
+import { TodoCategoryCreateAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction, TodoToggleAction } from '../../store/todo/todo.actions';
 import { categoriesListSelector, todoListSelector } from '../../store/todo/todo.selectors';
 import { Observable } from 'rxjs';
 import { Todo } from '../../common/models/todo.model';
@@ -65,8 +65,8 @@ export class TodoWidgetComponent implements OnInit {
       folder: folder
     });
     option.subscribe(option => {
-      console.log('option', option);
-      // this.todoStore$.dispatch(new TodoEditAction({ id, name }));
+      const { id, name } = option;
+      this.todoStore$.dispatch(new TodoEditFolderAction({ id, name }));
     });
   }
 
@@ -99,7 +99,7 @@ export class TodoWidgetComponent implements OnInit {
       todo: todo
     });
     option.subscribe(option => {
-      const {id, name} = option;
+      const { id, name } = option;
       this.todoStore$.dispatch(new TodoEditAction({ id, name }));
     });
   }

@@ -9,6 +9,7 @@ export enum todoActionsType {
   loadTodo = '[Todo] loadTodo todo item',
   createCategory = '[Todo] create Category item',
   createFolder = '[Todo] create Folder item',
+  editFolder = '[Folder] editFolder todo item',
   deleteFolder = '[Todo] delete Folder item',
   deleteFolderWithAllItems = '[Todo] delete Folder with all items',
   deleteCategory = '[Todo] delete Category item',
@@ -68,6 +69,14 @@ export class TodoCategoryFolderCreateAction implements Action {
   }) { }
 }
 
+export class TodoEditFolderAction implements Action {
+  readonly type = todoActionsType.editFolder;
+  constructor(public payload: {
+    id: number;
+    name: string;
+  }) { }
+}
+
 export class TodoDeleteFolderAction implements Action {
   readonly type = todoActionsType.deleteFolder;
   constructor(public payload: {
@@ -75,6 +84,7 @@ export class TodoDeleteFolderAction implements Action {
     name: string;
   }) { }
 }
+
 export class TodoDeleteFolderWithAllItemsAction implements Action {
   readonly type = todoActionsType.deleteFolderWithAllItems;
   constructor(public payload: {
@@ -102,4 +112,4 @@ export type TodoActions = TodoCreateAction |
   TodoEditAction | TodoLoadStateAction |
   TodoCategoryCreateAction | TodoCategoryFolderCreateAction |
   TodoDeleteFolderAction | TodoDeleteCategoryAction |
-  TodoDeleteCategoryWithAllItemsAction | TodoDeleteFolderWithAllItemsAction;
+  TodoDeleteCategoryWithAllItemsAction | TodoDeleteFolderWithAllItemsAction | TodoEditFolderAction;

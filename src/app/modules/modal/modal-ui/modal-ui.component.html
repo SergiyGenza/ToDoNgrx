@@ -10,9 +10,10 @@
   </div>
 
   <app-todo-create-form-ui
-    *ngIf="todo"
+    *ngIf="todo || folder"
     [modalType]="type"
     [todoForEdit]="todo"
+    [folderForEdit]="folder"
     (editItem)="onItemEdit($event)">
   </app-todo-create-form-ui>
 

@@ -10,7 +10,6 @@ export interface CreateItem {
 
 export interface EditItem {
   type: string;
-  item: Todo;
-  // itemName: string;
-  // itemId: number
+  todo?: Todo;
+  folder?: Folder;
 }

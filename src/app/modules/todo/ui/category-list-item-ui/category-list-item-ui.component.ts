@@ -63,14 +63,11 @@ export class CategoryListItemUiComponent implements OnInit, OnChanges {
   }
 
   public onEdit({ id, name }: { id: number, name: string }): void {
-    console.log(name);
-    
     this.editTodo.emit({ id, name });
   }
 
   public onEditFolder(folder: Folder) {
     console.log('onEditFolder');
-    
     this.editFolder.emit(folder);
   }
 

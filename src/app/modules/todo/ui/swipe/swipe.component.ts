@@ -13,12 +13,16 @@ export class SwipeComponent {
   @Input() todo!: Todo;
   @Input() folder!: Folder;
   @Output() deleteItem = new EventEmitter<number>();
-  @Output() openEditMode = new EventEmitter<Todo>();
+  @Output() openEditMode = new EventEmitter<any>();
 
   setPosition = { x: 0, y: 0 };
 
   public onEdit() {
-    this.openEditMode.emit(this.todo);
+    if (this.todo) {
+      this.openEditMode.emit(this.todo);
+    } else if (this.folder) {
+      this.openEditMode.emit(this.folder);
+    }
   }
 
   public onDelete() {

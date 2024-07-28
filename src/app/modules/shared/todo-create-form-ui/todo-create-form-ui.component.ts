@@ -55,10 +55,15 @@ export class TodoCreateFormUiComponent implements OnInit {
 
   ngOnInit(): void {
     this.setDefaultCategory();
+    // need ref
     if (this.modalType) {
       this.formType = this.modalType;
       this.btnTitle = this.formType;
-      this.editForm.controls.name.patchValue(this.todoForEdit!.name);
+      if (this.todoForEdit) {
+        this.editForm.controls.name.patchValue(this.todoForEdit!.name);
+      } else if (this.folderForEdit) {
+        this.editForm.controls.name.patchValue(this.folderForEdit!.name);
+      }
     }
   }
 
@@ -86,8 +91,8 @@ export class TodoCreateFormUiComponent implements OnInit {
         return this.editTodo();
       case 'folder':
         return this.createFolder();
-      // case 'folderEdit':
-      //   return this.editFolder();
+      case 'folderEdit':
+        return this.editFolder();
       case 'category':
         return this.createCategory();
     }
@@ -174,7 +179,7 @@ export class TodoCreateFormUiComponent implements OnInit {
       
       this.editItem.emit({
         type: this.formType,
-        item: todo
+        todo: todo
       })
     }
   }
@@ -190,18 +195,18 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   private editFolder() {
-    console.log('editFolder');
-    //   const {name, currentCategory} = this.folderForm.controls.
-    //   const folder = {
-    //     id: this.folder,
-    //     name: name;
-    //     favourite: boolean;
-    //     todoItems: string[];
-    //   }
-    //   this.editItem.emit(
-    //     type: this.folderForm,
-    //     item: 
-    //   )
+    if (this.folderForEdit && this.editForm.valid) {
+      const folder: Folder = {
+        ...this.folderForEdit,
+        name: this.editForm.controls.name.value
+      }
+      console.log('new', folder);
+
+      this.editItem.emit({
+        type: this.formType,
+        folder: folder
+      })
+    }
   }
 
   private createCategory() {

@@ -65,7 +65,7 @@ export class TodoWidgetComponent implements OnInit {
       folder: folder
     });
     option.subscribe(option => {
-      console.log(option);
+      console.log('option', option);
       // this.todoStore$.dispatch(new TodoEditAction({ id, name }));
     });
   }

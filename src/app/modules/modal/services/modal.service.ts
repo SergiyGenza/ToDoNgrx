@@ -21,7 +21,7 @@ export class ModalService {
     const modalComponentFactory = this.resolver.resolveComponentFactory(ModalUiComponent);
     const contentViewRef = content.createEmbeddedView(null);
     const modalComponent = modalComponentFactory.create(this.injector, [contentViewRef.rootNodes,]);
-
+    
     modalComponent.instance.size = options?.size;
     modalComponent.instance.title = options?.title;
     modalComponent.instance.type = options?.type;
@@ -33,6 +33,7 @@ export class ModalService {
     modalComponent.instance.createCategoryEvent.subscribe((item) => this.submitForm(item));
     modalComponent.instance.deleteFoldersItems.subscribe((item) => this.onFolderDelete(item));
     modalComponent.instance.editTodo.subscribe((item) => this.editTodo(item));
+    modalComponent.instance.editFolder.subscribe((item) => this.editFolder(item));
 
     modalComponent.hostView.detectChanges()
     this.document.body.appendChild(modalComponent.location.nativeElement);
@@ -47,6 +48,11 @@ export class ModalService {
 
   editTodo(todo: any) {
     this.modalNotifired?.next(todo);
+    this.closeModal();
+  }
+
+  editFolder(folder: any) {
+    this.modalNotifired?.next(folder);
     this.closeModal();
   }
 

@@ -1,5 +1,4 @@
 import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Folder } from '../../todo/common/models/folder.model';
 import { Todo } from '../../todo/common/models/todo.model';
 import { EditItem } from '../../todo/common/models/create-item.model';
@@ -16,16 +15,13 @@ export class ModalUiComponent {
   @Input() folder?: Folder;
   @Input() todo?: Todo;
 
-  form = new FormGroup({
-    categoryName: new FormControl(''),
-  })
 
   @Output() closeEvent = new EventEmitter();
   @Output() submitEvent = new EventEmitter();
   @Output() createCategoryEvent = new EventEmitter<string | null>();
   @Output() deleteFoldersItems = new EventEmitter<boolean>();
-  @Output() editFolder = new EventEmitter<Folder>();
   @Output() editTodo = new EventEmitter<Todo>();
+  @Output() editFolder = new EventEmitter<Folder>();
 
   constructor(private elementRef: ElementRef) { }
 
@@ -35,7 +31,11 @@ export class ModalUiComponent {
   }
 
   public onItemEdit(editItem: EditItem) {
-    this.editTodo.emit(editItem.item);
+    if (editItem.todo) {
+      this.editTodo.emit(editItem.todo);
+    } else if (editItem.folder) {
+      this.editFolder.emit(editItem.folder);
+    }
     this.close();
   }
 

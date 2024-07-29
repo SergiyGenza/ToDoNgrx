@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { Todo } from '../../common/models/todo.model';
 import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 import { Folder } from '../../common/models/folder.model';
@@ -14,12 +14,9 @@ import { TodoCategoryEditAction, TodoDeleteAction, TodoDeleteCategoryAction, Tod
   styleUrls: ['./swipe.component.scss']
 })
 export class SwipeComponent {
-  @Input() isEdit!: boolean;
   @Input() todo!: Todo;
   @Input() folder!: Folder;
   @Input() category!: Category;
-  @Output() deleteItem = new EventEmitter<number>();
-  @Output() openEditMode = new EventEmitter<any>();
 
   @ViewChild('modalTemplate', { static: true }) modalTemplate!: TemplateRef<any>;
 

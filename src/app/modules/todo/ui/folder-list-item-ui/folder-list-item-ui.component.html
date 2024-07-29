@@ -1,6 +1,6 @@
 <div class="wrapper-title folder">
   <span>{{folder.name}}</span>
-  <div (click)="open = !open">
+  <div (click)="isOpen = !isOpen">
     <!-- <app-svg-icon
       [svgPath]="'../../../../../assets/icons/arrow-up_svgrepo.com.svg'"
       [height]="'20'"
@@ -9,9 +9,7 @@
     <img src="../../../../../assets/icons/arrow-up_svgrepo.com.png" alt="">
   </div>
 </div>
-<app-todo-list-ui  *ngIf="open"
-  [todoList]="todoList$ | async | todo:folder" 
-  (deleteItem)="onDelete($event)"
-  (toggle)="onToggle($event)" 
-  (edit)="onEdit($event)">
+<app-todo-list-ui
+  *ngIf="isOpen"
+  [todoList]="todoList$ | async | todo:folder">
 </app-todo-list-ui>

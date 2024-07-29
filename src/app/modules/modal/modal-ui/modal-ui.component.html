@@ -3,7 +3,7 @@
     {{ title }}
     <span class="modal-close" (click)="close()">✕</span>
   </div>
-
+  <!-- need ref -->
   <div class="" *ngIf="type === 'folderDelete'">
     <div class=""><button (click)="deleteAllFoldersItems(true)">delete all</button></div>
     <button (click)="deleteAllFoldersItems(false)">delete only folder</button>
@@ -22,7 +22,6 @@
     [categoryForEdit]="category"
     (editItem)="onItemEdit($event)">
   </app-todo-create-form-ui>
-
 </div>
 
 <div class="modal-backdrop" (click)="close()"></div>

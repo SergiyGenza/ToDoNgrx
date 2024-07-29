@@ -17,7 +17,6 @@ export class ModalUiComponent {
   @Input() folder?: Folder;
   @Input() todo?: Todo;
 
-
   @Output() closeEvent = new EventEmitter();
   @Output() submitEvent = new EventEmitter();
   @Output() createCategoryEvent = new EventEmitter<string | null>();

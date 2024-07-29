@@ -13,10 +13,7 @@
 
   <app-todo-list-ui
     *ngIf="this.currentCategory == 'all'"
-    [todoList]="todoList$ | async | todo:'all'"
-    (deleteItem)="onDelete($event)"
-    (toggle)="onToggle($event)"
-    (edit)="onTodoItemEdit($event)">
+    [todoList]="todoList$ | async | todo:'all'">
   </app-todo-list-ui>
 
   <app-swipe
@@ -25,12 +22,7 @@
     <app-category-list-item-ui 
       [currentCategory]="currentCategory"
       [todoList$]="todoList$"
-      [category]="category"
-      (deleteItem)="onDelete($event)"
-      (deleteFolder)="onFolderDelete($event)"
-      (editTodo)="onItemEdit($event)"
-      (editFolder)="onFolderEdit($event)"
-      (toggle)="onToggle($event)">
+      [category]="category">
     </app-category-list-item-ui>
   </app-swipe>
 

@@ -1,5 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Folder } from '../../todo/common/models/folder.model';
+import { Todo } from '../../todo/common/models/todo.model';
+import { EditItem } from '../../todo/common/models/create-item.model';
+import { Category } from '../../todo/common/models/category.model';
 
 @Component({
   selector: 'app-modal-ui',
@@ -10,41 +13,43 @@ export class ModalUiComponent {
   @Input() size? = 'md';
   @Input() title? = 'Modal title';
   @Input() type? = '';
-
-  form = new FormGroup({
-    categoryName: new FormControl(''),
-  })
+  @Input() category?: Category;
+  @Input() folder?: Folder;
+  @Input() todo?: Todo;
 
   @Output() closeEvent = new EventEmitter();
   @Output() submitEvent = new EventEmitter();
   @Output() createCategoryEvent = new EventEmitter<string | null>();
   @Output() deleteFoldersItems = new EventEmitter<boolean>();
+  @Output() deleteCategoriesItems = new EventEmitter<boolean>();
+  @Output() editTodo = new EventEmitter<Todo>();
+  @Output() editFolder = new EventEmitter<Folder>();
+  @Output() editCategory = new EventEmitter<Category>();
 
   constructor(private elementRef: ElementRef) { }
 
-  close(): void {
+  public close(): void {
     this.elementRef.nativeElement.remove();
     this.closeEvent.emit();
   }
 
-  submit(): void {
-    switch (this.type) {
-      case 'form': {
-        console.log(this.form.controls.categoryName.value);
-        this.elementRef.nativeElement.remove();
-        this.createCategoryEvent.emit(this.form.controls.categoryName.value)
-        this.form.controls.categoryName.patchValue('');
-        break;
-      }
-      case '': {
-        this.elementRef.nativeElement.remove();
-        this.submitEvent.emit();
-        break;
-      }
+  public onItemEdit(editItem: EditItem) {
+    if (editItem.todo) {
+      this.editTodo.emit(editItem.todo);
+    } else if (editItem.folder) {
+      this.editFolder.emit(editItem.folder);
+    } else if (editItem.category) {
+      this.editCategory.emit(editItem.category);
     }
+    this.close();
   }
 
   public deleteAllFoldersItems(result: boolean) {
+    this.deleteFoldersItems.emit(result);
+    this.close();
+  }
+
+  public deleteAllCategoriesItems(result: boolean) {
     this.deleteFoldersItems.emit(result);
     this.close();
   }

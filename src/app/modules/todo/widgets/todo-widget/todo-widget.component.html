@@ -13,22 +13,19 @@
 
   <app-todo-list-ui
     *ngIf="this.currentCategory == 'all'"
-    [todoList]="todoList$ | async | todo:'all'"
-    (deleteItem)="onDelete($event)"
-    (toggle)="onToggle($event)"
-    (edit)="onItemEdit($event)">
+    [todoList]="todoList$ | async | todo:'all'">
   </app-todo-list-ui>
 
-  <app-category-list-item-ui 
-    *ngFor="let category of categoriesList$ | async | categoryFilter:currentCategory"
-    [currentCategory]="currentCategory"
-    [todoList$]="todoList$"
-    [category]="category"
-    (deleteItem)="onDelete($event)"
-    (deleteFolder)="onFolderDelete($event)"
-    (edit)="onItemEdit($event)"
-    (toggle)="onToggle($event)">
-  </app-category-list-item-ui>
+  <app-swipe
+     *ngFor="let category of categoriesList$ | async | categoryFilter:currentCategory"
+     [category]="category">   
+    <app-category-list-item-ui 
+      [currentCategory]="currentCategory"
+      [todoList$]="todoList$"
+      [category]="category">
+    </app-category-list-item-ui>
+  </app-swipe>
+
 </div>
 
 <ng-template #modalTemplate>

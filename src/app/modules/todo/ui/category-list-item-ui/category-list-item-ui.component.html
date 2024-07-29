@@ -1,36 +1,19 @@
 <div class="wrapper-title category" *ngIf="!showHeader">
   <span class="category__title">{{category.name}}</span>
-  <div class="">
-    delete: 
-    <button (click)="onAllInfoCategoryDelete()" >all</button>
-    |
-    <button (click)="onCategoryDelete()" >only category</button>
-  </div>
   <div class="category__open-content" role="btn" >
     <img src="../../../../../assets/icons/arrow-up_svgrepo.com.png" alt="arrow" (click)="showContent = !showContent">
   </div>
 </div>
 
 <ng-template [ngIf]="showContent">
-    
-  <app-todo-list-ui
-    [todoList]="todoList$ | async | todo:category" 
-    (deleteItem)="onDelete($event)" 
-    (toggle)="onToggle($event)"
-    (edit)="onEdit($event)">
-  </app-todo-list-ui>
+  <app-todo-list-ui [todoList]="todoList$ | async | todo:category"></app-todo-list-ui>
   
-  <app-swipe *ngFor="let folder of category.foldersList"
-    [folder]="folder"
-    (openEditMode)="onEdit(folder)"
-    (deleteItem)="onFolderDelete(folder)">
+  <app-swipe
+      *ngFor="let folder of category.foldersList"
+      [folder]="folder">
     <app-folder-list-item-ui
       [todoList$]="todoList$" 
-      [folder]="folder"
-      (deleteItem)="onDelete($event)"
-      (toggle)="onToggle($event)"
-      (deleteFolder)="onFolderDelete($event)"
-      (edit)="onEdit($event)">
+      [folder]="folder">
     </app-folder-list-item-ui>
   </app-swipe>
 

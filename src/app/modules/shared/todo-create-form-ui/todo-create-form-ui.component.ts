@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Category } from '../../common/models/category.model';
-import { Folder } from '../../common/models/folder.model';
-import { CreateItem } from '../../common/models/create-item.model';
+import { Category } from '../../todo/common/models/category.model';
+import { CreateItem, EditItem } from '../../todo/common/models/create-item.model';
+import { Folder } from '../../todo/common/models/folder.model';
+import { Todo } from '../../todo/common/models/todo.model';
 
 @Component({
   selector: 'app-todo-create-form-ui',
@@ -12,7 +13,14 @@ import { CreateItem } from '../../common/models/create-item.model';
 export class TodoCreateFormUiComponent implements OnInit {
   @Input() public categoriesList!: Category[] | null;
   @Input() public currentCategory?: string;
+
+  @Input() public modalType?: string;
+  @Input() public todoForEdit?: Todo;
+  @Input() public folderForEdit?: Folder;
+  @Input() public categoryForEdit?: Category;
+
   @Output() createItem = new EventEmitter<CreateItem>();
+  @Output() editItem = new EventEmitter<EditItem>();
 
   public maxHeigth!: number;
   public activeCategory: Category | null = null;
@@ -24,28 +32,47 @@ export class TodoCreateFormUiComponent implements OnInit {
   public btnTitle: string = this.formType;
 
   public todoForm = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl<string>('', { nonNullable: true, validators: Validators.required }),
     currentFolderName: new FormControl(''),
     currentCategory: new FormControl(''),
   });
 
   public folderForm = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl('', { nonNullable: true, validators: Validators.required }),
     currentCategory: new FormControl('', Validators.required),
   });
 
   public categoryForm = new FormGroup({
-    name: new FormControl('', Validators.required)
+    name: new FormControl('', { nonNullable: true, validators: Validators.required })
   });
+
+  public editForm = new FormGroup({
+    name: new FormControl('', { nonNullable: true, validators: Validators.required })
+  })
 
   constructor() { }
 
+  // best way to ref is to separate it on components
+
   ngOnInit(): void {
     this.setDefaultCategory();
+    // need ref
+    if (this.modalType) {
+      this.formType = this.modalType;
+      this.btnTitle = this.formType;
+      if (this.todoForEdit) {
+        this.editForm.controls.name.patchValue(this.todoForEdit!.name);
+      } else if (this.folderForEdit) {
+        this.editForm.controls.name.patchValue(this.folderForEdit!.name);
+      } else if (this.categoryForEdit) {
+        this.editForm.controls.name.patchValue(this.categoryForEdit!.name);
+      }
+    }
   }
 
-  public isValid(type: string) {
-    switch (type) {
+  public isValid() {
+    // need rework it
+    switch (this.formType) {
       case 'category':
         return !this.categoryForm.valid;
       case 'folder':
@@ -53,18 +80,24 @@ export class TodoCreateFormUiComponent implements OnInit {
       case 'todo':
         return !this.todoForm.valid;
       default:
-        return !this.categoryForm.valid;
+        return !this.editForm.valid;
     }
   }
 
-  public onCreate(): void {
+  public onSubmit(): void {
     switch (this.formType) {
       case 'todo':
         return this.createTodo();
+      case 'todoEdit':
+        return this.editTodo();
       case 'folder':
         return this.createFolder();
+      case 'folderEdit':
+        return this.editFolder();
       case 'category':
         return this.createCategory();
+      case 'categoryEdit':
+        return this.editCategory();
     }
   }
 
@@ -107,7 +140,7 @@ export class TodoCreateFormUiComponent implements OnInit {
         this.categoryForm.controls.name.patchValue(this.todoForm.controls.name.value);
         this.todoForm.reset();
         return this.placeholder = 'Add category';
-        case 'folder':
+      case 'folder':
         this.btnTitle = 'todo'
         this.maxHeigth = 116;
         this.formType = this.btnTitle;
@@ -139,6 +172,21 @@ export class TodoCreateFormUiComponent implements OnInit {
     this.todoForm.controls.name.patchValue('');
   }
 
+  private editTodo() {
+    if (this.todoForEdit && this.editForm.valid) {
+      const todo: Todo = {
+        ...this.todoForEdit,
+        name: this.editForm.controls.name.value
+      }
+      console.log('new', todo);
+
+      this.editItem.emit({
+        type: this.formType,
+        todo: todo
+      })
+    }
+  }
+
   private createFolder() {
     this.createItem.emit({
       type: this.formType,
@@ -149,6 +197,19 @@ export class TodoCreateFormUiComponent implements OnInit {
     this.folderForm.controls.name.patchValue('');
   }
 
+  private editFolder() {
+    if (this.folderForEdit && this.editForm.valid) {
+      const folder: Folder = {
+        ...this.folderForEdit,
+        name: this.editForm.controls.name.value
+      }
+      this.editItem.emit({
+        type: this.formType,
+        folder: folder
+      })
+    }
+  }
+
   private createCategory() {
     this.createItem.emit({
       type: this.formType,
@@ -157,5 +218,18 @@ export class TodoCreateFormUiComponent implements OnInit {
       currentFolderName: '',
     });
     this.categoryForm.controls.name.patchValue('');
+  }
+
+  private editCategory() {
+    if (this.categoryForm && this.editForm.valid) {
+      const category: Category = {
+        ...this.categoryForEdit!,
+        name: this.editForm.controls.name.value
+      }
+      this.editItem.emit({
+        type: this.formType,
+        category: category
+      })
+    }
   }
 }

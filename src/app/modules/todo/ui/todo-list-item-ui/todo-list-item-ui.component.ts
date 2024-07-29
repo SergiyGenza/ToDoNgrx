@@ -22,7 +22,9 @@ export class TodoListItemUiComponent {
   }
 
   public onEdit() {
-    this.edit.emit()
+    this.edit.emit();
+    console.log('onEdit');
+    
   }
 
 }

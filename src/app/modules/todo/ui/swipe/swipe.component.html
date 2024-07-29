@@ -1,81 +1,34 @@
-<!-- <div class="swipe-area-container"> -->
-  <div class="task-item" *ngIf="todo">
-    <div class="task-item__content"
-      *ngIf="!isEdit"
-      cdkDrag cdkDragLockAxis="x"
-      cdkDragBoundary=".app-container"
-      (cdkDragEnded)="dragEnd($event, todo)"
-      [cdkDragFreeDragPosition]="setPosition">
-      <ng-content select="app-todo-list-item-ui"></ng-content>
-    </div>
-    <ng-content select="app-todo-list-edit-ui" *ngIf="isEdit"></ng-content>
-    <!-- tool-bar -->
-    <!-- mb add component -->
-    <div class="task-item__tool-bar" *ngIf="!isEdit">
-      <div class="task-item__tool-bar__item">
-        <div class="">
-          <app-svg-icon [svgPath]="'../../../../../assets/icons/priority_svgrepo.com.svg'" [width]="'20'" [height]="'20'">
-          </app-svg-icon>
-        </div>
-        <div class="">
-          <app-svg-icon [svgPath]="'../../../../../assets/icons/edit_svgrepo.com.svg'" [width]="'20'" [height]="'20'">
-          </app-svg-icon>
-        </div>
+<div [ngClass]="{'folder-item': folder, 'task-item': todo, 'category-item': category}">
+  <div
+    [ngClass]="{'folder-item__swipe-wrapper': folder, 'task-item__swipe-wrapper': todo, 'category-item__swipe-wrapper': category}"
+    cdkDrag cdkDragLockAxis="x" cdkDragBoundary=".app-container" (cdkDragEnded)="dragEnd($event)"
+    [cdkDragFreeDragPosition]="setPosition">
+    <ng-content></ng-content>
+  </div>
+  <div [ngClass]="{'folder-item__tool-bar': folder, 'task-item__tool-bar': todo, 'category-item__tool-bar': category}">
+    <div
+      [ngClass]="{'folder-item__tool-bar__item': folder, 'task-item__tool-bar__item': todo, 'category-item__tool-bar__item': category}">
+      <div class="">
+        <app-svg-icon [svgPath]="'../../../../../assets/icons/priority_svgrepo.com.svg'" [width]="'20'" [height]="'20'">
+        </app-svg-icon>
       </div>
-      <div class="task-item__tool-bar__item">
-        <div class="">
-          <app-svg-icon [svgPath]="'../../../../../assets/icons/heart-dark_svgrepo.com.svg'" [width]="'20'" [height]="'20'">
-          </app-svg-icon>
-        </div>
-        <div class="">
-          <app-svg-icon [svgPath]="'../../../../../assets/icons/trash-bin_svgrepo.com.svg'" [width]="'20'" [height]="'20'">
-          </app-svg-icon>
-        </div>
+      <div class="">
+        <app-svg-icon [svgPath]="'../../../../../assets/icons/edit_svgrepo.com.svg'" [width]="'20'" [height]="'20'">
+        </app-svg-icon>
+      </div>
+    </div>
+    <div
+      [ngClass]="{'folder-item__tool-bar__item': folder, 'task-item__tool-bar__item': todo, 'category-item__tool-bar__item': category}">
+      <div class="">
+        <app-svg-icon [svgPath]="'../../../../../assets/icons/trash-bin_svgrepo.com.svg'" [width]="'20'"
+          [height]="'20'">
+        </app-svg-icon>
+      </div>
+      <div class="">
+        <app-svg-icon [svgPath]="'../../../../../assets/icons/heart-dark_svgrepo.com.svg'" [width]="'20'"
+          [height]="'20'">
+        </app-svg-icon>
       </div>
     </div>
   </div>
-  <div class="folder-item" *ngIf="folder">
-    <div class="folder-item__swipe-wrapper"
-      cdkDrag cdkDragLockAxis="x"
-      cdkDragBoundary=".app-container"
-      (cdkDragEnded)="dragEnd($event, todo)"
-      [cdkDragFreeDragPosition]="setPosition">
-      <ng-content selector="app-folder-list-item-ui"></ng-content>
-    </div>
-      <!-- mb add component -->
-    <div class="folder-item__tool-bar" >
-      <div class="folder-item__tool-bar__item">
-        <div class="">
-          <app-svg-icon
-            [svgPath]="'../../../../../assets/icons/priority_svgrepo.com.svg'"
-            [width]="'20'"
-            [height]="'20'">
-          </app-svg-icon>
-        </div>
-        <div class="">
-          <app-svg-icon
-            [svgPath]="'../../../../../assets/icons/edit_svgrepo.com.svg'"
-            [width]="'20'"
-            [height]="'20'">
-          </app-svg-icon>
-        </div>
-      </div>
-      <div class="folder-item__tool-bar__item">
-        <div class="">
-          <app-svg-icon
-            [svgPath]="'../../../../../assets/icons/trash-bin_svgrepo.com.svg'"
-            [width]="'20'"
-            [height]="'20'">
-          </app-svg-icon>
-        </div>
-        <div class="">
-          <app-svg-icon
-            [svgPath]="'../../../../../assets/icons/heart-dark_svgrepo.com.svg'"
-            [width]="'20'" 
-            [height]="'20'">
-          </app-svg-icon>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- </div> -->
+</div>

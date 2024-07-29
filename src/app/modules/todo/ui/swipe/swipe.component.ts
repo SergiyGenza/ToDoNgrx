@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Todo } from '../../common/models/todo.model';
 import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 import { Folder } from '../../common/models/folder.model';
+import { Category } from '../../common/models/category.model';
 
 @Component({
   selector: 'app-swipe',
@@ -12,6 +13,7 @@ export class SwipeComponent {
   @Input() isEdit!: boolean;
   @Input() todo!: Todo;
   @Input() folder!: Folder;
+  @Input() category!: Category;
   @Output() deleteItem = new EventEmitter<number>();
   @Output() openEditMode = new EventEmitter<any>();
 
@@ -34,7 +36,7 @@ export class SwipeComponent {
   }
 
   // mb try derective
-  public dragEnd($event: CdkDragEnd, todo: Todo) {
+  public dragEnd($event: CdkDragEnd) {
     let pos: Point = $event.source.getFreeDragPosition();
     this.setPosition.x = pos.x;
     console.log(pos.x);

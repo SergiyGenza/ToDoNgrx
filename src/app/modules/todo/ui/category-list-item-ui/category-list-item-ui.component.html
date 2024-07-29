@@ -13,7 +13,6 @@
 </div>
 
 <ng-template [ngIf]="showContent">
-    
   <app-todo-list-ui
     [todoList]="todoList$ | async | todo:category" 
     (deleteItem)="onDelete($event)" 
@@ -21,10 +20,11 @@
     (edit)="onEdit($event)">
   </app-todo-list-ui>
   
-  <app-swipe *ngFor="let folder of category.foldersList"
-    [folder]="folder"
-    (openEditMode)="onEditFolder(folder)"
-    (deleteItem)="onFolderDelete(folder)">
+  <app-swipe
+      *ngFor="let folder of category.foldersList"
+      [folder]="folder"
+      (openEditMode)="onEditFolder(folder)"
+      (deleteItem)="onFolderDelete(folder)">
     <app-folder-list-item-ui
       [todoList$]="todoList$" 
       [folder]="folder"

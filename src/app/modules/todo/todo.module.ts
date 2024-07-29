@@ -17,7 +17,6 @@ import { ModalModule } from '../modal/modal.module';
 import { CategoryListItemUiComponent } from './ui/category-list-item-ui/category-list-item-ui.component';
 import { FolderListItemUiComponent } from './ui/folder-list-item-ui/folder-list-item-ui.component';
 import { SwipeComponent } from './ui/swipe/swipe.component';
-import { SvgIconComponent } from './ui/svg-icon/svg-icon.component';
 import { CategoryFilterPipe } from './common/pipes/category/category-filter.pipe';
 import { CategoryService } from './common/services/category.service';
 import { LocalstorageService } from './common/services/localstorage.service';
@@ -39,7 +38,6 @@ import { SharedModule } from '../shared/shared.module';
     FolderListItemUiComponent,
     TodoPipe,
     SwipeComponent,
-    // SvgIconComponent,
   ],
   imports: [
     CommonModule,
@@ -53,7 +51,6 @@ import { SharedModule } from '../shared/shared.module';
   ],
   exports: [
     TodoWidgetComponent,
-    // SvgIconComponent
   ],
   providers: [
     ModalService,

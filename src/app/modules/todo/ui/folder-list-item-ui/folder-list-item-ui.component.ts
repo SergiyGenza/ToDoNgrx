@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Folder } from '../../common/models/folder.model';
 import { Observable } from 'rxjs';
 import { Todo } from '../../common/models/todo.model';
@@ -8,7 +8,11 @@ import { Todo } from '../../common/models/todo.model';
   templateUrl: './folder-list-item-ui.component.html',
   styleUrls: ['./folder-list-item-ui.component.scss']
 })
-export class FolderListItemUiComponent {
+export class FolderListItemUiComponent implements OnInit {
+  ngOnInit(): void {
+    console.log(this.folder);
+  }
+
   @Input() todoList$: Observable<Todo[]> | undefined;
   @Input() folder!: Folder;
   @Output() deleteItem = new EventEmitter<number>();

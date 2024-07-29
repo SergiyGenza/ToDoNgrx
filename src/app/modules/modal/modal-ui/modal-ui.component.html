@@ -9,11 +9,17 @@
     <button (click)="deleteAllFoldersItems(false)">delete only folder</button>
   </div>
 
+  <div class="" *ngIf="type === 'categoryDelete'">
+    <div class=""><button (click)="deleteAllCategoriesItems(true)">delete all</button></div>
+    <button (click)="deleteAllCategoriesItems(false)">delete only Category</button>
+  </div>
+
   <app-todo-create-form-ui
-    *ngIf="todo || folder"
+    *ngIf="todo || folder || category"
     [modalType]="type"
     [todoForEdit]="todo"
     [folderForEdit]="folder"
+    [categoryForEdit]="category"
     (editItem)="onItemEdit($event)">
   </app-todo-create-form-ui>
 

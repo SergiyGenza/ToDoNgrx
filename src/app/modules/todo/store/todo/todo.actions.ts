@@ -124,4 +124,5 @@ export type TodoActions = TodoCreateAction |
   TodoEditAction | TodoLoadStateAction |
   TodoCategoryCreateAction | TodoCategoryFolderCreateAction |
   TodoDeleteFolderAction | TodoDeleteCategoryAction |
-  TodoDeleteCategoryWithAllItemsAction | TodoDeleteFolderWithAllItemsAction | TodoEditFolderAction | TodoCategoryEditAction;
+  TodoDeleteCategoryWithAllItemsAction | TodoDeleteFolderWithAllItemsAction |
+  TodoEditFolderAction | TodoCategoryEditAction;

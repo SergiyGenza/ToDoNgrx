@@ -17,6 +17,7 @@ export class TodoCreateFormUiComponent implements OnInit {
   @Input() public modalType?: string;
   @Input() public todoForEdit?: Todo;
   @Input() public folderForEdit?: Folder;
+  @Input() public categoryForEdit?: Category;
 
   @Output() createItem = new EventEmitter<CreateItem>();
   @Output() editItem = new EventEmitter<EditItem>();
@@ -63,6 +64,8 @@ export class TodoCreateFormUiComponent implements OnInit {
         this.editForm.controls.name.patchValue(this.todoForEdit!.name);
       } else if (this.folderForEdit) {
         this.editForm.controls.name.patchValue(this.folderForEdit!.name);
+      } else if (this.categoryForEdit) {
+        this.editForm.controls.name.patchValue(this.categoryForEdit!.name);
       }
     }
   }
@@ -93,6 +96,8 @@ export class TodoCreateFormUiComponent implements OnInit {
         return this.editFolder();
       case 'category':
         return this.createCategory();
+      case 'categoryEdit':
+        return this.editCategory();
     }
   }
 
@@ -213,5 +218,18 @@ export class TodoCreateFormUiComponent implements OnInit {
       currentFolderName: '',
     });
     this.categoryForm.controls.name.patchValue('');
+  }
+
+  private editCategory() {
+    if (this.categoryForm && this.editForm.valid) {
+      const category: Category = {
+        ...this.categoryForEdit!,
+        name: this.editForm.controls.name.value
+      }
+      this.editItem.emit({
+        type: this.formType,
+        category: category
+      })
+    }
   }
 }

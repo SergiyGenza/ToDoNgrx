@@ -1,5 +1,6 @@
+<!-- need ref -->
 <div class="flex" [style.maxHeight.px]="maxHeigth">
-  <span *ngIf="formType !== 'folderEdit' && formType !== 'todoEdit'"
+  <span *ngIf="formType !== 'folderEdit' && formType !== 'todoEdit' && formType !== 'categoryEdit'"
     class="btn btn-primary" (click)="changeFormType()">
     {{btnTitle}}
   </span>

@@ -85,19 +85,21 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    switch (this.formType) {
-      case 'todo':
-        return this.createTodo();
-      case 'todoEdit':
-        return this.editTodo();
-      case 'folder':
-        return this.createFolder();
-      case 'folderEdit':
-        return this.editFolder();
-      case 'category':
-        return this.createCategory();
-      case 'categoryEdit':
-        return this.editCategory();
+    if (this.todoForm.valid || this.folderForm.valid || this.categoryForm.valid || this.editForm.valid) {
+      switch (this.formType) {
+        case 'todo':
+          return this.createTodo();
+        case 'todoEdit':
+          return this.editTodo();
+        case 'folder':
+          return this.createFolder();
+        case 'folderEdit':
+          return this.editFolder();
+        case 'category':
+          return this.createCategory();
+        case 'categoryEdit':
+          return this.editCategory();
+      }
     }
   }
 

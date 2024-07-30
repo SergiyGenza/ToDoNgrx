@@ -22,6 +22,7 @@ import { CategoryService } from './common/services/category.service';
 import { LocalstorageService } from './common/services/localstorage.service';
 import { TodoPipe } from './common/pipes/todo/todo.pipe';
 import { SharedModule } from '../shared/shared.module';
+import { ActionsService } from './common/services/actions.service';
 
 
 
@@ -55,7 +56,8 @@ import { SharedModule } from '../shared/shared.module';
   providers: [
     ModalService,
     CategoryService,
-    LocalstorageService
+    LocalstorageService,
+    ActionsService
   ]
 })
 export class TodoModule { }

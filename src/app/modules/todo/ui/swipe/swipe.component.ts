@@ -3,10 +3,8 @@ import { Todo } from '../../common/models/todo.model';
 import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 import { Folder } from '../../common/models/folder.model';
 import { Category } from '../../common/models/category.model';
-import { Store } from '@ngrx/store';
-import { TodoState } from '../../store/todo/todo.reducer';
 import { ModalService } from 'src/app/modules/modal/services/modal.service';
-import { TodoCategoryEditAction, TodoDeleteAction, TodoDeleteCategoryAction, TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction } from '../../store/todo/todo.actions';
+import { ActionsService } from '../../common/services/actions.service';
 
 @Component({
   selector: 'app-swipe',
@@ -23,8 +21,8 @@ export class SwipeComponent {
   setPosition = { x: 0, y: 0 };
 
   constructor(
-    private todoStore$: Store<TodoState>,
     private modalService: ModalService,
+    private actionsService: ActionsService,
   ) { }
 
   public onEdit() {
@@ -89,10 +87,7 @@ export class SwipeComponent {
       type: 'todoEdit',
       todo: todo
     });
-    option.subscribe(option => {
-      const { id, name } = option;
-      this.todoStore$.dispatch(new TodoEditAction({ id, name }));
-    });
+    option.subscribe(option => this.actionsService.todoEdit(option))
   }
 
   private onFolderEdit(folder: Folder): void {
@@ -102,10 +97,7 @@ export class SwipeComponent {
       type: 'folderEdit',
       folder: folder
     });
-    option.subscribe(option => {
-      const { id, name } = option;
-      this.todoStore$.dispatch(new TodoEditFolderAction({ id, name }));
-    });
+    option.subscribe(option => this.actionsService.folderEdit(option));
   }
 
   private onCategoryEdit(category: Category): void {
@@ -115,18 +107,14 @@ export class SwipeComponent {
       type: 'categoryEdit',
       category: category
     });
-    option.subscribe(option => {
-      const { id, name } = option;
-      this.todoStore$.dispatch(new TodoCategoryEditAction({ id, name }));
-    });
+    option.subscribe(option => this.actionsService.categoryEdit(option));
   }
 
-  private onTodoDelete(todo: Todo) {
-    const { id } = todo;
-    this.todoStore$.dispatch(new TodoDeleteAction({ id }));
+  private onTodoDelete(todo: Todo): void {
+    this.actionsService.todoDelete(todo);
   }
 
-  private onFolderDelete({ id, name }: { id: number, name: string }): void {
+  private onFolderDelete(folder: Folder): void {
     let option = this.modalService.open(this.modalTemplate, {
       size: 'lg',
       title: 'Delete Folder',
@@ -134,12 +122,12 @@ export class SwipeComponent {
     });
     option.subscribe(option => {
       option
-        ? this.todoStore$.dispatch(new TodoDeleteFolderWithAllItemsAction({ id, name }))
-        : this.todoStore$.dispatch(new TodoDeleteFolderAction({ id, name }))
+        ? this.actionsService.deleteFolderWithAllItems(folder)
+        : this.actionsService.deleteFolderAction(folder);
     });
   }
 
-  private onCategoryDelete({ id, name }: { id: number, name: string }): void {
+  private onCategoryDelete(category: Category): void {
     let option = this.modalService.open(this.modalTemplate, {
       size: 'lg',
       title: 'Delete Category',
@@ -147,8 +135,8 @@ export class SwipeComponent {
     });
     option.subscribe(option => {
       option
-        ? this.todoStore$.dispatch(new TodoDeleteCategoryWithAllItemsAction({ id, name }))
-        : this.todoStore$.dispatch(new TodoDeleteCategoryAction({ id, name }))
+        ? this.actionsService.deleteCategoryWithAllItems(category)
+        : this.actionsService.deleteCategoryAction(category);
     });
   }
 }

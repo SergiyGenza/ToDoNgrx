@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
-import { TodoCategoryCreateAction, TodoCategoryFolderCreateAction, TodoCreateAction } from '../../store/todo/todo.actions';
 import { categoriesListSelector, todoListSelector } from '../../store/todo/todo.selectors';
 import { Observable } from 'rxjs';
 import { Todo } from '../../common/models/todo.model';
 import { Category } from '../../common/models/category.model';
 import { CreateItem } from '../../common/models/create-item.model';
 import { LocalstorageService } from '../../common/services/localstorage.service';
+import { ActionsService } from '../../common/services/actions.service';
 
 @Component({
   selector: 'app-todo-widget',
@@ -22,6 +22,7 @@ export class TodoWidgetComponent {
   constructor(
     private todoStore$: Store<TodoState>,
     private localStorageService: LocalstorageService,
+    private actionsService: ActionsService,
   ) {
     localStorageService.initTodos();
     this.currentCategory = localStorageService.loadCurrentCategoryFromStorage();
@@ -30,16 +31,14 @@ export class TodoWidgetComponent {
   }
 
   public onItemCreate(createItem: CreateItem): void {
-    const { name, type, currentFolderName, currentCategoryName } = createItem;
+    const { type } = createItem;
     switch (type) {
       case 'todo':
-        return this.todoStore$.dispatch(new TodoCreateAction({ name, currentCategoryName, currentFolderName }));
+        return this.actionsService.todoCreate(createItem);
       case 'folder':
-        let categoryName = currentCategoryName;
-        let folderName = name;
-        return this.todoStore$.dispatch(new TodoCategoryFolderCreateAction({ categoryName, folderName }));
+        return this.actionsService.folderCreate(createItem);
       case 'category':
-        return this.todoStore$.dispatch(new TodoCategoryCreateAction({ name }));
+        return this.actionsService.categoryCreate(createItem);
     }
   }
 

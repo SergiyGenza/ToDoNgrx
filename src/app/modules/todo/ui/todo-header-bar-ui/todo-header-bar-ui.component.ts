@@ -8,18 +8,18 @@ import { Category } from '../../common/models/category.model';
 })
 export class TodoHeaderBarUiComponent {
   @Input() categoriesList?: Category[] | null;
-  @Input() currentCategory?: string;
-  @Output() currentCategoryEmmiter = new EventEmitter<string>();
+  @Input() currentCategory?: Category | null;
+  @Output() currentCategoryEmmiter = new EventEmitter<Category | null>();
 
   constructor() { }
 
   public onCategoryPick(catagory: Category): void {
-    this.currentCategory = catagory.name;
-    this.currentCategoryEmmiter.emit(catagory.name);
+    this.currentCategory = catagory;
+    this.currentCategoryEmmiter.emit(catagory);
   }
 
   public onAllCategoriesPick(): void {
-    this.currentCategory = 'all';
-    this.currentCategoryEmmiter.emit('all');
+    this.currentCategory = null;
+    this.currentCategoryEmmiter.emit(null);
   }
 }

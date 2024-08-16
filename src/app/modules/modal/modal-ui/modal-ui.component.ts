@@ -1,7 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { Folder } from '../../todo/common/models/folder.model';
 import { Todo } from '../../todo/common/models/todo.model';
-import { EditItem } from '../../todo/common/models/create-item.model';
 import { Category } from '../../todo/common/models/category.model';
 
 @Component({
@@ -26,14 +25,16 @@ export class ModalUiComponent {
   @Output() editFolder = new EventEmitter<Folder>();
   @Output() editCategory = new EventEmitter<Category>();
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(
+    private elementRef: ElementRef,
+  ) { }
 
   public close(): void {
     this.elementRef.nativeElement.remove();
     this.closeEvent.emit();
   }
 
-  public onItemEdit(editItem: EditItem) {
+  public onItemEdit(editItem: any) {
     if (editItem.todo) {
       this.editTodo.emit(editItem.todo);
     } else if (editItem.folder) {

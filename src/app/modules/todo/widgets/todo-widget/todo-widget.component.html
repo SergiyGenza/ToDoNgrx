@@ -2,7 +2,9 @@
   <app-todo-create-form-ui
     [categoriesList]="categoriesList$ | async"
     [currentCategory]="currentCategory"
-    (createItem)="onItemCreate($event)">
+    (createTotoEmitter)="onTodoCreate($event)"
+    (createCategoryEmitter)="onCategoryCreate($event)"
+    (createFolderEmitter)="onFolderCreate($event)">
   </app-todo-create-form-ui>
 
   <app-todo-header-bar-ui
@@ -12,20 +14,19 @@
   </app-todo-header-bar-ui>
 
   <app-todo-list-ui
-    *ngIf="this.currentCategory == 'all'"
-    [todoList]="todoList$ | async | todo:'all'">
+    *ngIf="!!!this.currentCategory"
+    [todoList]="todoList$ | async | todo:null">
   </app-todo-list-ui>
 
   <app-swipe
      *ngFor="let category of categoriesList$ | async | categoryFilter:currentCategory"
-     [category]="category">   
+     [category]="category">
     <app-category-list-item-ui 
       [currentCategory]="currentCategory"
       [todoList$]="todoList$"
       [category]="category">
     </app-category-list-item-ui>
   </app-swipe>
-
 </div>
 
 <ng-template #modalTemplate>

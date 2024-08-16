@@ -1,9 +1,12 @@
-export interface Todo {
-  id: number;
+export interface TodoCreate {
   name: string;
-  completed: boolean;
+  favourite?: boolean;
   priority?: string;
-  favourite: boolean;
-  currentFolderName: string;
-  currentCategoryName: string;
+  currentFolderId: number | null;
+  currentCategoryId: number | null;
+}
+
+export interface Todo extends TodoCreate {
+  id: number;
+  completed: boolean;
 }

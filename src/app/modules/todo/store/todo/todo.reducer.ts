@@ -28,8 +28,8 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             id: state.idIncrement,
             name: action.payload.name,
             completed: false,
-            currentFolderName: action.payload.currentFolderName,
-            currentCategoryName: action.payload.currentCategoryName,
+            currentFolderId: action.payload.currentFolderId,
+            currentCategoryId: action.payload.currentCategoryId,
           }
         ]
       };
@@ -83,8 +83,8 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
       return {
         ...state,
         todoList: state.todoList.map(todo =>
-          todo.currentCategoryName === action.payload.name
-            ? { ...todo, currentCategoryName: 'all', currentFolderName: '' }
+          todo.currentCategoryId === action.payload.id
+            ? { ...todo, currentCategory: null, currentFolder: null }
             : todo
         ),
         categoriesList: state.categoriesList.filter(cat => cat.id !== action.payload.id)
@@ -93,7 +93,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
       return {
         ...state,
         idIncrement: state.idIncrement + 1,
-        categoriesList: state.categoriesList.map(category => category.name === action.payload.categoryName ? {
+        categoriesList: state.categoriesList.map(category => category.id === action.payload.currentCategoryId ? {
           ...category,
           foldersList: [
             ...category.foldersList,
@@ -122,8 +122,8 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
       return {
         ...state,
         todoList: state.todoList.map(todo =>
-          todo.currentFolderName === action.payload.name
-            ? { ...todo, currentFolderName: '' }
+          todo.currentFolderId === action.payload.id
+            ? { ...todo, currentFolderNameId: null }
             : todo
         ),
         categoriesList: state.categoriesList.map(cat => {
@@ -136,7 +136,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
     case todoActionsType.deleteFolderWithAllItems:
       return {
         ...state,
-        todoList: state.todoList.filter(todo => todo.currentFolderName !== action.payload.name),
+        todoList: state.todoList.filter(todo => todo.currentFolderId !== action.payload.id),
         categoriesList: state.categoriesList.map(cat => {
           return {
             ...cat,
@@ -149,7 +149,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
       return {
         ...state,
         todoList: state.todoList.filter(todo =>
-          todo.currentCategoryName !== action.payload.name
+          todo.currentCategoryId !== action.payload.id
         ),
         categoriesList: state.categoriesList.filter(cat => cat.id !== action.payload.id)
       }

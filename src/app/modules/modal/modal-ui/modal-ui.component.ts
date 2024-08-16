@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { Folder } from '../../todo/common/models/folder.model';
 import { Todo } from '../../todo/common/models/todo.model';
-import { EditItem } from '../../todo/common/models/create-item.model';
+// import { EditItem } from '../../todo/common/models/create-item.model';
 import { Category } from '../../todo/common/models/category.model';
 
 @Component({
@@ -33,7 +33,7 @@ export class ModalUiComponent {
     this.closeEvent.emit();
   }
 
-  public onItemEdit(editItem: EditItem) {
+  public onItemEdit(editItem: any) {
     if (editItem.todo) {
       this.editTodo.emit(editItem.todo);
     } else if (editItem.folder) {

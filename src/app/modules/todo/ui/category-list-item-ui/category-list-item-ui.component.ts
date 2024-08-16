@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./category-list-item-ui.component.scss']
 })
 export class CategoryListItemUiComponent implements OnChanges {
-  @Input() currentCategory: string | undefined;
+  @Input() currentCategory!: Category | null ;
   @Input() category!: Category;
   @Input() todoList$: Observable<Todo[]> | undefined;
 
@@ -24,6 +24,8 @@ export class CategoryListItemUiComponent implements OnChanges {
   }
 
   private checkCurrentCategory(): void {
-    this.showHeader = this.currentCategory !== 'all';
+    if (this.currentCategory) {
+      this.showHeader;
+    }
   }
 }

@@ -1,5 +1,7 @@
 import { Action } from "@ngrx/store";
 import { TodoState } from "./todo.reducer";
+import { Category } from "../../common/models/category.model";
+import { Folder } from "../../common/models/folder.model";
 
 export enum todoActionsType {
   loadTodo = '[Todo] loadTodo todo item',
@@ -14,8 +16,10 @@ export enum todoActionsType {
   editCategory = '[Category] edit Category item',
 
   deleteTodo = '[Todo] deleteTodo todo item',
+
   deleteFolder = '[Folder] delete Folder item',
   deleteFolderWithAllItems = '[Folder] delete Folder with all items',
+
   deleteCategory = '[Category] delete Category item',
   deleteCategoryWithAllItems = '[Todo] delete Category with all items'
 };
@@ -24,8 +28,8 @@ export class TodoCreateAction implements Action {
   readonly type = todoActionsType.createTodo;
   constructor(public payload: {
     name: string;
-    currentCategoryName: string;
-    currentFolderName: string;
+    currentCategoryId: number | null;
+    currentFolderId: number | null;
   }) { }
 }
 export class TodoDeleteAction implements Action {
@@ -76,7 +80,7 @@ export class TodoCategoryEditAction implements Action {
 export class TodoCategoryFolderCreateAction implements Action {
   readonly type = todoActionsType.createFolder;
   constructor(public payload: {
-    categoryName: string,
+    currentCategoryId: number | null,
     folderName: string;
   }) { }
 }

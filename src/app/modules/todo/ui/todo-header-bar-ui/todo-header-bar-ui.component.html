@@ -1,12 +1,45 @@
-<div class="btns-bar">
-  <button (click)="onAllCategoriesPick()">All</button>
-  <div class="btns-bar__group" *ngIf="categoriesList">
-    <button *ngFor="let category of categoriesList" (click)="onCategoryPick(category)">{{category.name}}</button>
-    <button (click)="onCategoryCreate(modalTemplate)">+</button>
+<div class="btns-bar container">
+  <div class="btns-bar__left">
+    <button class="btn btn-primary"
+      [ngClass]="{'active': currentCategory === null}"
+      (click)="onAllCategoriesPick()">All
+    </button>
+    <button class="btn btn-primary btn__favourite"
+      [ngClass]="{'active': false}"
+      (click)="onAllCategoriesPick()">
+      <app-svg-icon 
+        [svgPath]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'"  
+        [width]="'20'"
+        [height]="'20'">
+      </app-svg-icon>
+    </button>
   </div>
-  <button role="menu">filter</button>
+  <div class="btns-bar__group">
+    <app-svg-icon 
+      [svgPath]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'"
+      [width]="'32'"
+      [height]="'32'">
+    </app-svg-icon>
+      <div class="btns-bar__group__ categoty-group" 
+        *ngIf="categoriesList">
+        <button class="btn btn-primary"
+          *ngFor="let category of categoriesList" 
+          [ngClass]="{'active': currentCategory?.name == category.name}"
+          (click)="onCategoryPick(category)">
+          {{category.name}}
+        </button>
+      </div>
+    <app-svg-icon data-atribute="reverse"
+      [svgPath]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'"
+      [width]="'32'"
+      [height]="'32'">
+    </app-svg-icon>
+  </div>
+  <button class="btn btn-primary" role="menu">
+    <app-svg-icon
+      [svgPath]="'../../../../../assets/icons/filters_svgrepo.com.svg'"
+      [width]="'18'"
+      [height]="'18'">
+    </app-svg-icon>
+  </button>
 </div>
-
-<ng-template #modalTemplate>
-
-</ng-template>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Todo } from '../../models/todo.model';
+import { Todo } from '../../common/models/todo.model';
 
 @Component({
   selector: 'app-todo-list-item-ui',
@@ -13,6 +13,7 @@ export class TodoListItemUiComponent {
   @Output() edit = new EventEmitter<void>();
 
   public onToggle() {
+    console.log('works');
     this.toggle.emit();
   }
 
@@ -21,7 +22,9 @@ export class TodoListItemUiComponent {
   }
 
   public onEdit() {
-    this.edit.emit()
+    this.edit.emit();
+    console.log('onEdit');
+    
   }
 
 }

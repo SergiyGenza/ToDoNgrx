@@ -1,7 +1,5 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
-import { ModalService } from 'src/app/modules/modal/services/modal.service';
-import { Category } from '../../models/category.model';
-import { LocalstorageService } from '../../services/localstorage.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Category } from '../../common/models/category.model';
 
 @Component({
   selector: 'app-todo-header-bar-ui',
@@ -10,27 +8,18 @@ import { LocalstorageService } from '../../services/localstorage.service';
 })
 export class TodoHeaderBarUiComponent {
   @Input() categoriesList?: Category[] | null;
-  @Output() createCategory = new EventEmitter<string | null>();
-  @Output() currentCategory = new EventEmitter<string>();
+  @Input() currentCategory?: Category | null;
+  @Output() currentCategoryEmmiter = new EventEmitter<Category | null>();
 
-  constructor(
-    private modalServeice: ModalService,
-    private localStorageService: LocalstorageService,
-  ) { }
+  constructor() { }
 
-  public onCategoryCreate(modalTemplate: TemplateRef<any>) {
-    this.modalServeice.open(modalTemplate, { size: 'lg', title: 'Add new catagory', type: 'form' }).subscribe((action: any) => {
-      if (action) {
-        this.createCategory.emit(action);
-      }
-    })
+  public onCategoryPick(catagory: Category): void {
+    this.currentCategory = catagory;
+    this.currentCategoryEmmiter.emit(catagory);
   }
 
-  public onCategoryPick(catagory: Category) {
-    this.currentCategory.emit(catagory.name);
-  }
-
-  public onAllCategoriesPick() {
-    this.currentCategory.emit('all');
+  public onAllCategoriesPick(): void {
+    this.currentCategory = null;
+    this.currentCategoryEmmiter.emit(null);
   }
 }

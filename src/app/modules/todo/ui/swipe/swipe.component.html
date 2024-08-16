@@ -1,0 +1,37 @@
+<div [ngClass]="{'folder-item': folder, 'task-item': todo, 'category-item': category}">
+  <div
+    [ngClass]="{'folder-item__swipe-wrapper': folder, 'task-item__swipe-wrapper': todo, 'category-item__swipe-wrapper': category}"
+    cdkDrag cdkDragLockAxis="x" cdkDragBoundary=".app-container" (cdkDragEnded)="dragEnd($event)"
+    [cdkDragFreeDragPosition]="setPosition">
+    <ng-content></ng-content>
+  </div>
+  <div [ngClass]="{'folder-item__tool-bar': folder, 'task-item__tool-bar': todo, 'category-item__tool-bar': category}">
+    <div
+      [ngClass]="{'folder-item__tool-bar__item': folder, 'task-item__tool-bar__item': todo, 'category-item__tool-bar__item': category}">
+      <div class="">
+        <app-svg-icon [svgPath]="'../../../../../assets/icons/priority_svgrepo.com.svg'" [width]="'20'" [height]="'20'">
+        </app-svg-icon>
+      </div>
+      <div class="">
+        <app-svg-icon [svgPath]="'../../../../../assets/icons/edit_svgrepo.com.svg'" [width]="'20'" [height]="'20'">
+        </app-svg-icon>
+      </div>
+    </div>
+    <div
+      [ngClass]="{'folder-item__tool-bar__item': folder, 'task-item__tool-bar__item': todo, 'category-item__tool-bar__item': category}">
+      <div class="">
+        <app-svg-icon [svgPath]="'../../../../../assets/icons/trash-bin_svgrepo.com.svg'" [width]="'20'"
+          [height]="'20'">
+        </app-svg-icon>
+      </div>
+      <div class="">
+        <app-svg-icon [svgPath]="'../../../../../assets/icons/heart-dark_svgrepo.com.svg'" [width]="'20'"
+          [height]="'20'">
+        </app-svg-icon>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #modalTemplate></ng-template>

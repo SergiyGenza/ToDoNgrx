@@ -1,17 +1,26 @@
 import { Action } from "@ngrx/store";
 import { TodoState } from "./todo.reducer";
+import { Category } from "../../common/models/category.model";
+import { Folder } from "../../common/models/folder.model";
 
 export enum todoActionsType {
-  createTodo = '[Todo] create todo item',
-  toggleTodo = '[Todo] toogle todo item',
-  editTodo = '[Todo] editTodo todo item',
-  deleteTodo = '[Todo] deleteTodo todo item',
   loadTodo = '[Todo] loadTodo todo item',
-  createCategory = '[Todo] create Category item',
+  toggleTodo = '[Todo] toogle todo item',
+
+  createTodo = '[Todo] create todo item',
+  createCategory = '[Category] create Category item',
   createFolder = '[Todo] create Folder item',
-  deleteFolder = '[Todo] delete Folder item',
-  deleteFolderWithAllItems = '[Todo] delete Folder with all items',
-  deleteCategory = '[Todo] delete Category item',
+
+  editTodo = '[Todo] edit Todo item',
+  editFolder = '[Folder] edit Folder item',
+  editCategory = '[Category] edit Category item',
+
+  deleteTodo = '[Todo] deleteTodo todo item',
+
+  deleteFolder = '[Folder] delete Folder item',
+  deleteFolderWithAllItems = '[Folder] delete Folder with all items',
+
+  deleteCategory = '[Category] delete Category item',
   deleteCategoryWithAllItems = '[Todo] delete Category with all items'
 };
 
@@ -19,7 +28,8 @@ export class TodoCreateAction implements Action {
   readonly type = todoActionsType.createTodo;
   constructor(public payload: {
     name: string;
-    currentCategoryName: string;
+    currentCategoryId: number | null;
+    currentFolderId: number | null;
   }) { }
 }
 export class TodoDeleteAction implements Action {
@@ -59,11 +69,27 @@ export class TodoCategoryCreateAction implements Action {
   }) { }
 }
 
+export class TodoCategoryEditAction implements Action {
+  readonly type = todoActionsType.editCategory;
+  constructor(public payload: {
+    id: number;
+    name: string;
+  }) { }
+}
+
 export class TodoCategoryFolderCreateAction implements Action {
   readonly type = todoActionsType.createFolder;
   constructor(public payload: {
-    categoryName: string,
+    currentCategoryId: number | null,
     folderName: string;
+  }) { }
+}
+
+export class TodoEditFolderAction implements Action {
+  readonly type = todoActionsType.editFolder;
+  constructor(public payload: {
+    id: number;
+    name: string;
   }) { }
 }
 
@@ -74,8 +100,9 @@ export class TodoDeleteFolderAction implements Action {
     name: string;
   }) { }
 }
+
 export class TodoDeleteFolderWithAllItemsAction implements Action {
-  readonly type = todoActionsType.deleteFolder;
+  readonly type = todoActionsType.deleteFolderWithAllItems;
   constructor(public payload: {
     id: number;
     name: string;
@@ -89,7 +116,7 @@ export class TodoDeleteCategoryAction implements Action {
   }) { }
 }
 export class TodoDeleteCategoryWithAllItemsAction implements Action {
-  readonly type = todoActionsType.deleteCategory;
+  readonly type = todoActionsType.deleteCategoryWithAllItems;
   constructor(public payload: {
     id: number;
     name: string;
@@ -101,4 +128,5 @@ export type TodoActions = TodoCreateAction |
   TodoEditAction | TodoLoadStateAction |
   TodoCategoryCreateAction | TodoCategoryFolderCreateAction |
   TodoDeleteFolderAction | TodoDeleteCategoryAction |
-  TodoDeleteCategoryWithAllItemsAction | TodoDeleteFolderWithAllItemsAction;
+  TodoDeleteCategoryWithAllItemsAction | TodoDeleteFolderWithAllItemsAction |
+  TodoEditFolderAction | TodoCategoryEditAction;

@@ -1,33 +1,34 @@
-<div class="todo-widget-wrapper">
+<div class="todo-widget-wrapper container">
   <app-todo-create-form-ui
-    [placeholder]="'add new todo'"
-    (create)="onTodoCreate($event)">
+    [categoriesList]="categoriesList$ | async"
+    [currentCategory]="currentCategory"
+    (createTotoEmitter)="onTodoCreate($event)"
+    (createCategoryEmitter)="onCategoryCreate($event)"
+    (createFolderEmitter)="onFolderCreate($event)">
   </app-todo-create-form-ui>
 
   <app-todo-header-bar-ui
     [categoriesList]="categoriesList$ | async"
-    (createCategory)="onCategoryCreate($event)"
-    (currentCategory)="onCategoryPick($event)">
+    [currentCategory]="currentCategory"
+    (currentCategoryEmmiter)="onCategoryPick($event)">
   </app-todo-header-bar-ui>
 
-  <app-todo-list-ui *ngIf="this.currentCategory == 'all'"
-    [todoList]="todoList$ | async | todo:'all'"
-    (deleteItem)="onDelete($event)"
-    (toggle)="onToggle($event)"
-    (edit)="onEdit($event)">
+  <app-todo-list-ui
+    *ngIf="!!!this.currentCategory"
+    [todoList]="todoList$ | async | todo:null">
   </app-todo-list-ui>
 
-  <app-category-list-item-ui 
-    *ngFor="let category of categoriesList$ | async | categoryFilter:currentCategory"
-    [todoList$]="todoList$"
-    [category]="category" 
-    (folderCreate)="onFolderCreate($event)">
-  </app-category-list-item-ui>
+  <app-swipe
+     *ngFor="let category of categoriesList$ | async | categoryFilter:currentCategory"
+     [category]="category">
+    <app-category-list-item-ui 
+      [currentCategory]="currentCategory"
+      [todoList$]="todoList$"
+      [category]="category">
+    </app-category-list-item-ui>
+  </app-swipe>
 </div>
-
-
-<!-- <button (click)="openModal(modalTemplate)"> open modal</button>
 
 <ng-template #modalTemplate>
   <div class="">some template</div>
-</ng-template> -->
+</ng-template>

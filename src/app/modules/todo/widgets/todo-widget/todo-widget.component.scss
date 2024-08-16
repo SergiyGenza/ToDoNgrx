@@ -1,3 +1,10 @@
 .todo-widget-wrapper {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
+
+// .todo-widget-form {
+//   display: flex;
+//   justify-content: center;
+// }

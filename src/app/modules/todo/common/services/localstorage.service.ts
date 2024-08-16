@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { TodoState } from '../store/todo/todo.reducer';
-import { todoFeatureSelector } from '../store/todo/todo.selectors';
 import { filter } from 'rxjs';
-import { TodoLoadStateAction } from '../store/todo/todo.actions';
+import { TodoLoadStateAction } from '../../store/todo/todo.actions';
+import { TodoState } from '../../store/todo/todo.reducer';
+import { todoFeatureSelector } from '../../store/todo/todo.selectors';
+import { Category } from '../models/category.model';
 
 export const TODO_LOCALSTORAGE_KEY = "MyTodoNgrxApp";
 export const CURRENT_CATEGORY_LOCALSTOREGE_KEY = "MyTodoNgrxAppCurrentCategory";
@@ -46,14 +47,15 @@ export class LocalstorageService {
   }
 
 
-  public setCurrentCategoryInLocalstorage(currentCategory: string): void {
+  public setCurrentCategoryInLocalstorage(currentCategory: Category | null): void {
     localStorage.setItem(CURRENT_CATEGORY_LOCALSTOREGE_KEY, JSON.stringify(currentCategory));
   }
 
-  public loadCurrentCategoryFromStorage(): string {
+  public loadCurrentCategoryFromStorage(): Category | null {
     const currentCategory = localStorage.getItem(CURRENT_CATEGORY_LOCALSTOREGE_KEY);
+    
     if (currentCategory) {
       return JSON.parse(currentCategory)
-    } else return 'all';
+    } else return null;
   }
 }

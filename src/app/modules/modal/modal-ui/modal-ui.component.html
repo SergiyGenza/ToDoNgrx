@@ -1,28 +1,27 @@
 <div class="modal {{ size }}">
   <div class="modal-header">
     {{ title }}
-    {{ type }}
     <span class="modal-close" (click)="close()">✕</span>
   </div>
-  <!-- <div *ngIf="!type else form">
-    <div class="modal-content">
-      <ng-content></ng-content>
-    </div>
-    <div class="modal-footer">
-      <button (click)="submit()">Submit</button>
-    </div>
+  <!-- need ref -->
+  <div class="" *ngIf="type === 'folderDelete'">
+    <div class=""><button (click)="deleteAllFoldersItems(true)">delete all</button></div>
+    <button (click)="deleteAllFoldersItems(false)">delete only folder</button>
   </div>
-  <ng-template #form> -->
-  <form action="" [formGroup]="form" (ngSubmit)="submit()">
-    <input type="text" name="title" formControlName="categoryName">
-    <button type="submit">Submit</button>
-    <div class="modal-content">
-      <ng-content></ng-content>
-    </div>
-    <div class="modal-footer">
-    </div>
-  </form>
-  <!-- </ng-template> -->
+
+  <div class="" *ngIf="type === 'categoryDelete'">
+    <div class=""><button (click)="deleteAllCategoriesItems(true)">delete all</button></div>
+    <button (click)="deleteAllCategoriesItems(false)">delete only Category</button>
+  </div>
+
+  <app-todo-create-form-ui
+    *ngIf="todo || folder || category"
+    [modalType]="type"
+    [todoForEdit]="todo"
+    [folderForEdit]="folder"
+    [categoryForEdit]="category"
+    (editItem)="onItemEdit($event)">
+  </app-todo-create-form-ui>
 </div>
 
 <div class="modal-backdrop" (click)="close()"></div>

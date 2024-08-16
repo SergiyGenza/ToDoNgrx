@@ -14,7 +14,7 @@
   </app-todo-header-bar-ui>
 
   <app-todo-list-ui
-    *ngIf="this.currentCategory === null"
+    *ngIf="!!!this.currentCategory"
     [todoList]="todoList$ | async | todo:null">
   </app-todo-list-ui>
 

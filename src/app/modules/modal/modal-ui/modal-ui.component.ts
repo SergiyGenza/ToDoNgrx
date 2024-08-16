@@ -3,6 +3,7 @@ import { Folder } from '../../todo/common/models/folder.model';
 import { Todo } from '../../todo/common/models/todo.model';
 // import { EditItem } from '../../todo/common/models/create-item.model';
 import { Category } from '../../todo/common/models/category.model';
+import { LocalstorageService } from '../../todo/common/services/localstorage.service';
 
 @Component({
   selector: 'app-modal-ui',
@@ -26,7 +27,10 @@ export class ModalUiComponent {
   @Output() editFolder = new EventEmitter<Folder>();
   @Output() editCategory = new EventEmitter<Category>();
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(
+    private elementRef: ElementRef,
+    private localStorageService: LocalstorageService,
+  ) { }
 
   public close(): void {
     this.elementRef.nativeElement.remove();
@@ -39,6 +43,7 @@ export class ModalUiComponent {
     } else if (editItem.folder) {
       this.editFolder.emit(editItem.folder);
     } else if (editItem.category) {
+      // this.localStorageService.setCurrentCategoryInLocalstorage(editItem.category)
       this.editCategory.emit(editItem.category);
     }
     this.close();

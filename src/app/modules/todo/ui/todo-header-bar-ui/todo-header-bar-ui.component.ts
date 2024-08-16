@@ -19,7 +19,7 @@ export class TodoHeaderBarUiComponent {
   }
 
   public onAllCategoriesPick(): void {
-    // this.currentCategory = 'all';
+    this.currentCategory = null;
     this.currentCategoryEmmiter.emit(null);
   }
 }

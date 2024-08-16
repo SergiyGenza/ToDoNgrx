@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Category } from '../../common/models/category.model';
 import { Todo } from '../../common/models/todo.model';
 import { Observable } from 'rxjs';
@@ -14,18 +14,11 @@ export class CategoryListItemUiComponent implements OnChanges {
   @Input() todoList$: Observable<Todo[]> | undefined;
 
   public showContent: boolean = true;
-  public showCreateComponent: boolean = false;
   public showHeader: boolean = false;
 
   constructor() { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.checkCurrentCategory();
-  }
-
-  private checkCurrentCategory(): void {
-    if (this.currentCategory) {
-      this.showHeader;
-    }
+  ngOnChanges(): void {
+    this.showHeader = this.currentCategory !== null;
   }
 }

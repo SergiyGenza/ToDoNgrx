@@ -5,7 +5,6 @@ import { categoriesListSelector, todoListSelector } from '../../store/todo/todo.
 import { Observable } from 'rxjs';
 import { Todo, TodoCreate } from '../../common/models/todo.model';
 import { Category, CategoryCreate } from '../../common/models/category.model';
-// import { CreateItem } from '../../common/models/create-item.model';
 import { LocalstorageService } from '../../common/services/localstorage.service';
 import { ActionsService } from '../../common/services/actions.service';
 import { FolderCreate } from '../../common/models/folder.model';
@@ -30,19 +29,6 @@ export class TodoWidgetComponent {
     this.todoList$ = this.todoStore$.pipe(select(todoListSelector));
     this.categoriesList$ = this.todoStore$.pipe(select(categoriesListSelector));
   }
-
-  // need ref
-  // public onItemCreate(createItem: CreateItem): void {
-  //   const { type } = createItem;
-  //   switch (type) {
-  //     case 'todo':
-  //       return 
-  //     case 'folder':
-  //       return
-  //     case 'category':
-  //       return
-  //   }
-  // }
 
   public onTodoCreate(todo: TodoCreate) {
     this.actionsService.todoCreate(todo);

@@ -20,7 +20,8 @@
       [width]="'32'"
       [height]="'32'">
     </app-svg-icon>
-      <div class="btns-bar__group__ categoty-group"*ngIf="categoriesList">
+      <div class="btns-bar__group__ categoty-group" 
+        *ngIf="categoriesList">
         <button class="btn btn-primary"
           *ngFor="let category of categoriesList" 
           [ngClass]="{'active': currentCategory?.name == category.name}"

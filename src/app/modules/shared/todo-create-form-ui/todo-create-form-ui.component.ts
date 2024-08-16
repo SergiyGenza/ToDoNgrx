@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category, CategoryCreate } from '../../todo/common/models/category.model';
-// import { CreateItem, EditItem } from '../../todo/common/models/create-item.model';
 import { Folder, FolderCreate } from '../../todo/common/models/folder.model';
 import { Todo, TodoCreate } from '../../todo/common/models/todo.model';
+import { EditItem } from '../../todo/common/models/edit-item.model';
 
 @Component({
   selector: 'app-todo-create-form-ui',
@@ -19,21 +19,14 @@ export class TodoCreateFormUiComponent implements OnInit {
   @Input() public folderForEdit?: Folder;
   @Input() public categoryForEdit?: Category;
 
-  // @Output() createItem = new EventEmitter<CreateItem>();
   @Output() createTotoEmitter = new EventEmitter<TodoCreate>();
-  // @Output() editItem = new EventEmitter<EditItem>();
-
   @Output() createFolderEmitter = new EventEmitter<FolderCreate>();
-
   @Output() createCategoryEmitter = new EventEmitter<CategoryCreate>();
+  @Output() editItem = new EventEmitter<EditItem>();
 
   public maxHeigth!: number;
   public activeCategory: Category | null = null;
-
-  // need check this var
   public activeFolder!: Folder | null;
-  // need check this var
-
   public currentFoldersList!: Folder[];
   public formType: string = 'category';
   public placeholder: string = 'Add category';
@@ -63,7 +56,6 @@ export class TodoCreateFormUiComponent implements OnInit {
   // best way to ref is to separate it on components
 
   ngOnInit(): void {
-    this.setDefaultCategory();
     // need ref
     if (this.modalType) {
       this.formType = this.modalType;
@@ -75,6 +67,8 @@ export class TodoCreateFormUiComponent implements OnInit {
       } else if (this.categoryForEdit) {
         this.editForm.controls.name.patchValue(this.categoryForEdit!.name);
       }
+    } else {
+      this.setDefaultCategory();
     }
   }
 
@@ -124,22 +118,17 @@ export class TodoCreateFormUiComponent implements OnInit {
 
   public onFolderPick(folder: Folder | null): void {
     if (folder) {
-      console.log(this.activeFolder);
-      console.log(folder);
-      
       this.activeFolder = folder;
       this.todoForm.controls.currentFolderId.patchValue(folder.id);
     } else {
       this.activeFolder = null;
     }
-    console.log(this.activeFolder);
-    
   }
 
   public clearCategoryPick(): void {
     this.todoForm.controls.currentCategoryId.patchValue(null);
     this.activeCategory = null;
-    this.activeFolder!.name = '';
+    this.activeFolder = null;
   }
 
   public isFolderActive(folder: Folder): boolean {
@@ -180,13 +169,12 @@ export class TodoCreateFormUiComponent implements OnInit {
   }
 
   private setDefaultCategory(): void {
-    this.todoForm.controls.currentCategoryId.patchValue(this.currentCategory!.id);
-    let filteredCategory = this.categoriesList?.find(category => category.name === this.currentCategory!.name);
-    console.log(filteredCategory);
-
-    if (filteredCategory) {
-      console.log(filteredCategory);
-      this.onCategotyPick(filteredCategory);
+    if (this.currentCategory !== null) {
+      this.todoForm.controls.currentCategoryId.patchValue(this.currentCategory!.id)
+      let filteredCategory = this.categoriesList?.find(category => category.name === this.currentCategory!.name);
+      if (filteredCategory) {
+        this.onCategotyPick(filteredCategory);
+      }
     }
   }
 
@@ -194,23 +182,20 @@ export class TodoCreateFormUiComponent implements OnInit {
     this.createTotoEmitter.emit({
       name: this.todoForm.controls.name.value!,
       currentFolderId: this.activeFolder ? this.activeFolder.id : null,
-      currentCategoryId: this.currentCategory ? this.currentCategory.id : null,
+      currentCategoryId: this.activeCategory ? this.activeCategory.id : null,
     });
     this.todoForm.controls.name.patchValue('');
   }
 
   private editTodo() {
     if (this.todoForEdit && this.editForm.valid) {
-      const todo: Todo = {
-        ...this.todoForEdit,
-        name: this.editForm.controls.name.value
-      }
-      console.log('new', todo);
-
-      // this.editItem.emit({
-      //   type: this.formType,
-      //   todo: todo
-      // })
+      this.editItem.emit({
+        type: this.formType,
+        todo: {
+          ...this.todoForEdit,
+          name: this.editForm.controls.name.value
+        }
+      })
     }
   }
 
@@ -224,14 +209,13 @@ export class TodoCreateFormUiComponent implements OnInit {
 
   private editFolder() {
     if (this.folderForEdit && this.editForm.valid) {
-      const folder: Folder = {
-        ...this.folderForEdit,
-        name: this.editForm.controls.name.value
-      }
-      // this.editItem.emit({
-      //   type: this.formType,
-      //   folder: folder
-      // })
+      this.editItem.emit({
+        type: this.formType,
+        folder: {
+          ...this.folderForEdit,
+          name: this.editForm.controls.name.value
+        }
+      })
     }
   }
 
@@ -245,14 +229,13 @@ export class TodoCreateFormUiComponent implements OnInit {
 
   private editCategory() {
     if (this.categoryForm && this.editForm.valid) {
-      const category: Category = {
-        ...this.categoryForEdit!,
-        name: this.editForm.controls.name.value
-      }
-      // this.editItem.emit({
-      //   type: this.formType,
-      //   category: category
-      // })
+      this.editItem.emit({
+        type: this.formType,
+        category: {
+          ...this.categoryForEdit!,
+          name: this.editForm.controls.name.value
+        }
+      })
     }
   }
 }

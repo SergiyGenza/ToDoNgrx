@@ -19,7 +19,7 @@ import { RouterModule } from '@angular/router';
       }
     ]),
     StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() , connectInZone: true}),
     TodoModule,
 
   ],

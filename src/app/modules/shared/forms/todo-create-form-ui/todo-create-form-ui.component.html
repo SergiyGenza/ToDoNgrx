@@ -1,0 +1,24 @@
+<span *ngIf="formType !== 'folderEdit' && formType !== 'todoEdit' && formType !== 'categoryEdit'"
+  class="btn btn-primary" (click)="changeFormType()">
+  {{formType}}
+</span>
+
+<!-- edit item -->
+<form id="form"
+      *ngIf="modalType"
+      [formGroup]="editNameForm" 
+      (ngSubmit)="onSubmit()">  
+    <div class="form__content">
+      <input required type="text" name="text" placeholder="Edit Name" formControlName="name">
+    </div>
+</form>
+
+<!-- create item -->
+<app-form-item
+  [form]="form"
+  [categoriesList]="categoriesList"
+  [currentCategory]="currentCategory"
+  [placeholder]="placeholder"
+  [maxHeigth]="maxHeigth"
+  (result)="result($event)">
+</app-form-item>

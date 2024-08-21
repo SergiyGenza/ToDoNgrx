@@ -9,7 +9,6 @@
     <img src="../../../../../assets/icons/arrow-up_svgrepo.com.png" alt="">
   </div>
 </div>
-<app-todo-list-ui
-  *ngIf="isOpen"
-  [todoList]="todoList$ | async | todo:folder">
-</app-todo-list-ui>
+@if (isOpen) {
+<app-todo-list-ui [todoList]="todoList$ | async | todo:folder"></app-todo-list-ui>
+}

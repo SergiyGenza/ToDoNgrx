@@ -4,10 +4,11 @@
     <span class="checkmark"></span>
   </label>
   <div class="todo-item__text">
-    <del *ngIf="todo?.completed else completed"><span>{{todo?.name}}</span></del>
-    <ng-template #completed>
-      <span>{{todo?.name}}</span>
-    </ng-template>
+    @if (todo?.completed){
+    <del><span>{{todo?.name}}</span></del>
+    } @else {
+    <span>{{todo?.name}}</span>
+    }
   </div>
  
 

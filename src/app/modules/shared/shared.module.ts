@@ -4,6 +4,7 @@ import { SvgIconComponent } from '../todo/ui/svg-icon/svg-icon.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TodoCreateFormUiComponent } from './forms/todo-create-form-ui/todo-create-form-ui.component';
 import { FormItemComponent } from './forms/form-item/form-item.component';
+import { EditFormComponent } from './forms/edit-form/edit-form.component';
 
 
 
@@ -11,7 +12,8 @@ import { FormItemComponent } from './forms/form-item/form-item.component';
   declarations: [
     TodoCreateFormUiComponent,
     SvgIconComponent,
-    FormItemComponent
+    FormItemComponent,
+    EditFormComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { FormItemComponent } from './forms/form-item/form-item.component';
   exports: [
     TodoCreateFormUiComponent,
     SvgIconComponent,
-    FormItemComponent
+    FormItemComponent,
+    EditFormComponent
   ]
 })
 export class SharedModule { }

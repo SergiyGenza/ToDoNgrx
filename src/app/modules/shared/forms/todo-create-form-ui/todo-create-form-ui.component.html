@@ -1,17 +1,7 @@
-<span *ngIf="formType !== 'folderEdit' && formType !== 'todoEdit' && formType !== 'categoryEdit'"
-  class="btn btn-primary" (click)="changeFormType()">
+<!-- do we need this big component? -->
+<span class="btn btn-primary" (click)="onFormTypeChange()">
   {{formType}}
 </span>
-
-<!-- edit item -->
-<form id="form"
-      *ngIf="modalType"
-      [formGroup]="editNameForm" 
-      (ngSubmit)="onSubmit()">  
-    <div class="form__content">
-      <input required type="text" name="text" placeholder="Edit Name" formControlName="name">
-    </div>
-</form>
 
 <!-- create item -->
 <app-form-item
@@ -20,5 +10,5 @@
   [currentCategory]="currentCategory"
   [placeholder]="placeholder"
   [maxHeigth]="maxHeigth"
-  (result)="result($event)">
+  (result)="onSubmit($event)">
 </app-form-item>

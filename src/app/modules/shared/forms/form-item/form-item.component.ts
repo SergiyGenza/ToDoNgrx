@@ -32,8 +32,6 @@ export class FormItemComponent implements OnChanges, OnInit {
     if (changes['currentCategory']) {
       this.activeCategory = this.currentCategory;
     }
-    console.log(this.form.controls);
-    console.log(this.activeCategory);
     this.clearControls()
     this.setDefaultData()
   }
@@ -63,12 +61,13 @@ export class FormItemComponent implements OnChanges, OnInit {
   public onFolderPick(folder: Folder | null): void {
     if (folder) {
       this.activeFolder = folder;
-      this.form.controls['currentFolderId'].patchValue(folder.id);
-    } else {
-      this.activeFolder = null;
+      return this.form.controls['currentFolderId'].patchValue(folder.id);
     }
+    this.activeFolder = null;
+    return
   }
 
+  // need to fix this
   public isFolderActive(folder: Folder): boolean {
     if (this.activeFolder) {
       return this.activeFolder!.id === folder.id
@@ -76,13 +75,13 @@ export class FormItemComponent implements OnChanges, OnInit {
     return false;
   }
 
-  private setDefaultData() {
+  private setDefaultData(): void {
     if (this.form.controls['currentCategoryId']) {
       this.form.controls['currentCategoryId'].patchValue(this.activeCategory?.id);
     }
   }
 
-  private clearControls() {
+  private clearControls(): void {
     if (this.form.controls['currentCategoryId']) {
       this.form.controls['currentCategoryId']!.patchValue(null);
     }

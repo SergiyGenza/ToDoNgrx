@@ -4,24 +4,26 @@
     <span class="modal-close" (click)="close()">✕</span>
   </div>
   <!-- need ref -->
-  <div class="" *ngIf="type === 'folderDelete'">
+  <!-- mb try tempates -->
+  @if (type === 'folderDelete') {
+  <div>
     <div class=""><button (click)="deleteAllFoldersItems(true)">delete all</button></div>
     <button (click)="deleteAllFoldersItems(false)">delete only folder</button>
   </div>
-
-  <div class="" *ngIf="type === 'categoryDelete'">
-    <div class=""><button (click)="deleteAllCategoriesItems(true)">delete all</button></div>
-    <button (click)="deleteAllCategoriesItems(false)">delete only Category</button>
-  </div>
-
-  <app-todo-create-form-ui
-    *ngIf="todo || folder || category"
+  }
+  @if (type === 'categoryDelete') {
+    <div>
+      <div class=""><button (click)="deleteAllCategoriesItems(true)">delete all</button></div>
+      <button (click)="deleteAllCategoriesItems(false)">delete only Category</button>
+    </div>
+  }
+  <app-edit-form
     [modalType]="type"
     [todoForEdit]="todo"
     [folderForEdit]="folder"
     [categoryForEdit]="category"
     (editItem)="onItemEdit($event)">
-  </app-todo-create-form-ui>
+  </app-edit-form>
 </div>
 
 <div class="modal-backdrop" (click)="close()"></div>

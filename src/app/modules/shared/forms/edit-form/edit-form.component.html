@@ -1,0 +1,16 @@
+<form id="form"
+      [formGroup]="editNameForm"
+      (ngSubmit)="onSubmit()">
+  <div class="form__content">
+    <input required type="text" name="text" placeholder="Edit Name" formControlName="name">
+  </div>
+  <button type="submit" class="btn btn__big btn__add-todo" 
+          [disabled]="!this.editNameForm.valid"
+          (click)="onSubmit()">
+    <app-svg-icon 
+        [svgPath]="'../../../../../assets/icons/plus.svg'"
+        [width]="'20'"
+        [height]="'20'">
+    </app-svg-icon>
+  </button>
+</form>

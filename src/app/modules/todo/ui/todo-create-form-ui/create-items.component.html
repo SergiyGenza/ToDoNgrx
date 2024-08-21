@@ -1,0 +1,14 @@
+<!-- do we need this big component? -->
+<span class="btn btn-primary" (click)="onFormTypeChange()">
+  {{formType}}
+</span>
+
+<!-- create item -->
+<app-form-item
+  [form]="form"
+  [categoriesList]="categoriesList"
+  [currentCategory]="currentCategory"
+  [placeholder]="placeholder"
+  [maxHeigth]="maxHeigth"
+  (result)="onSubmit($event)">
+</app-form-item>

@@ -23,6 +23,7 @@ import { LocalstorageService } from './common/services/localstorage.service';
 import { TodoPipe } from './common/pipes/todo/todo.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { ActionsService } from './common/services/actions.service';
+import { CreateItemsComponent } from './ui/todo-create-form-ui/create-items.component';
 
 
 
@@ -39,6 +40,7 @@ import { ActionsService } from './common/services/actions.service';
     FolderListItemUiComponent,
     TodoPipe,
     SwipeComponent,
+    CreateItemsComponent
   ],
   imports: [
     CommonModule,

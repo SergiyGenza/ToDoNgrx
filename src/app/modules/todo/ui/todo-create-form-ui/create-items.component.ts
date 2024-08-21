@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Category, CategoryCreate } from '../../../todo/common/models/category.model';
-import { FolderCreate } from '../../../todo/common/models/folder.model';
-import { TodoCreate } from '../../../todo/common/models/todo.model';
-import { CategoryForm, FolderForm, TodoForm } from '../../../todo/common/models/forms.model';
+import { Category, CategoryCreate } from '../../common/models/category.model';
+import { FolderCreate } from '../../common/models/folder.model';
+import { TodoCreate } from '../../common/models/todo.model';
+import { CategoryForm, FolderForm, TodoForm } from '../../common/models/forms.model';
 
 const todoForm = new FormGroup<TodoForm>({
   name: new FormControl<string>('', { nonNullable: true, validators: Validators.required }),
@@ -21,11 +21,11 @@ const categoryForm = new FormGroup<CategoryForm>({
 });
 
 @Component({
-  selector: 'app-todo-create-form-ui',
-  templateUrl: './todo-create-form-ui.component.html',
-  styleUrls: ['./todo-create-form-ui.component.scss']
+  selector: 'app-create-items',
+  templateUrl: './create-items.component.html',
+  styleUrls: ['./create-items.component.scss']
 })
-export class TodoCreateFormUiComponent {
+export class CreateItemsComponent {
   @Input() public categoriesList!: Category[] | null;
   @Input() public currentCategory?: Category | null;
 

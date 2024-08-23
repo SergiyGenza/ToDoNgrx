@@ -17,6 +17,7 @@
       <button (click)="deleteAllCategoriesItems(false)">delete only Category</button>
     </div>
   }
+  @if (type !== 'folderDelete' && type !== 'categoryDelete'){
   <app-edit-form
     [modalType]="type"
     [todoForEdit]="todo"
@@ -24,6 +25,7 @@
     [categoryForEdit]="category"
     (editItem)="onItemEdit($event)">
   </app-edit-form>
+  }
 </div>
 
 <div class="modal-backdrop" (click)="close()"></div>

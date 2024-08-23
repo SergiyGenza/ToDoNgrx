@@ -1,11 +1,9 @@
-@if(!showHeader) {
 <div class="wrapper-title category">
   <span class="category__title">{{category.name}}</span>
   <div class="category__open-content" role="btn" >
     <img src="../../../../../assets/icons/arrow-up_svgrepo.com.png" alt="arrow" (click)="showContent = !showContent">
   </div>
 </div>
-}
 
 @if(showContent) {
 <app-todo-list-ui [todoList]="todoList$ | async | todo:category"></app-todo-list-ui>

@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { Folder } from '../../todo/common/models/folder.model';
 import { Todo } from '../../todo/common/models/todo.model';
 import { Category } from '../../todo/common/models/category.model';
+import { Items } from '../../todo/common/models/edit-item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class ModalService {
     @Inject(DOCUMENT) private document: Document,
   ) { }
 
-  open(content: TemplateRef<any>, options?: { size?: string, title?: string, type?: string, folder?: Folder, todo?: Todo, category?: Category }): Observable<any> {
+  public open(content: TemplateRef<any>, options?: { size?: string, title?: string, type?: string, folder?: Folder, todo?: Todo, category?: Category }): Observable<any> {
     const modalComponentFactory = this.resolver.resolveComponentFactory(ModalUiComponent);
     const contentViewRef = content.createEmbeddedView(null);
     const modalComponent = modalComponentFactory.create(this.injector, [contentViewRef.rootNodes,]);
@@ -46,42 +47,70 @@ export class ModalService {
     return this.modalNotifired.asObservable();
   }
 
-  closeModal() {
+  public getModalConfig(item: Items, action: 'Edit' | 'Delete') {
+    if (item.todo) {
+      return {
+        size: 'lg',
+        title: `${action} Todo`,
+        type: `todo${action}` as const,
+        todo: item.todo
+      };
+    } else if (item.category) {
+      return {
+        size: 'lg',
+        title: `${action} Category`,
+        type: `category${action}` as const,
+        category: item.category
+      };
+    } else if (item.folder) {
+      return {
+        size: 'lg',
+        title: `${action} Folder`,
+        type: `folder${action}` as const,
+        folder: item.folder
+      };
+    }
+    return null;
+  }
+
+  private closeModal() {
     this.modalNotifired?.complete();
   }
 
-  editTodo(todo: any) {
+  private editTodo(todo: any) {
     this.modalNotifired?.next(todo);
     this.closeModal();
   }
 
-  editFolder(folder: any) {
+  private editFolder(folder: any) {
     this.modalNotifired?.next(folder);
     this.closeModal();
   }
 
-  editCategory(category: any) {
+  private editCategory(category: any) {
     this.modalNotifired?.next(category);
     this.closeModal();
   }
 
-  submitModal() {
+  private submitModal() {
     this.modalNotifired?.next('confirm');
     this.closeModal();
   }
 
-  submitForm(item: any) {
+  private submitForm(item: any) {
     this.modalNotifired?.next(item)
   }
 
-  onFolderDelete(item: any) {
+  private onFolderDelete(item: any) {
     this.modalNotifired?.next(item);
     this.closeModal();
   }
-  
-  onCategoryDelete(item: any) {
+
+  private onCategoryDelete(item: any) {
     this.modalNotifired?.next(item);
     this.closeModal();
   }
+
+
 
 }

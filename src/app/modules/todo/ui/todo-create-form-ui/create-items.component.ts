@@ -26,63 +26,65 @@ const categoryForm = new FormGroup<CategoryForm>({
   styleUrls: ['./create-items.component.scss']
 })
 export class CreateItemsComponent {
-  @Input() public categoriesList!: Category[] | null;
+  @Input() public categoriesList: Category[] | null | undefined;
   @Input() public currentCategory?: Category | null;
 
   @Output() createTotoEmitter = new EventEmitter<TodoCreate>();
   @Output() createFolderEmitter = new EventEmitter<FolderCreate>();
   @Output() createCategoryEmitter = new EventEmitter<CategoryCreate>();
 
-  public form!: FormGroup;
-  public maxHeigth!: number;
+  public form: FormGroup = categoryForm;
+  public maxHeigth: number = 74;
   public formType: string = 'category';
   public placeholder: string = 'Add category';
 
-  constructor() {
-    this.form = categoryForm
-  }
-
   public onSubmit(form: FormGroup): void {
+    const { name, currentFolderId, currentCategoryId } = form.controls;
+
     switch (this.formType) {
       case 'todo':
-        return this.createTotoEmitter.emit({
-          name: form.controls['name'].value,
-          currentFolderId: form.controls['currentFolderId'].value,
-          currentCategoryId: form.controls['currentCategoryId'].value,
+        this.createTotoEmitter.emit({
+          name: name.value,
+          currentFolderId: currentFolderId.value,
+          currentCategoryId: currentCategoryId.value,
         });
+        break;
       case 'folder':
-        return this.createFolderEmitter.emit({
-          name: form.controls['name'].value,
-          currentCategoryId: form.controls['currentFolderId'].value,
+        this.createFolderEmitter.emit({
+          name: name.value,
+          currentCategoryId: currentCategoryId.value,
         });
+        break;
       case 'category':
-        return this.createCategoryEmitter.emit({
-          name: form.controls['name'].value,
-          foldersList: []
+        this.createCategoryEmitter.emit({
+          name: name.value,
+          foldersList: [],
         });
+        break;
     }
   }
 
-  public onFormTypeChange(): string {
+  public onFormTypeChange(): void {
     switch (this.formType) {
       case 'category':
-        this.maxHeigth = 74;
-        this.formType = 'folder';
-        this.form = folderForm;
-        return this.placeholder = 'Add folder';
+        this.updateForm('folder', folderForm, 'Add folder', 74);
+        break;
       case 'todo':
-        this.maxHeigth = 34;
-        this.formType = 'category';
-        this.form = categoryForm
-        return this.placeholder = 'Add category';
+        this.updateForm('category', categoryForm, 'Add category', 34);
+        break;
       case 'folder':
-        this.maxHeigth = 116;
-        this.formType = 'todo';
-        this.form = todoForm
-        return this.placeholder = 'Add todo';
       default:
-        return this.placeholder = 'Add todo';
+        this.updateForm('todo', todoForm, 'Add todo', 116);
+        break;
     }
   }
+
+  private updateForm(formType: string, form: FormGroup, placeholder: string, maxHeight: number): void {
+    this.formType = formType;
+    this.form = form;
+    this.placeholder = placeholder;
+    this.maxHeigth = maxHeight;
+  }
+
 }
 

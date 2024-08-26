@@ -1,0 +1,1 @@
+export type TPrority = 'heigth' | 'medium' | 'low' | 'none';

@@ -76,3 +76,10 @@
     }
   }
 }
+
+.action {
+  width: 100%;
+  &_priority {
+    position: relative;
+  }
+}

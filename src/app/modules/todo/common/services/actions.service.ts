@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
-import { TodoCategoryCreateAction, TodoCategoryEditAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteCategoryAction, TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction } from '../../store/todo/todo.actions';
+import { ChangeTodoPriority, TodoCategoryCreateAction, TodoCategoryEditAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteCategoryAction, TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction } from '../../store/todo/todo.actions';
 import { Todo, TodoCreate } from '../models/todo.model';
 import { Folder, FolderCreate } from '../models/folder.model';
 import { Category, CategoryCreate } from '../models/category.model';
+import { TPrority } from '../models/priority.model';
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,11 @@ export class ActionsService {
   public deleteFolderAction(item: Folder) {
     const { id, name } = item;
     this.todoStore$.dispatch(new TodoDeleteFolderAction({ id, name }));
+  }
+
+  public changeTodoPriority(todo: Todo, priority: TPrority) {
+    const {id} = todo;
+    this.todoStore$.dispatch(new ChangeTodoPriority({ id, priority }));
   }
 
 }

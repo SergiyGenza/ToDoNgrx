@@ -25,6 +25,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ActionsService } from './common/services/actions.service';
 import { CreateItemsComponent } from './ui/todo-create-form-ui/create-items.component';
 import { SwipeService } from './common/services/swipe.service';
+import { PriorityComponent } from './ui/priority/priority.component';
+import { OverlayModule } from "@angular/cdk/overlay";
 
 
 
@@ -41,7 +43,8 @@ import { SwipeService } from './common/services/swipe.service';
     FolderListItemUiComponent,
     TodoPipe,
     SwipeComponent,
-    CreateItemsComponent
+    CreateItemsComponent,
+    PriorityComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +52,7 @@ import { SwipeService } from './common/services/swipe.service';
     RouterModule.forChild(todoRoutes),
     FormsModule,
     DragDropModule,
+    OverlayModule,
     ModalModule,
     ReactiveFormsModule,
     SharedModule

@@ -1,9 +1,10 @@
 import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { Todo } from '../../common/models/todo.model';
-import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
+import { CdkDragEnd, CdkDragStart, Point } from '@angular/cdk/drag-drop';
 import { Folder } from '../../common/models/folder.model';
 import { Category } from '../../common/models/category.model';
 import { SwipeService } from '../../common/services/swipe.service';
+import { TPrority } from '../../common/models/priority.model';
 
 interface Position {
   x: number,
@@ -23,10 +24,15 @@ export class SwipeComponent {
   @ViewChild('modalTemplate', { static: true }) modalTemplate!: TemplateRef<any>;
 
   setPosition: Position = { x: 0, y: 0 };
+  isPriorityBarOpen: boolean = false;
 
   constructor(
     private swipeService: SwipeService,
   ) { }
+
+  public dragStarted($event: CdkDragStart) {
+    this.isPriorityBarOpen = false;
+  }
 
   public dragEnd($event: CdkDragEnd): void {
     let pos: Point = $event.source.getFreeDragPosition();
@@ -35,7 +41,7 @@ export class SwipeComponent {
     console.log(this.setPosition.x);
 
     this.swipeService.swipe(
-      pos.x,
+      $event,
       this.modalTemplate,
       {
         todo: this.todo,
@@ -43,7 +49,11 @@ export class SwipeComponent {
         category: this.category,
       });
 
-    $event.source.reset();
-    this.setPosition.x = 0;
+    this.isPriorityBarOpen = this.swipeService.isPriorityBarOpen;
+  }
+
+  public changePriority(value: TPrority): void {
+    this.isPriorityBarOpen = false;
+    this.swipeService.changePriority(this.todo, value);
   }
 }

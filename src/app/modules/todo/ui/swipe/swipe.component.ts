@@ -31,6 +31,7 @@ export class SwipeComponent {
   ) { }
 
   public dragStarted($event: CdkDragStart) {
+    this.swipeService.isPriorityBarOpen = false;
     this.isPriorityBarOpen = false;
   }
 
@@ -47,13 +48,18 @@ export class SwipeComponent {
         todo: this.todo,
         folder: this.folder,
         category: this.category,
-      });
+      }
+    );
 
-    this.isPriorityBarOpen = this.swipeService.isPriorityBarOpen;
+    if (this.swipeService.isPriorityBarOpen) {
+      this.isPriorityBarOpen = this.swipeService.isPriorityBarOpen;
+    }
   }
 
   public changePriority(value: TPrority): void {
     this.isPriorityBarOpen = false;
     this.swipeService.changePriority(this.todo, value);
   }
+
+ 
 }

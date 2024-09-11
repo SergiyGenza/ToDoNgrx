@@ -18,27 +18,86 @@ export class SwipeService {
     private modalService: ModalService
   ) { }
 
-  public swipe(dragArea: CdkDragEnd, modalTemplate: TemplateRef<any>, item: Items) {
+  public swipe(dragArea: CdkDragEnd, modalTemplate: TemplateRef<any>, actionItem: Items) {
     this.dragArea = dragArea;
-    const pos: Point = dragArea.source.getFreeDragPosition();
-
-    this.setPriorityBarStatus(false);
-    if (pos.x >= 20 && pos.x <= 44) {
-      this.setPriorityBarStatus(true);
-      console.log('priority');
-      return
-    } else if (pos.x >= 45) {
-      this.onEdit(modalTemplate, item);
-      console.log('onEdit');
-    } else if (pos.x <= -20 && pos.x >= -44) {
-      console.log('archive');
-    } else if (pos.x <= -45) {
-      console.log('onDelete');
-      this.onDelete(modalTemplate, item);
-    } else if (20 > pos.x || pos.x > -20) {
-      console.log('none');
+    const action = this.getPositionAction(dragArea.source.getFreeDragPosition());
+    
+    if (actionItem.todo) {
+      this.handleTodoActions(action, modalTemplate, actionItem);
+    } else if (actionItem.folder) {
+      this.handleFolderActions(action, modalTemplate, actionItem);
+    } else if (actionItem.category) {
+      this.handleCategoryActions(action, modalTemplate, actionItem);
     }
+
     this.resetPosition();
+  }
+
+  private handleTodoActions(action: string, modalTemplate: TemplateRef<any>, actionItem: Items) {
+    switch (action) {
+      case 'A':
+        this.setPriorityBarStatus(true);
+        break;
+      case 'B':
+        this.onEdit(modalTemplate, actionItem);
+        break;
+      case 'C':
+        this.onDelete(modalTemplate, actionItem);
+        break;
+      case 'D':
+        console.log('favourite');
+        break;
+      default:
+        break;
+    }
+  }
+
+  private handleFolderActions(action: string, modalTemplate: TemplateRef<any>, actionItem: Items) {
+    switch (action) {
+      case 'A':
+        this.onEdit(modalTemplate, actionItem);
+        break;
+      case 'C':
+        this.onDelete(modalTemplate, actionItem);
+        break;
+      case 'D':
+        console.log('favourite');
+        break;
+      default:
+        break;
+    }
+  }
+
+  private handleCategoryActions(action: string, modalTemplate: TemplateRef<any>, actionItem: Items) {
+    switch (action) {
+      case 'A':
+        this.onEdit(modalTemplate, actionItem);
+        break;
+      case 'C':
+        this.onDelete(modalTemplate, actionItem);
+        break;
+      default:
+        break;
+    }
+  }
+
+  getPositionAction(pos: Point): string {
+    if (pos.x >= 20 && pos.x <= 44) {
+      console.log('A');
+      return 'A';
+    } else if (pos.x >= 45) {
+      console.log('B');
+      return 'B';
+    } else if (pos.x <= -45) {
+      console.log('C');
+      return 'C';
+    } else if (pos.x <= -20 && pos.x >= -44) {
+      console.log('D');
+      return 'D';
+    }
+    console.log('');
+
+    return '';
   }
 
   public setPriorityBarStatus(value: boolean): boolean {
@@ -81,6 +140,10 @@ export class SwipeService {
   private onDelete(modalTemplate: TemplateRef<any>, item: Items): void {
     const config = this.modalService.getModalConfig(item, 'Delete');
     if (config) {
+      if (config.type === 'todoDelete') {
+        this.actionsService.todoDelete(item.todo!);
+        return;
+      }
       this.openModalAndHandleAction(modalTemplate, config, option => {
         switch (config.type) {
           case 'categoryDelete':
@@ -92,9 +155,6 @@ export class SwipeService {
             option
               ? this.actionsService.deleteFolderWithAllItems(item.folder!)
               : this.actionsService.deleteFolderAction(item.folder!);
-            break;
-          case 'todoDelete':
-            this.actionsService.todoDelete(item.todo!);
             break;
         }
       });

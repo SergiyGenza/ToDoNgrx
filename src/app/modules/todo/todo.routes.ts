@@ -5,5 +5,6 @@ export const todoRoutes: Route[] = [
   {
     path: '',
     component: TodoPageComponent,
+    // loadChildren: () => import('../todo/todo.module').then((m) => m.TodoModule),
   }
 ]

@@ -5,6 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TodoModule } from './modules/todo/todo.module';
 import { RouterModule } from '@angular/router';
+import { AuthModule } from './modules/auth/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,9 @@ import { RouterModule } from '@angular/router';
       }
     ]),
     StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() , connectInZone: true}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), connectInZone: true }),
     TodoModule,
-
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

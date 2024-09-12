@@ -1,0 +1,25 @@
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #F8F1E5;
+  width: 20px;
+  text-align: center;
+}
+
+.heigth {
+  background-color: red;
+}
+
+.medium {
+  background-color: yellow;
+}
+
+.low {
+  background-color: rgb(105, 105, 220);
+}
+
+.none {
+  background-color: white;
+}

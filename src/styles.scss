@@ -2,6 +2,8 @@
 @import "./assets/styles/reset";
 @import "./assets/styles/color-variables";
 
+@import '~@angular/cdk/overlay-prebuilt.css';
+
 body {
   margin: 0;
   padding: 1rem 0;

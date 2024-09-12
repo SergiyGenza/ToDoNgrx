@@ -8,23 +8,11 @@ import { Todo } from '../../common/models/todo.model';
 })
 export class TodoListItemUiComponent {
   @Input() todo: Todo | undefined;
-  @Output() deleteItem = new EventEmitter<void>();
   @Output() toggle = new EventEmitter<void>();
-  @Output() edit = new EventEmitter<void>();
 
   public onToggle() {
-    console.log('works');
+    console.log('onToggle');
     this.toggle.emit();
-  }
-
-  public onDelete() {
-    this.deleteItem.emit();
-  }
-
-  public onEdit() {
-    this.edit.emit();
-    console.log('onEdit');
-    
   }
 
 }

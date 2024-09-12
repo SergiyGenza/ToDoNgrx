@@ -153,6 +153,19 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
         ),
         categoriesList: state.categoriesList.filter(cat => cat.id !== action.payload.id)
       }
+    case todoActionsType.changeTodoPriority:
+      return {
+        ...state,
+        todoList: state.todoList.map(todo => {
+          if (todo.id === action.payload.id) {
+            return {
+              ...todo,
+              priority: action.payload.priority
+            };
+          }
+          return todo;
+        })
+      };
     default:
       return state
   }

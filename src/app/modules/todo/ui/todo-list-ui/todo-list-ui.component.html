@@ -2,7 +2,7 @@
   @for (todo of todoList; track todo.id){
   <li class="task-item">
     <app-swipe [todo]="todo">
-      <app-todo-list-item-ui [todo]="todo"></app-todo-list-item-ui>
+      <app-todo-list-item-ui [todo]="todo" (toggle)="toogleTodo(todo.id)"></app-todo-list-item-ui>
     </app-swipe>
   </li>
   }

@@ -7,10 +7,11 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./svg-icon.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SvgIconComponent implements OnInit{
+export class SvgIconComponent implements OnInit {
   @Input() svgPath!: string;
   @Input() width!: string;
   @Input() height!: string;
+  @Input() color!: string;
   svgContent: SafeHtml = '';
 
   constructor(
@@ -28,13 +29,13 @@ export class SvgIconComponent implements OnInit{
     fetch(path)
       .then(response => response.text())
       .then(svg => {
-        this.svgContent = this.sanitizer.bypassSecurityTrustHtml(this.setSvgSize(svg, this.width, this.height));
+        this.svgContent = this.sanitizer.bypassSecurityTrustHtml(this.modifySvg(svg, this.width, this.height, this.color));
         this.cdr.markForCheck();
       })
       .catch(error => console.error('Error loading SVG:', error));
   }
 
-  private setSvgSize(svg: string, width: string, height: string): string {
+  private modifySvg(svg: string, width: string, height: string, color: string): string {
     const parser = new DOMParser();
     const doc = parser.parseFromString(svg, 'image/svg+xml');
     const svgElement = doc.querySelector('svg');
@@ -42,8 +43,19 @@ export class SvgIconComponent implements OnInit{
     if (svgElement) {
       svgElement.setAttribute('width', width);
       svgElement.setAttribute('height', height);
+
+      if (color) {
+        this.setSvgColor(svgElement, color);
+      }
     }
 
     return new XMLSerializer().serializeToString(doc);
+  }
+
+  private setSvgColor(svgElement: SVGSVGElement, color: string): void {
+    const paths = svgElement.querySelectorAll('path');
+    paths.forEach(path => {
+      path.setAttribute('fill', color);
+    });
   }
 }

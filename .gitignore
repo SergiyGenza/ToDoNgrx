@@ -43,3 +43,6 @@ firebase.json
 # System files
 .DS_Store
 Thumbs.db
+
+# env
+environment.ts

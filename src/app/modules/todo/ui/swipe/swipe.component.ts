@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { Todo } from '../../common/models/todo.model';
 import { CdkDragEnd, CdkDragStart, Point } from '@angular/cdk/drag-drop';
 import { Folder } from '../../common/models/folder.model';
@@ -17,7 +17,7 @@ interface Position {
   templateUrl: './swipe.component.html',
   styleUrls: ['./swipe.component.scss']
 })
-export class SwipeComponent implements OnInit, OnDestroy {
+export class SwipeComponent implements OnInit, OnDestroy, OnChanges {
   @Input()
   todo!: Todo;
   @Input()
@@ -36,20 +36,30 @@ export class SwipeComponent implements OnInit, OnDestroy {
   dragArea!: CdkDragEnd;
 
   offsetX!: number
+  offsetY!: number
 
   constructor(
     private swipeService: SwipeService,
 
   ) {
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.todo) {
+      this.offsetY = this.setPriorityBarY();
+      console.log(this.offsetY);
+    }
   }
 
   ngOnInit(): void {
-    this.sub = this.swipeService.closeAll.subscribe(s => {
-      if (!s && this.dragArea) {
+    this.sub = this.swipeService.closeAll.subscribe(isOpen => {
+      if (!isOpen && this.dragArea) {
         this.dragArea.source.reset();
       }
-      this.isPriorityBarOpen = s;
+      this.isPriorityBarOpen = isOpen;
     })
+
   }
 
   ngOnDestroy(): void {
@@ -86,6 +96,21 @@ export class SwipeComponent implements OnInit, OnDestroy {
   public changePriority(value: TPrority): void {
     this.isPriorityBarOpen = false;
     this.swipeService.changePriority(this.todo, value);
+  }
+
+  private setPriorityBarY(): number {
+    switch (this.todo.priority) {
+      case ('high'):
+        return -19;
+      case ('medium'):
+        return -63;
+      case ('low'):
+        return -107;
+      case ('none'):
+        return -151;
+      default:
+        return 0;
+    }
   }
 
 

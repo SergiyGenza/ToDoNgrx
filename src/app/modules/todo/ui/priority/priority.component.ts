@@ -8,9 +8,12 @@ import { TPrority } from '../../common/models/priority.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PriorityComponent {
-  @Output() changePriority = new EventEmitter<TPrority>();
+  @Output()
+  changePriority = new EventEmitter<TPrority>();
+  @Output()
+  cancelPriorityPick = new EventEmitter<void>();
 
-  onPriorityChange(value: TPrority): void {
+  public onPriorityChange(value: TPrority): void {
     this.changePriority.emit(value);
   }
 }

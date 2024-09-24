@@ -11,6 +11,7 @@
   }
 
   &__tool-bar {
+    background-color: #F1EDC1;
     position: absolute;
     top: 0;
     z-index: -1;
@@ -36,6 +37,7 @@
   }
 
   &__tool-bar {
+    background-color: #F1EDC1;
     position: absolute;
     top: 0;
     display: flex;
@@ -61,6 +63,7 @@
   }
 
   &__tool-bar {
+    background-color: #F1EDC1;
     position: absolute;
     top: 0;
     display: flex;
@@ -79,7 +82,40 @@
 
 .action {
   width: 100%;
+
   &_priority {
     position: relative;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .task-item {
+    &__tool-bar {
+      // padding: 0 4px;
+
+      &__item {
+        gap: 4px;
+      }
+    }
+  }
+
+  .folder-item {
+    &__tool-bar {
+      // padding: 0 4px;
+
+      &__item {
+        gap: 4px;
+      }
+    }
+  }
+
+  .category-item {
+    &__tool-bar {
+      // padding: 0 4px;
+
+      &__item {
+        gap: 4px;
+      }
+    }
   }
 }

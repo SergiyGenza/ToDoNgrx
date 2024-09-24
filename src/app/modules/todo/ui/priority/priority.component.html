@@ -1,4 +1,22 @@
-<div class="heigth" (click)="onPriorityChange('heigth')">!!!!</div>
-<div class="medium" (click)="onPriorityChange('medium')">!!!</div>
-<div class="low" (click)="onPriorityChange('low')">!!</div>
-<div class="none" (click)="onPriorityChange('none')">!</div>
+<div class="priority-wrapper">
+  <div class="priority high" (click)="onPriorityChange('high')">
+    <app-svg-icon [width]="'20'" [height]="'20'" [svgPath]="'../../../../../assets/icons/priority_svgrepo.com.svg'">
+    </app-svg-icon>
+  </div>
+  <div class="priority medium" (click)="onPriorityChange('medium')">
+    <app-svg-icon [width]="'20'" [height]="'20'" [svgPath]="'../../../../../assets/icons/priority_svgrepo.com.svg'">
+    </app-svg-icon>
+  </div>
+  <div class="priority low" (click)="onPriorityChange('low')">
+    <app-svg-icon [width]="'20'" [height]="'20'" [svgPath]="'../../../../../assets/icons/priority_svgrepo.com.svg'">
+    </app-svg-icon>
+  </div>
+  <div class="priority none" (click)="onPriorityChange('none')">
+    <app-svg-icon [width]="'20'" [height]="'20'" [svgPath]="'../../../../../assets/icons/priority_svgrepo.com.svg'">
+    </app-svg-icon>
+  </div>
+  <div class="priority cancel" (click)="cancelPriorityPick.emit()">
+    <app-svg-icon [width]="'20'" [height]="'20'" [svgPath]="'../../../../../assets/icons/cansel.svg'">
+    </app-svg-icon>
+  </div>
+</div>

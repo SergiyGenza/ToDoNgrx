@@ -55,9 +55,9 @@ export class SwipeService {
 
   private setPriorityBarStatus(value: boolean) {
     this.isPriorityBarOpen = value;
-    if (this.isPriorityBarOpen) {
-      this.setDragAreaPos(20);
-    }
+    // if (this.isPriorityBarOpen) {
+    //   this.setDragAreaPos(20);
+    // }
   }
 
   private onEdit(modalTemplate: TemplateRef<any>, item: Items): void {

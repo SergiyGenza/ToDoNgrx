@@ -18,11 +18,15 @@ interface Position {
   styleUrls: ['./swipe.component.scss']
 })
 export class SwipeComponent implements OnInit, OnDestroy {
-  @Input() todo!: Todo;
-  @Input() folder!: Folder;
-  @Input() category!: Category;
+  @Input()
+  todo!: Todo;
+  @Input()
+  folder!: Folder;
+  @Input()
+  category!: Category;
 
-  @ViewChild('modalTemplate', { static: true }) modalTemplate!: TemplateRef<any>;
+  @ViewChild
+    ('modalTemplate', { static: true }) modalTemplate!: TemplateRef<any>;
 
   setPosition: Position = { x: 0, y: 0 };
   isPriorityBarOpen: boolean = false;
@@ -31,8 +35,11 @@ export class SwipeComponent implements OnInit, OnDestroy {
 
   dragArea!: CdkDragEnd;
 
+  offsetX!: number
+
   constructor(
     private swipeService: SwipeService,
+
   ) {
   }
 

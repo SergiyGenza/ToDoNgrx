@@ -6,6 +6,7 @@ import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 import { TPrority } from '../models/priority.model';
 import { Todo } from '../models/todo.model';
 import { BehaviorSubject } from 'rxjs';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class SwipeService {
 
   constructor(
     private actionsService: ActionsService,
-    private modalService: ModalService
+    private modalService: ModalService,
   ) { }
 
 

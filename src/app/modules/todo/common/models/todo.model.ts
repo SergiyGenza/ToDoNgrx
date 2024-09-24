@@ -4,11 +4,15 @@ export interface TodoCreate {
   name: string;
   favourite?: boolean;
   priority?: TPrority;
-  currentFolderId: number | null;
-  currentCategoryId: number | null;
+  currentFolderId: string | null;
+  currentCategoryId: string | null;
 }
 
 export interface Todo extends TodoCreate {
-  id: number;
+  id: string;
   completed: boolean;
+}
+
+export interface FTodo extends TodoCreate {
+  key?: string;
 }

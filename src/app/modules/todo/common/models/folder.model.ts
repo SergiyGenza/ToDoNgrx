@@ -5,9 +5,14 @@ export interface FolderCreate {
   favourite?: boolean;
   todoItems?: number[];
   // priority?: TPrority;
-  currentCategoryId: number | null;
+  currentCategoryId: string | null;
+  key?: string;
 }
 
 export interface Folder extends FolderCreate {
-  id: number;
+  id: string;
+}
+
+export interface FFolder extends FolderCreate {
+  key?: string;
 }

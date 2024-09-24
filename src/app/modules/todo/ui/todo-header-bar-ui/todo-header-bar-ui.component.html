@@ -22,7 +22,7 @@
     </app-svg-icon>
     @if (categoriesList){
     <div class="btns-bar__group__ categoty-group">
-      @for (category of categoriesList; track category.id) {
+      @for (category of categoriesList; track category.key) {
       <button class="btn btn-primary" 
               [ngClass]="{'active': currentCategory?.name == category.name}"
               (click)="onCategoryPick(category)">

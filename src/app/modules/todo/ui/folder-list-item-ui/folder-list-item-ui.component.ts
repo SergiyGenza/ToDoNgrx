@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Folder } from '../../common/models/folder.model';
 import { Observable } from 'rxjs';
 import { Todo } from '../../common/models/todo.model';
@@ -8,9 +8,15 @@ import { Todo } from '../../common/models/todo.model';
   templateUrl: './folder-list-item-ui.component.html',
   styleUrls: ['./folder-list-item-ui.component.scss']
 })
-export class FolderListItemUiComponent {
+export class FolderListItemUiComponent implements OnInit {
   @Input() todoList$: Observable<Todo[]> | undefined;
   @Input() folder!: Folder;
-
+  
   isOpen: boolean = true;
+
+
+  ngOnInit(): void {
+    console.log(!!this.folder);
+    
+  }
 }

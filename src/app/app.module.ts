@@ -13,6 +13,8 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { AuthService } from './modules/auth/services/auth.service';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { EffectsModule } from '@ngrx/effects';
+import { TodoEffects } from './modules/todo/store/todo/todo.effects';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,10 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     ]),
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), connectInZone: true }),
-
+    EffectsModule.forFeature(TodoEffects),
     TodoModule,
     AuthModule,
+    EffectsModule.forRoot([]),
   ],
   providers: [
     // provideFirebaseApp(() => initializeApp(firebaseConfig)),

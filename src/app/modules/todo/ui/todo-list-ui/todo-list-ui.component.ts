@@ -14,7 +14,7 @@ export class TodoListUiComponent {
     private actionsService: ActionsService,
   ) { }
 
-  public toogleTodo(id: number): void {
+  public toogleTodo(id: string): void {
     this.actionsService.todoToggle(id);
   }
 }

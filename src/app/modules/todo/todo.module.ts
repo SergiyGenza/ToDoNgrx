@@ -27,6 +27,9 @@ import { CreateItemsComponent } from './ui/todo-create-form-ui/create-items.comp
 import { SwipeService } from './common/services/swipe.service';
 import { PriorityComponent } from './ui/priority/priority.component';
 import { OverlayModule } from "@angular/cdk/overlay";
+import { FirebaseService } from './common/services/firebase.service';
+import { AngularFireModule } from '@angular/fire/compat';
+import { firebaseConfig } from 'src/app/environment/environment';
 
 
 
@@ -50,6 +53,7 @@ import { OverlayModule } from "@angular/cdk/overlay";
     CommonModule,
     StoreModule.forFeature(TODO_REDUCER_NODE, todoReducer),
     RouterModule.forChild(todoRoutes),
+    AngularFireModule.initializeApp(firebaseConfig),
     FormsModule,
     DragDropModule,
     OverlayModule,
@@ -65,7 +69,8 @@ import { OverlayModule } from "@angular/cdk/overlay";
     CategoryService,
     LocalstorageService,
     ActionsService,
-    SwipeService
+    SwipeService,
+    FirebaseService
   ]
 })
 export class TodoModule { }

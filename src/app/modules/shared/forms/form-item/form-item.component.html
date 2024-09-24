@@ -28,10 +28,10 @@
             (click)="clearCategoryPick()">
             None
     </button>
-    @for(category of categoriesList; track category.id) {
+    @for(category of categoriesList; track category.key) {
     <li>
       <button type="button" role="text" class="btn btn__pick-item"
-        [class.active]="category.id === activeCategory?.id"
+        [class.active]="category.key === activeCategory?.key"
         (click)="onCategotyPick(category)">
         {{category.name}}
       </button>
@@ -48,7 +48,7 @@
             (click)="onFolderPick(null)">
             None
     </button>
-    @for(folder of currentFoldersList; track folder.id) {
+    @for(folder of currentFoldersList; track folder.name) {
     <li>
       <button type="button" class="btn btn__pick-item"
               [disabled]="this.activeCategory === null"

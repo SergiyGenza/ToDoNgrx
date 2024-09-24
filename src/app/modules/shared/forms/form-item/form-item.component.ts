@@ -25,6 +25,8 @@ export class FormItemComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.activeCategory = this.currentCategory;
+    console.log(this.activeFolder);
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -56,20 +58,22 @@ export class FormItemComponent implements OnChanges, OnInit {
     this.activeCategory = category;
     this.activeFolder = null;
     this.currentFoldersList = category.foldersList;
-    this.patchControlValue('currentCategoryId', category.id);
+    this.patchControlValue('currentCategoryId', category.key);
   }
 
   public onFolderPick(folder: Folder | null): void {
     this.activeFolder = folder;
-    this.patchControlValue('currentFolderId', folder?.id ?? null);
+    console.log(this.activeFolder);
+    
+    this.patchControlValue('currentFolderId', folder?.key ?? null);
   }
 
   public isFolderActive(folder: Folder): boolean {
-    return this.activeFolder?.id === folder.id || false;
+    return this.activeFolder?.name === folder.name || false;
   }
 
   private setDefaultData(): void {
-    this.patchControlValue('currentCategoryId', this.activeCategory?.id ?? null);
+    this.patchControlValue('currentCategoryId', this.activeCategory?.key ?? null);
   }
 
   private clearControls(): void {

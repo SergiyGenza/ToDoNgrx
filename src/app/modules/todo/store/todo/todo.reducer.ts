@@ -7,17 +7,37 @@ export const TODO_REDUCER_NODE = 'todo';
 export interface TodoState {
   idIncrement: number;
   todoList: Todo[];
-  categoriesList: Category[]
+  categoriesList: Category[];
+  error: any;
 }
 
 export const initialTodoState: TodoState = {
   idIncrement: 1,
   todoList: [],
   categoriesList: [],
+  error: null
 }
 
 export const todoReducer = (state = initialTodoState, action: TodoActions) => {
   switch (action.type) {
+    case todoActionsType.loadTodoFirebase:
+      return {
+        ...state
+      };
+
+    case todoActionsType.loadTodosSuccess:
+      return {
+        ...state,
+        todoList: action.payload.todos,
+        error: null
+      };
+
+    case todoActionsType.loadTodosFailure:
+      return {
+        ...state,
+        error: action.payload.error
+      };
+
     case todoActionsType.createTodo:
       return {
         ...state,
@@ -30,14 +50,17 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             completed: false,
             currentFolderId: action.payload.currentFolderId,
             currentCategoryId: action.payload.currentCategoryId,
+            priority: action.payload.priority
           }
         ]
       };
+
     case todoActionsType.deleteTodo:
       return {
         ...state,
         todoList: state.todoList.filter(todo => todo.id != action.payload.id)
       };
+
     case todoActionsType.toggleTodo:
       return {
         ...state,
@@ -45,19 +68,23 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           ...todo,
           completed: !todo.completed,
         } : todo)
-      }
+      };
+
     case todoActionsType.editTodo:
       return {
         ...state,
         todoList: state.todoList.map(todo => todo.id === action.payload.id ? {
           ...todo,
-          name: action.payload.name
+          name: action.payload.name,
+          // priority: action.payload.priority
         } : todo)
       };
+
     case todoActionsType.loadTodo:
       return {
         ...action.payload.state
-      }
+      };
+
     case todoActionsType.createCategory:
       return {
         ...state,
@@ -70,7 +97,8 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             foldersList: [],
           }
         ]
-      }
+      };
+
     case todoActionsType.editCategory:
       return {
         ...state,
@@ -78,7 +106,8 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           ...c,
           name: action.payload.name
         } : c)
-      }
+      };
+
     case todoActionsType.deleteCategory:
       return {
         ...state,
@@ -88,23 +117,24 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             : todo
         ),
         categoriesList: state.categoriesList.filter(cat => cat.id !== action.payload.id)
-      }
-    case todoActionsType.createFolder:
-      return {
-        ...state,
-        idIncrement: state.idIncrement + 1,
-        categoriesList: state.categoriesList.map(category => category.id === action.payload.currentCategoryId ? {
-          ...category,
-          foldersList: [
-            ...category.foldersList,
-            {
-              id: state.idIncrement,
-              name: action.payload.folderName,
-              favourite: false,
-              todoItems: [],
-            }]
-        } : category)
-      }
+      };
+
+    // case todoActionsType.createFolder:
+    //   return {
+    //     ...state,
+    //     idIncrement: state.idIncrement + 1,
+    //     categoriesList: state.categoriesList.map(category => category.id === action.payload.currentCategoryId ? {
+    //       ...category,
+    //       foldersList: [
+    //         ...category.foldersList,
+    //         {
+    //           name: action.payload.folderName,
+    //           favourite: false,
+    //           todoItems: [],
+    //         }]
+    //     } : category)
+    //   };
+
     case todoActionsType.editFolder:
       return {
         ...state,
@@ -117,7 +147,8 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             } : f)
           }
         })
-      }
+      };
+
     case todoActionsType.deleteFolder:
       return {
         ...state,
@@ -133,6 +164,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           };
         })
       };
+
     case todoActionsType.deleteFolderWithAllItems:
       return {
         ...state,
@@ -143,7 +175,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             foldersList: cat.foldersList.filter(folder => folder.id !== action.payload.id)
           };
         })
-      }
+      };
 
     case todoActionsType.deleteCategoryWithAllItems:
       return {
@@ -152,7 +184,8 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           todo.currentCategoryId !== action.payload.id
         ),
         categoriesList: state.categoriesList.filter(cat => cat.id !== action.payload.id)
-      }
+      };
+
     case todoActionsType.changeTodoPriority:
       return {
         ...state,
@@ -166,7 +199,48 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           return todo;
         })
       };
+
+    case todoActionsType.loadCategories:
+      return {
+        ...state
+      };
+    case todoActionsType.loadCategoriesSuccess:
+      return {
+        ...state,
+        categoriesList: action.payload.categories,
+        error: null
+      };
+    case todoActionsType.loadCategoriesFailure:
+      return {
+        ...state,
+        error: action.payload.error
+      };
+
+    case todoActionsType.createFolder:
+      return {
+        ...state
+      };
+    case todoActionsType.createFolderSuccess:
+      return {
+        ...state,
+        categoriesList: state.categoriesList.map(category => category.id === action.payload.folder.currentCategoryId ? {
+          ...category,
+          foldersList: [
+            ...category.foldersList,
+            action.payload.folder
+          ]
+        } : category),
+        error: null
+      };
+    case todoActionsType.createFolderFailure:
+      return {
+        ...state,
+        error: action.payload.error
+      };
+
     default:
-      return state
+      return state;
   }
+
+
 }

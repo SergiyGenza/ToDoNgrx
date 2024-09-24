@@ -32,14 +32,14 @@ export class ActionsService {
     this.todoStore$.dispatch(new TodoDeleteAction({ id }));
   }
 
-  public todoToggle(id: number): void {
+  public todoToggle(id: string): void {
     this.todoStore$.dispatch(new TodoToggleAction({ id }));
   }
 
   // need ref
   public categoryCreate(item: CategoryCreate): void {
-    const { name } = item;
-    this.todoStore$.dispatch(new TodoCategoryCreateAction({ name }));
+    const {  name, foldersList } = item;
+    this.todoStore$.dispatch(new TodoCategoryCreateAction({ name, foldersList }));
   }
 
   public categoryEdit(item: Category): void {
@@ -49,12 +49,12 @@ export class ActionsService {
 
   public deleteCategoryWithAllItems(item: Category) {
     const { id, name } = item;
-    this.todoStore$.dispatch(new TodoDeleteCategoryWithAllItemsAction({ id, name }));
+    this.todoStore$.dispatch(new TodoDeleteCategoryWithAllItemsAction({ id }));
   }
 
   public deleteCategoryAction(item: Category) {
     const { id, name } = item;
-    this.todoStore$.dispatch(new TodoDeleteCategoryAction({ id, name }));
+    this.todoStore$.dispatch(new TodoDeleteCategoryAction({ id }));
   }
 
   // need ref
@@ -71,12 +71,12 @@ export class ActionsService {
 
   public deleteFolderWithAllItems(item: Folder) {
     const { id, name } = item;
-    this.todoStore$.dispatch(new TodoDeleteFolderWithAllItemsAction({ id, name }));
+    this.todoStore$.dispatch(new TodoDeleteFolderWithAllItemsAction({ id }));
   }
 
   public deleteFolderAction(item: Folder) {
     const { id, name } = item;
-    this.todoStore$.dispatch(new TodoDeleteFolderAction({ id, name }));
+    this.todoStore$.dispatch(new TodoDeleteFolderAction({ id }));
   }
 
   public changeTodoPriority(todo: Todo, priority: TPrority) {

@@ -7,7 +7,7 @@
 
 @if(showContent) {
 <app-todo-list-ui [todoList]="todoList$ | async | todo:category"></app-todo-list-ui>
-  @for(folder of category.foldersList; track folder.id) {
+  @for(folder of category.foldersList; track folder.name) {
   <app-swipe [folder]="folder">
     <app-folder-list-item-ui
       [todoList$]="todoList$" 

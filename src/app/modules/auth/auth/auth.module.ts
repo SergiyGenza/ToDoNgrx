@@ -17,7 +17,6 @@ import { firebaseConfig } from 'src/app/environment/environment';
   imports: [
     CommonModule,
     RouterModule.forChild(authRoutes),
-    AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
   ],
   providers: [

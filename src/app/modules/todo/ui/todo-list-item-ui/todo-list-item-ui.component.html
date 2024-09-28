@@ -1,6 +1,6 @@
 <div class="todo-item-wrapper" [class]="listClasses">
   <label class="round-checkbox-container">
-    <input type="checkbox" [checked]="todo?.completed" (click)="onToggle()" />
+    <input type="checkbox" [checked]="todo?.completed" (click)="this.toggle.emit();" />
     <span class="checkmark"></span>
   </label>
   <div class="todo-item__text">

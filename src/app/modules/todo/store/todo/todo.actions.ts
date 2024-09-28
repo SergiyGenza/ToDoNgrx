@@ -2,7 +2,7 @@ import { Action } from "@ngrx/store";
 import { TodoState } from "./todo.reducer";
 import { Category } from "../../common/models/category.model";
 import { Folder } from "../../common/models/folder.model";
-import { TPrority } from "../../common/models/priority.model";
+import { TPriority } from "../../common/models/priority.model";
 
 export enum todoActionsType {
   loadTodo = '[Todo] loadTodo todo item',
@@ -130,7 +130,7 @@ export class ChangeTodoPriority implements Action {
   readonly type = todoActionsType.changeTodoPriority;
   constructor(public payload: {
     id: number;
-    priority: TPrority;
+    priority: TPriority;
   }) { }
 }
 

@@ -27,6 +27,7 @@
                         offsetX: -38,
                       }]">
           <app-priority
+            [priority]="priorityType"
             (changePriority)="changePriority($event)"
             (cancelPriorityPick)="this.isPriorityBarOpen = false">
           </app-priority>

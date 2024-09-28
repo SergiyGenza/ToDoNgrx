@@ -84,3 +84,19 @@ input {
 .btn:disabled {
   background-color: $btn-disabled;
 }
+
+.high {
+  background-color: #FFB6AB !important;
+}
+
+.medium {
+  background-color: #FFDCB4 !important;
+}
+
+.low {
+  background-color: #7E6FD9 !important;
+}
+
+.none {
+  background-color: #FDF3BB !important;
+}

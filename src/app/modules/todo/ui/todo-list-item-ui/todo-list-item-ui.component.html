@@ -1,4 +1,4 @@
-<div class="todo-item-wrapper">
+<div class="todo-item-wrapper" [class]="listClasses">
   <label class="round-checkbox-container">
     <input type="checkbox" [checked]="todo?.completed" (click)="onToggle()" />
     <span class="checkmark"></span>
@@ -10,7 +10,7 @@
     <span>{{todo?.name}}</span>
     }
   </div>
- 
+
 
   <!-- <label for="checkbox">
     <input type="checkbox" [checked]="todo?.completed" (click)="onToggle()">

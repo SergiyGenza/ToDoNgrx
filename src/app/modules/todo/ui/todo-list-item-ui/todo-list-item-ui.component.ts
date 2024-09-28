@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Todo } from '../../common/models/todo.model';
 
 @Component({
@@ -6,12 +6,20 @@ import { Todo } from '../../common/models/todo.model';
   templateUrl: './todo-list-item-ui.component.html',
   styleUrls: ['./todo-list-item-ui.component.scss']
 })
-export class TodoListItemUiComponent {
+export class TodoListItemUiComponent implements OnInit {
   @Input() todo: Todo | undefined;
   @Output() toggle = new EventEmitter<void>();
 
+  listClasses!: string[]
+
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    this.listClasses = [this.todo?.priority!];
+  }
+
   public onToggle() {
-    console.log('onToggle');
     this.toggle.emit();
   }
 

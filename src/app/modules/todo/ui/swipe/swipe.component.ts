@@ -4,7 +4,7 @@ import { CdkDragEnd, CdkDragStart, Point } from '@angular/cdk/drag-drop';
 import { Folder } from '../../common/models/folder.model';
 import { Category } from '../../common/models/category.model';
 import { SwipeService } from '../../common/services/swipe.service';
-import { TPrority } from '../../common/models/priority.model';
+import { TPriority } from '../../common/models/priority.model';
 import { Subscription } from 'rxjs';
 
 interface Position {
@@ -24,26 +24,22 @@ export class SwipeComponent implements OnInit, OnDestroy, OnChanges {
   folder!: Folder;
   @Input()
   category!: Category;
-
   @ViewChild
     ('modalTemplate', { static: true }) modalTemplate!: TemplateRef<any>;
 
-  setPosition: Position = { x: 0, y: 0 };
-  isPriorityBarOpen: boolean = false;
-
   sub!: Subscription;
 
+  isPriorityBarOpen: boolean = false;
+  setPosition: Position = { x: 0, y: 0 };
   dragArea!: CdkDragEnd;
+  offsetX!: number;
+  offsetY!: number;
 
-  offsetX!: number
-  offsetY!: number
+  priorityType: TPriority = "none";
 
   constructor(
-    private swipeService: SwipeService,
-
-  ) {
-
-  }
+    private swipeService: SwipeService
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.todo) {
@@ -93,7 +89,7 @@ export class SwipeComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  public changePriority(value: TPrority): void {
+  public changePriority(value: TPriority): void {
     this.isPriorityBarOpen = false;
     this.swipeService.changePriority(this.todo, value);
   }
@@ -101,17 +97,20 @@ export class SwipeComponent implements OnInit, OnDestroy, OnChanges {
   private setPriorityBarY(): number {
     switch (this.todo.priority) {
       case ('high'):
+        this.priorityType = 'high';
         return -19;
       case ('medium'):
-        return -63;
+        this.priorityType = 'medium';
+        return -59;
       case ('low'):
-        return -107;
+        this.priorityType = 'low';
+        return -99;
       case ('none'):
-        return -151;
+        this.priorityType = 'none';
+        return -139;
       default:
         return 0;
     }
   }
-
 
 }

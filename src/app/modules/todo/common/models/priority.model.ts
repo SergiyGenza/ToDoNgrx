@@ -1,1 +1,1 @@
-export type TPrority = 'high' | 'medium' | 'low' | 'none';
+export type TPriority = 'high' | 'medium' | 'low' | 'none';

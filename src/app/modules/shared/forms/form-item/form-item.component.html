@@ -13,11 +13,10 @@
   <button type="submit" class="btn btn__big btn__add-todo" 
           [disabled]="!this.form.valid"
           (click)="onSubmit()">
-    <app-svg-icon 
-      [svgPath]="'../../../../../assets/icons/plus.svg'"
-      [width]="'20'"
-      [height]="'20'">
-    </app-svg-icon>
+    <svg-icon 
+      [src]="'../../../../../assets/icons/plus.svg'"
+      [svgStyle]="{ 'width.px':20}">
+    </svg-icon>
   </button>
 </div>
 

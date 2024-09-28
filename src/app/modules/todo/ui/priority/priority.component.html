@@ -6,8 +6,10 @@
         'low': p.priority === 'low' && priority === 'low', 
         'none': p.priority === 'none' && priority === 'none' 
       }" (click)="onPriorityChange(p.priority)">
-    <svg-icon src="../../../../../assets/icons/priority_svgrepo.com.svg"
-      [svgStyle]="{ 'width.px':20,  'fill':p.color }"></svg-icon>
+    <svg-icon 
+      src="../../../../../assets/icons/priority_svgrepo.com.svg"
+      [svgStyle]="{ 'width.px':20,  'fill':p.color }">
+    </svg-icon>
   </div>
   }
   <div class="priority" (click)="cancelPriorityPick.emit()">

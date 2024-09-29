@@ -6,7 +6,7 @@
   align-items: center;
   min-height: 40px;
   padding: 0px 10px;
-  background-color: $todo-bg-yellow;
+  background-color: -var(--todo-bg-yellow);
 }
 
 .todo-item {

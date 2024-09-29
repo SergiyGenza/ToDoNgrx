@@ -10,8 +10,8 @@ form {
 }
 
 .form__content {
-  border: 1px solid $header-border-color;
-  border-radius: $border-radius;
+  border: 1px solid var(--header-border-color);
+  border-radius: var(--border-radius);
   flex-grow: 2;
   padding: 4px;
 }
@@ -20,8 +20,8 @@ input {
   padding-left: 10px;
   height: 24px;
   width: 100%;
-  background-color: $input-bg;
-  border-radius: $border-radius;
+  background-color: var(--input-bg);
+  border-radius: var(--border-radius);
   color: black;
   font-family: "Metrophobic";
   font-size: 16px;
@@ -31,7 +31,7 @@ input {
 }
 
 input::placeholder {
-  color: $input-text-color;
+  color: var((--input-text-color));
   font-size: 16px;
   font-weight: 400;
 }

@@ -25,7 +25,7 @@
   height: auto;
   border: olive 1px solid;
   background-color: white;
-  border-radius: $border-radius;
+  border-radius: var(--border-radius);
   padding: 20px;
 }
 

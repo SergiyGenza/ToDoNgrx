@@ -1,25 +1,24 @@
-:host {
+:host {}
+
+.priority-wrapper {
+  width: 38px;
+  background-color: #EAE3D3;
+  border-radius: 22px 22px 22px 22px;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 100;
-  background-color: #F8F1E5;
-  width: 20px;
   text-align: center;
 }
 
-.heigth {
-  background-color: red;
+.priority {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
-.medium {
-  background-color: yellow;
-}
-
-.low {
-  background-color: rgb(105, 105, 220);
-}
-
-.none {
-  background-color: white;
+.priority:first-child {
+  border-radius: 22px 0px 0px 0px;
 }

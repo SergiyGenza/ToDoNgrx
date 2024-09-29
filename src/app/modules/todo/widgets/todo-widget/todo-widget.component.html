@@ -13,18 +13,20 @@
     (currentCategoryEmmiter)="onCategoryPick($event)">
   </app-todo-header-bar-ui>
 
-  @if (!!!this.currentCategory) {
-    <app-todo-list-ui [todoList]="todoList$ | async | todo:null"></app-todo-list-ui>
+<div class="content">
+    @if (!!!this.currentCategory) {
+      <app-todo-list-ui [todoList]="todoList$ | async | todo:null"></app-todo-list-ui>
+    }
+    @for (category of categoriesList$ | async | categoryFilter:currentCategory; track category.id){
+      <app-swipe [category]="category">
+        <app-category-list-item-ui 
+        [currentCategory]="currentCategory"
+        [todoList$]="todoList$"
+        [category]="category">
+      </app-category-list-item-ui>
+    </app-swipe>
   }
-  @for (category of categoriesList$ | async | categoryFilter:currentCategory; track category.id){
-  <app-swipe [category]="category">
-    <app-category-list-item-ui 
-      [currentCategory]="currentCategory"
-      [todoList$]="todoList$"
-      [category]="category">
-    </app-category-list-item-ui>
-  </app-swipe>
-  }
+  </div>
 </div>
 
 <ng-template #modalTemplate>

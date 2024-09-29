@@ -1,18 +1,22 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Todo } from '../../common/models/todo.model';
 
 @Component({
   selector: 'app-todo-list-item-ui',
   templateUrl: './todo-list-item-ui.component.html',
-  styleUrls: ['./todo-list-item-ui.component.scss']
+  styleUrls: ['./todo-list-item-ui.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoListItemUiComponent {
-  @Input() todo: Todo | undefined;
-  @Output() toggle = new EventEmitter<void>();
+export class TodoListItemUiComponent implements OnChanges {
+  @Input()
+  todo: Todo | undefined;
+  @Output()
+  toggle = new EventEmitter<void>();
 
-  public onToggle() {
-    console.log('onToggle');
-    this.toggle.emit();
+  listClasses!: string[];
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.listClasses = [this.todo?.priority!];
   }
 
 }

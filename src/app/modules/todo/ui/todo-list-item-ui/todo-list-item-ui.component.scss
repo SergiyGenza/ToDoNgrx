@@ -6,7 +6,7 @@
   align-items: center;
   min-height: 40px;
   padding: 0px 10px;
-  background-color: $todo-bg-yellow;
+  background-color: -var(--todo-bg-yellow);
 }
 
 .todo-item {
@@ -19,7 +19,6 @@
   }
 }
 
-/* Стиль контейнера для чекбокса */
 .round-checkbox-container {
   display: block;
   position: relative;
@@ -30,14 +29,12 @@
   user-select: none;
 }
 
-/* Приховати стандартний чекбокс */
 .round-checkbox-container input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
 }
 
-/* Стиль кастомного чекбокса */
 .checkmark {
   position: absolute;
   top: -6px;
@@ -48,35 +45,10 @@
   border-radius: 50%;
 }
 
-/* Стиль при натисканні */
-.round-checkbox-container:hover input~.checkmark {
-  background-color: #ccc;
-}
-
-/* Стиль для активного чекбокса */
-.round-checkbox-container input:checked~.checkmark {
-  background-color: #2196F3;
-}
-
-/* Стиль для позначки (галочки) */
-.checkmark:after {
-  content: "";
-  position: absolute;
+svg-icon {
   display: none;
 }
 
-/* Показувати галочку для активного чекбокса */
-.round-checkbox-container input:checked~.checkmark:after {
+.round-checkbox-container input:checked~.checkmark svg-icon {
   display: block;
-}
-
-/* Стиль галочки */
-.round-checkbox-container .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
 }

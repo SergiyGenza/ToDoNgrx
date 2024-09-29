@@ -1,18 +1,44 @@
 // colors
-$btn-primary: #676127;
-$btn-active: #A79700;
-$btn-disabled: #B3AD8C;
-$create-tool-btn-not-active: #B3AD8C;
-$none-atribute-btn: #835600;
+:root {
+  --btn-primary: #676127;
+  --btn-active: #A79700;
+  --btn-disabled: #B3AD8C;
+  --create-tool-btn-not-active: #B3AD8C;
+  --none-atribute-btn: #835600;
 
-$todo-bg-yellow: #FDF3BB;
+  --todo-bg-yellow: #FDF3BB;
 
-$body-bg: #F8F1E5;
-$input-bg: #B3AD8C33;
-$input-text-color: #67612780;
-$devider-bg: #B3AD8C;
-$header-border-color: #835600;
+  --body-bg: #F8F1E5;
+  --input-bg: #B3AD8C33;
+  --input-text-color: #67612780;
+  --devider-bg: #B3AD8C;
+  --header-border-color: #835600;
 
-$white: #FFFFFF;
+  --white: #FFFFFF;
 
-$border-radius: 5px;
+  --border-radius: 5px;
+
+  /* High priority colors */
+  --high-bg-color: #FFD3DB;
+  --high-border-color: #830000;
+  --high-checked-bg-color: #FFB6AB;
+  --high-actions-bar-bg-color :#FFD5D2;
+
+  /* Medium priority colors */
+  --medium-bg-color: #FFDCB4;
+  --medium-border-color: #830000;
+  --medium-checked-bg-color: #FFD098;
+  --medium-actions-bar-bg-color :#FFDFC1;
+
+  /* Low priority colors */
+  --low-bg-color: #EAE7FF;
+  --low-border-color: #7E6FD9;
+  --low-checked-bg-color: #D5CAFF;
+  --low-actions-bar-bg-color :#E2DBFF;
+
+  /* No priority colors */
+  --none-bg-color: #FDF3BB;
+  --none-border-color: #835600;
+  --none-checked-bg-color: #FAE09D;
+  --none-actions-bar-bg-color :#FCF0C5;
+}

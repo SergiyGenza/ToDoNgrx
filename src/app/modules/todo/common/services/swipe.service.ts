@@ -3,7 +3,7 @@ import { ActionsService } from './actions.service';
 import { ModalService } from 'src/app/modules/modal/services/modal.service';
 import { Items } from '../models/edit-item.model';
 import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
-import { TPrority } from '../models/priority.model';
+import { TPriority } from '../models/priority.model';
 import { Todo } from '../models/todo.model';
 import { BehaviorSubject } from 'rxjs';
 
@@ -47,7 +47,7 @@ export class SwipeService {
     }
   }
 
-  public changePriority(todo: Todo, priority: TPrority): void {
+  public changePriority(todo: Todo, priority: TPriority): void {
     this.actionsService.changeTodoPriority(todo, priority);
     this.setPriorityBarStatus(false);
     this.resetPosition();
@@ -55,9 +55,9 @@ export class SwipeService {
 
   private setPriorityBarStatus(value: boolean) {
     this.isPriorityBarOpen = value;
-    if (this.isPriorityBarOpen) {
-      this.setDragAreaPos(20);
-    }
+    // if (this.isPriorityBarOpen) {
+    //   this.setDragAreaPos(20);
+    // }
   }
 
   private onEdit(modalTemplate: TemplateRef<any>, item: Items): void {

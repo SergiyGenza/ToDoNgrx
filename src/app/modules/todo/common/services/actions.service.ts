@@ -5,7 +5,7 @@ import { ChangeTodoPriority, TodoCategoryCreateAction, TodoCategoryEditAction, T
 import { Todo, TodoCreate } from '../models/todo.model';
 import { Folder, FolderCreate } from '../models/folder.model';
 import { Category, CategoryCreate } from '../models/category.model';
-import { TPrority } from '../models/priority.model';
+import { TPriority } from '../models/priority.model';
 
 @Injectable({
   providedIn: 'root'
@@ -79,7 +79,7 @@ export class ActionsService {
     this.todoStore$.dispatch(new TodoDeleteFolderAction({ id, name }));
   }
 
-  public changeTodoPriority(todo: Todo, priority: TPrority) {
+  public changeTodoPriority(todo: Todo, priority: TPriority) {
     const { id } = todo;
     this.todoStore$.dispatch(new ChangeTodoPriority({ id, priority }));
   }

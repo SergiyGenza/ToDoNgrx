@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-import { TPrority } from '../../common/models/priority.model';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Priority, TPriority } from '../../common/models/priority.model';
 
 @Component({
   selector: 'app-priority',
@@ -8,9 +8,31 @@ import { TPrority } from '../../common/models/priority.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PriorityComponent {
-  @Output() changePriority = new EventEmitter<TPrority>();
+  @Input()
+  priority: TPriority = "none";
+  @Output()
+  changePriority = new EventEmitter<TPriority>();
+  @Output()
+  cancelPriorityPick = new EventEmitter<void>();
 
-  onPriorityChange(value: TPrority): void {
+  priorities: Priority[] = [{
+    color: '#830000',
+    priority: 'high'
+  },
+  {
+    color: '#B58D00',
+    priority: 'medium'
+  },
+  {
+    color: '#7E6FD9',
+    priority: 'low'
+  },
+  {
+    color: '#676127',
+    priority: 'none',
+  }];
+
+  public onPriorityChange(value: TPriority): void {
     this.changePriority.emit(value);
   }
 }

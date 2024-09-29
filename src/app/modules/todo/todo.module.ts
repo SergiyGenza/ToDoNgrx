@@ -27,6 +27,9 @@ import { CreateItemsComponent } from './ui/todo-create-form-ui/create-items.comp
 import { SwipeService } from './common/services/swipe.service';
 import { PriorityComponent } from './ui/priority/priority.component';
 import { OverlayModule } from "@angular/cdk/overlay";
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -55,7 +58,9 @@ import { OverlayModule } from "@angular/cdk/overlay";
     OverlayModule,
     ModalModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule,
+    AngularSvgIconModule.forRoot()
   ],
   exports: [
     TodoWidgetComponent,

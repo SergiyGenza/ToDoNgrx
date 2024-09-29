@@ -7,19 +7,17 @@
     <button class="btn btn-primary btn__favourite"
             [ngClass]="{'active': false}"
             (click)="onAllCategoriesPick()">
-      <app-svg-icon 
-        [svgPath]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'"  
-        [width]="'20'"
-        [height]="'20'">
-      </app-svg-icon>
+      <svg-icon 
+        [src]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'" 
+        [svgStyle]="{ 'width.px':20, 'height.px':20}">
+      </svg-icon>
     </button>
   </div>
   <div class="btns-bar__group">
-    <app-svg-icon 
-      [svgPath]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'"
-      [width]="'32'"
-      [height]="'32'">
-    </app-svg-icon>
+    <svg-icon 
+      [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
+      [svgStyle]="{ 'width.px':32, 'height.px':32}">
+    </svg-icon>
     @if (categoriesList){
     <div class="btns-bar__group__ categoty-group">
       @for (category of categoriesList; track category.id) {
@@ -30,18 +28,16 @@
       </button>}
     </div>
     }
-    <app-svg-icon data-atribute="reverse"
-      [svgPath]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'"
-      [width]="'32'"
-      [height]="'32'">
-    </app-svg-icon>
+    <svg-icon data-atribute="reverse"
+      [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
+      [svgStyle]="{ 'width.px':32, 'height.px':32}">
+    </svg-icon>
   </div>
   <button class="btn btn-primary" role="menu">
-    <app-svg-icon
-      [svgPath]="'../../../../../assets/icons/filters_svgrepo.com.svg'"
-      [width]="'18'"
-      [height]="'18'">
-    </app-svg-icon>
+    <svg-icon 
+      [src]="'../../../../../assets/icons/filters_svgrepo.com.svg'" 
+      [svgStyle]="{ 'width.px':18}">
+    </svg-icon>
   </button>
   <button class="btn btn-primary" (click)="clearAllData()">
     del

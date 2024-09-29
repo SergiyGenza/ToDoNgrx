@@ -97,24 +97,28 @@ input {
   --bg-color: var(--high-bg-color);
   --border-color: var(--high-border-color);
   --checked-bg-color: var(--high-checked-bg-color);
+  --action-bar-bg-color: var(--high-actions-bar-bg-color);
 }
 
 .medium {
   --bg-color: var(--medium-bg-color);
   --border-color: var(--medium-border-color);
   --checked-bg-color: var(--medium-checked-bg-color);
+  --action-bar-bg-color: var(--medium-actions-bar-bg-color);
 }
 
 .low {
   --bg-color: var(--low-bg-color);
   --border-color: var(--low-border-color);
   --checked-bg-color: var(--low-checked-bg-color);
+  --action-bar-bg-color: var(--low-actions-bar-bg-color);
 }
 
 .none {
   --bg-color: var(--none-bg-color);
   --border-color: var(--none-border-color);
   --checked-bg-color: var(--none-checked-bg-color);
+  --action-bar-bg-color: var(--none-actions-bar-bg-color);
 }
 
 .high input~.checkmark,
@@ -130,5 +134,21 @@ input {
 .low input:checked~.checkmark,
 .none input:checked~.checkmark {
   border: none;
-  background-color: var(--checked-bg-color) !important;
+  background-color: var(--checked-bg-color);
+}
+
+.action-icons-bar.task-item__tool-bar.high {
+  background-color: var(--high-actions-bar-bg-color) !important;
+}
+
+.action-icons-bar.task-item__tool-bar.medium {
+  background-color: var(--medium-actions-bar-bg-color) !important;
+}
+
+.action-icons-bar.task-item__tool-bar.low {
+  background-color: var(--low-actions-bar-bg-color) !important;
+}
+
+.action-icons-bar.task-item__tool-bar.none {
+  background-color: var(--none-actions-bar-bg-color) !important;
 }

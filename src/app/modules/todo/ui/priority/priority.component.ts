@@ -30,8 +30,7 @@ export class PriorityComponent {
   {
     color: '#676127',
     priority: 'none',
-  }
-  ];
+  }];
 
   public onPriorityChange(value: TPriority): void {
     this.changePriority.emit(value);

@@ -13,7 +13,7 @@ export class TodoListItemUiComponent implements OnChanges {
   @Output()
   toggle = new EventEmitter<void>();
 
-  listClasses!: string[]
+  listClasses!: string[];
 
   ngOnChanges(changes: SimpleChanges): void {
     this.listClasses = [this.todo?.priority!];

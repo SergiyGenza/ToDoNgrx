@@ -85,18 +85,53 @@ input {
   background-color: $btn-disabled;
 }
 
-.high {
-  background-color: #FFB6AB !important;
-}
-
-.medium {
-  background-color: #FFDCB4 !important;
-}
-
-.low {
-  background-color: #EAE7FF !important;
-}
-
+.high,
+.medium,
+.low,
 .none {
-  background-color: #FDF3BB !important;
+  background-color: var(--bg-color) !important;
+}
+
+.high input~.checkmark,
+.medium input~.checkmark,
+.low input~.checkmark,
+.none input~.checkmark {
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color) !important;
+}
+
+.high input:checked~.checkmark,
+.medium input:checked~.checkmark,
+.low input:checked~.checkmark,
+.none input:checked~.checkmark {
+  border: none;
+  background-color: var(--checked-bg-color) !important;
+}
+
+/* High priority colors */
+.high {
+  --bg-color: #FFD3DB;
+  --border-color: #830000;
+  --checked-bg-color: #FFB6AB;
+}
+
+/* Medium priority colors */
+.medium {
+  --bg-color: #FFDCB4;
+  --border-color: #830000;
+  --checked-bg-color: #FFD098;
+}
+
+/* Low priority colors */
+.low {
+  --bg-color: #EAE7FF;
+  --border-color: #7E6FD9;
+  --checked-bg-color: #D5CAFF;
+}
+
+/* No priority colors */
+.none {
+  --bg-color: #FDF3BB;
+  --border-color: #835600;
+  --checked-bg-color: #FAE09D;
 }

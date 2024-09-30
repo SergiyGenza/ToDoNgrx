@@ -30,7 +30,8 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             completed: false,
             currentFolderId: action.payload.currentFolderId,
             currentCategoryId: action.payload.currentCategoryId,
-            priority: 'none'
+            priority: 'none',
+            date: action.payload.date
           }
         ]
       };

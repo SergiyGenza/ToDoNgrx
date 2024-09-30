@@ -52,6 +52,7 @@ export class CreateItemsComponent {
           name: name.value,
           currentFolderId: currentFolderId.value,
           currentCategoryId: currentCategoryId.value,
+          date: new Date()
         });
         break;
       case 'folder':

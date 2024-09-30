@@ -7,14 +7,16 @@
   <!-- mb try tempates -->
   @if (type === 'folderDelete') {
   <div>
-    <div class=""><button (click)="deleteAllFoldersItems(true)">delete all</button></div>
-    <button (click)="deleteAllFoldersItems(false)">delete only folder</button>
+    <div class="bnts-group">
+      <button class="btn" (click)="deleteAllFoldersItems(true)">delete all</button>
+      <button class="btn" (click)="deleteAllFoldersItems(false)">delete only folder</button>
+    </div>
   </div>
   }
   @if (type === 'categoryDelete') {
-    <div>
-      <div class=""><button (click)="deleteAllCategoriesItems(true)">delete all</button></div>
-      <button (click)="deleteAllCategoriesItems(false)">delete only Category</button>
+    <div class="bnts-group">
+      <button class="btn" (click)="deleteAllCategoriesItems(true)">delete all</button>
+      <button class="btn" (click)="deleteAllCategoriesItems(false)">delete only Category</button>
     </div>
   }
   @if (type !== 'folderDelete' && type !== 'categoryDelete'){

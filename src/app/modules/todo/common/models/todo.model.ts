@@ -6,6 +6,7 @@ export interface TodoCreate {
   priority?: TPriority;
   currentFolderId: number | null;
   currentCategoryId: number | null;
+  date: Date;
 }
 
 export interface Todo extends TodoCreate {

@@ -33,6 +33,7 @@ export class TodoCreateAction implements Action {
     name: string;
     currentCategoryId: number | null;
     currentFolderId: number | null;
+    date: Date;
   }) { }
 }
 export class TodoDeleteAction implements Action {

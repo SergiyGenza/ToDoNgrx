@@ -18,8 +18,8 @@ export class ActionsService {
 
   // need ref
   public todoCreate(item: TodoCreate): void {
-    const { name, currentFolderId, currentCategoryId } = item;
-    this.todoStore$.dispatch(new TodoCreateAction({ name, currentCategoryId, currentFolderId }));
+    const { name, currentFolderId, currentCategoryId, date } = item;
+    this.todoStore$.dispatch(new TodoCreateAction({ name, currentCategoryId, currentFolderId, date }));
   }
 
   public todoEdit(item: Todo): void {

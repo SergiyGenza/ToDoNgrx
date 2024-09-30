@@ -19,7 +19,10 @@
         </svg-icon>
          <ng-template cdkConnectedOverlay 
                       [cdkConnectedOverlayOrigin]="trigger"
-                      [cdkConnectedOverlayOpen]="isPriorityBarOpen" 
+                      [cdkConnectedOverlayOpen]="isPriorityBarOpen"
+                      cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+                      [cdkConnectedOverlayHasBackdrop]="true"
+                      (backdropClick)="isPriorityBarOpen = false"
                       [cdkConnectedOverlayPositions]="[{
                         originX: 'start',
                         originY: 'center',

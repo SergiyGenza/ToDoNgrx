@@ -26,12 +26,17 @@ const categoryForm = new FormGroup<CategoryForm>({
   styleUrls: ['./create-items.component.scss']
 })
 export class CreateItemsComponent {
-  @Input() public categoriesList: Category[] | null | undefined;
-  @Input() public currentCategory?: Category | null;
+  @Input() 
+  public categoriesList: Category[] | null | undefined;
+  @Input() 
+  public currentCategory?: Category | null;
 
-  @Output() createTotoEmitter = new EventEmitter<TodoCreate>();
-  @Output() createFolderEmitter = new EventEmitter<FolderCreate>();
-  @Output() createCategoryEmitter = new EventEmitter<CategoryCreate>();
+  @Output() 
+  createTotoEmitter = new EventEmitter<TodoCreate>();
+  @Output() 
+  createFolderEmitter = new EventEmitter<FolderCreate>();
+  @Output() 
+  createCategoryEmitter = new EventEmitter<CategoryCreate>();
 
   public form: FormGroup = categoryForm;
   public maxHeigth: number = 74;
@@ -47,6 +52,7 @@ export class CreateItemsComponent {
           name: name.value,
           currentFolderId: currentFolderId.value,
           currentCategoryId: currentCategoryId.value,
+          date: new Date()
         });
         break;
       case 'folder':

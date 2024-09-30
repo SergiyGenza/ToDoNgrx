@@ -6,11 +6,11 @@ svg {
 .title-wrapper {}
 
 .category {
-  &__title {
+  &__title {}
 
+  &__open-content {
+    display: flex;
   }
-
-  &__open-content svg {}
 
   &__open-content svg,
   &__create-folder svg {
@@ -28,4 +28,12 @@ button {
   color: white;
   font-size: 16px;
 
+}
+
+.arrow-down {
+  transform: rotate(-90deg);
+}
+
+.arrow-up {
+  transform: rotate(90deg);
 }

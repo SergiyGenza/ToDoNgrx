@@ -1,9 +1,12 @@
 <div class="category-item">
   <div class="wrapper-title category">
     <span class="category__title">{{category.name}}</span>
-    <div class="category__open-content" role="btn" >
-      <img src="../../../../../assets/icons/arrow-up_svgrepo.com.png" alt="arrow" (click)="showContent = !showContent">
-    </div>
+      <svg-icon class="category__open-content" role="btn" 
+                [ngClass]="{'arrow-up': !showContent, 'arrow-down': showContent}" 
+                [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'"
+                [svgStyle]="{ 'width.px':30, 'height.px':30 }"
+                (click)="showContent = !showContent">
+      </svg-icon>
   </div>
 
   @if(showContent) {

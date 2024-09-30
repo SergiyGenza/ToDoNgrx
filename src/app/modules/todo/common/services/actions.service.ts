@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
-import { TodoCategoryCreateAction, TodoCategoryEditAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteCategoryAction, TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction } from '../../store/todo/todo.actions';
+import { ChangeTodoPriority, TodoCategoryCreateAction, TodoCategoryEditAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteCategoryAction, TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction, TodoToggleAction } from '../../store/todo/todo.actions';
 import { Todo, TodoCreate } from '../models/todo.model';
 import { Folder, FolderCreate } from '../models/folder.model';
 import { Category, CategoryCreate } from '../models/category.model';
+import { TPriority } from '../models/priority.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class ActionsService {
 
   // need ref
   public todoCreate(item: TodoCreate): void {
-    const { name, currentFolderId, currentCategoryId } = item;
-    this.todoStore$.dispatch(new TodoCreateAction({ name, currentCategoryId, currentFolderId }));
+    const { name, currentFolderId, currentCategoryId, date } = item;
+    this.todoStore$.dispatch(new TodoCreateAction({ name, currentCategoryId, currentFolderId, date }));
   }
 
   public todoEdit(item: Todo): void {
@@ -29,6 +30,10 @@ export class ActionsService {
   public todoDelete(item: Todo): void {
     const { id } = item;
     this.todoStore$.dispatch(new TodoDeleteAction({ id }));
+  }
+
+  public todoToggle(id: number): void {
+    this.todoStore$.dispatch(new TodoToggleAction({ id }));
   }
 
   // need ref
@@ -72,6 +77,11 @@ export class ActionsService {
   public deleteFolderAction(item: Folder) {
     const { id, name } = item;
     this.todoStore$.dispatch(new TodoDeleteFolderAction({ id, name }));
+  }
+
+  public changeTodoPriority(todo: Todo, priority: TPriority) {
+    const { id } = todo;
+    this.todoStore$.dispatch(new ChangeTodoPriority({ id, priority }));
   }
 
 }

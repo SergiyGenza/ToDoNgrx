@@ -30,6 +30,8 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             completed: false,
             currentFolderId: action.payload.currentFolderId,
             currentCategoryId: action.payload.currentCategoryId,
+            priority: 'none',
+            date: action.payload.date
           }
         ]
       };
@@ -84,7 +86,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
         ...state,
         todoList: state.todoList.map(todo =>
           todo.currentCategoryId === action.payload.id
-            ? { ...todo, currentCategory: null, currentFolder: null }
+            ? { ...todo, currentCategoryId: null, currentFolderId: null }
             : todo
         ),
         categoriesList: state.categoriesList.filter(cat => cat.id !== action.payload.id)
@@ -123,7 +125,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
         ...state,
         todoList: state.todoList.map(todo =>
           todo.currentFolderId === action.payload.id
-            ? { ...todo, currentFolderNameId: null }
+            ? { ...todo, currentFolderId: null }
             : todo
         ),
         categoriesList: state.categoriesList.map(cat => {
@@ -153,6 +155,19 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
         ),
         categoriesList: state.categoriesList.filter(cat => cat.id !== action.payload.id)
       }
+    case todoActionsType.changeTodoPriority:
+      return {
+        ...state,
+        todoList: state.todoList.map(todo => {
+          if (todo.id === action.payload.id) {
+            return {
+              ...todo,
+              priority: action.payload.priority
+            };
+          }
+          return todo;
+        })
+      };
     default:
       return state
   }

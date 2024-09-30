@@ -1,142 +1,139 @@
-import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { Todo } from '../../common/models/todo.model';
-import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
+import { CdkDragEnd, CdkDragStart, Point } from '@angular/cdk/drag-drop';
 import { Folder } from '../../common/models/folder.model';
 import { Category } from '../../common/models/category.model';
-import { ModalService } from 'src/app/modules/modal/services/modal.service';
-import { ActionsService } from '../../common/services/actions.service';
+import { SwipeService } from '../../common/services/swipe.service';
+import { TPriority } from '../../common/models/priority.model';
+import { Subscription } from 'rxjs';
+import { SwipeComponentStyles, stylesList } from '../../common/models/swipe-component-styles';
+
+
+interface Position {
+  x: number,
+  y: number,
+}
 
 @Component({
   selector: 'app-swipe',
   templateUrl: './swipe.component.html',
-  styleUrls: ['./swipe.component.scss']
+  styleUrls: ['./swipe.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SwipeComponent {
-  @Input() todo!: Todo;
-  @Input() folder!: Folder;
-  @Input() category!: Category;
+export class SwipeComponent implements OnInit, OnDestroy, OnChanges {
+  @Input()
+  todo!: Todo;
+  @Input()
+  folder!: Folder;
+  @Input()
+  category!: Category;
+  @ViewChild
+    ('modalTemplate', { static: true }) modalTemplate!: TemplateRef<any>;
 
-  @ViewChild('modalTemplate', { static: true }) modalTemplate!: TemplateRef<any>;
+  sub!: Subscription;
 
-  setPosition = { x: 0, y: 0 };
+  isPriorityBarOpen: boolean = false;
+  setPosition: Position = { x: 0, y: 0 };
+  dragArea!: CdkDragEnd;
+  offsetX!: number;
+  offsetY!: number;
+
+  priorityType: TPriority = "none";
+  style!: SwipeComponentStyles;
+  iconsColor: string = '#676127';
 
   constructor(
-    private modalService: ModalService,
-    private actionsService: ActionsService,
+    private swipeService: SwipeService
   ) { }
 
-  public onEdit() {
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.todo) {
-      this.onTodoItemEdit(this.todo);
-    } else if (this.folder) {
-      this.onFolderEdit(this.folder);
-    } else if (this.category) {
-      this.onCategoryEdit(this.category);
+      this.setPriorityBarY();
     }
   }
 
-  public onDelete() {
-    if (this.todo) {
-      this.onTodoDelete(this.todo);
-    } else if (this.folder) {
-      this.onFolderDelete(this.folder);
-    } else if (this.category) {
-      this.onCategoryDelete(this.category);
-    }
+  ngOnInit(): void {
+    this.setClasses();
+
+    this.sub = this.swipeService.closeAll.subscribe(isOpen => {
+      if (!isOpen && this.dragArea) {
+        this.dragArea.source.reset();
+      }
+      this.isPriorityBarOpen = isOpen;
+    })
   }
 
-  // mb try derective
-  public dragEnd($event: CdkDragEnd) {
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  public dragStarted($event: CdkDragStart) {
+    this.swipeService.isPriorityBarOpen = false;
+    this.isPriorityBarOpen = false;
+  }
+
+  public dragEnd($event: CdkDragEnd): void {
+    this.dragArea = $event;
+
     let pos: Point = $event.source.getFreeDragPosition();
     this.setPosition.x = pos.x;
     console.log(pos.x);
-    console.log(this.setPosition.x);
 
-    if (pos.x >= 45) {
-      this.onEdit();
-      console.log('onEdit');
-      $event.source.reset();
-      this.setPosition.x = 0;
-    }
-    else if (pos.x >= 20 && pos.x <= 44) {
-      console.log('priority');
-      $event.source.reset();
-    }
-    else if (pos.x <= -20 && pos.x >= -44) {
-      console.log('archive');
-      $event.source.reset();
-    }
-    else if (pos.x <= -45) {
-      this.setPosition.x = 0;
-      console.log('onDelete');
-      this.onDelete();
-      $event.source.reset();
-    }
-    else if (20 > pos.x || pos.x > -20) {
-      console.log('none');
-      this.setPosition.x = 0;
-      $event.source.reset();
+    this.swipeService.swipe(
+      $event,
+      this.modalTemplate,
+      {
+        todo: this.todo,
+        folder: this.folder,
+        category: this.category,
+      }
+    );
+
+    if (this.swipeService.isPriorityBarOpen) {
+      this.isPriorityBarOpen = this.swipeService.isPriorityBarOpen;
     }
   }
 
-  // need create service with dispatches
-  private onTodoItemEdit(todo: Todo) {
-    let option = this.modalService.open(this.modalTemplate, {
-      size: 'lg',
-      title: 'Edit Todo',
-      type: 'todoEdit',
-      todo: todo
-    });
-    option.subscribe(option => this.actionsService.todoEdit(option))
+  public changePriority(value: TPriority): void {
+    this.isPriorityBarOpen = false;
+    this.swipeService.changePriority(this.todo, value);
   }
 
-  private onFolderEdit(folder: Folder): void {
-    let option = this.modalService.open(this.modalTemplate, {
-      size: 'lg',
-      title: 'Edit Folder',
-      type: 'folderEdit',
-      folder: folder
-    });
-    option.subscribe(option => this.actionsService.folderEdit(option));
+  private setPriorityBarY(): void {
+    switch (this.todo.priority) {
+      case ('high'):
+        this.priorityType = 'high';
+        this.iconsColor = '#830000';
+        this.offsetY = -19;
+        break
+      case ('medium'):
+        this.priorityType = 'medium';
+        this.iconsColor = '#B58D00';
+        this.offsetY = -59;
+        break
+      case ('low'):
+        this.priorityType = 'low';
+        this.iconsColor = '#7E6FD9';
+        this.offsetY = -99;
+        break
+      case ('none'):
+        this.priorityType = 'none';
+        this.iconsColor = '#676127';
+        this.offsetY = -139;
+        break
+      default:
+        this.offsetY = -139;
+    }
   }
 
-  private onCategoryEdit(category: Category): void {
-    let option = this.modalService.open(this.modalTemplate, {
-      size: 'lg',
-      title: 'Edit Folder',
-      type: 'categoryEdit',
-      category: category
-    });
-    option.subscribe(option => this.actionsService.categoryEdit(option));
+  private setClasses(): void {
+    if (this.todo) {
+      this.style = stylesList[0];
+    } else if (this.folder) {
+      this.style = stylesList[1];
+    } else if (this.category) {
+      this.style = stylesList[2];
+    }
   }
 
-  private onTodoDelete(todo: Todo): void {
-    this.actionsService.todoDelete(todo);
-  }
-
-  private onFolderDelete(folder: Folder): void {
-    let option = this.modalService.open(this.modalTemplate, {
-      size: 'lg',
-      title: 'Delete Folder',
-      type: 'folderDelete'
-    });
-    option.subscribe(option => {
-      option
-        ? this.actionsService.deleteFolderWithAllItems(folder)
-        : this.actionsService.deleteFolderAction(folder);
-    });
-  }
-
-  private onCategoryDelete(category: Category): void {
-    let option = this.modalService.open(this.modalTemplate, {
-      size: 'lg',
-      title: 'Delete Category',
-      type: 'categoryDelete'
-    });
-    option.subscribe(option => {
-      option
-        ? this.actionsService.deleteCategoryWithAllItems(category)
-        : this.actionsService.deleteCategoryAction(category);
-    });
-  }
 }

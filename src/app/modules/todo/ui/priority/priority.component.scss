@@ -1,0 +1,24 @@
+:host {}
+
+.priority-wrapper {
+  width: 38px;
+  background-color: #EAE3D3;
+  border-radius: 22px 22px 22px 22px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  text-align: center;
+}
+
+.priority {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.priority:first-child {
+  border-radius: 22px 0px 0px 0px;
+}

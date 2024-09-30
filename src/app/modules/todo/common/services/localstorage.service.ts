@@ -46,7 +46,6 @@ export class LocalstorageService {
     }
   }
 
-
   public setCurrentCategoryInLocalstorage(currentCategory: Category | null): void {
     localStorage.setItem(CURRENT_CATEGORY_LOCALSTOREGE_KEY, JSON.stringify(currentCategory));
   }
@@ -57,5 +56,10 @@ export class LocalstorageService {
     if (currentCategory) {
       return JSON.parse(currentCategory)
     } else return null;
+  }
+
+  public clearAllData() {
+    localStorage.removeItem(CURRENT_CATEGORY_LOCALSTOREGE_KEY);
+    localStorage.removeItem(TODO_LOCALSTORAGE_KEY);
   }
 }

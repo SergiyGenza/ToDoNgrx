@@ -2,6 +2,7 @@ import { Action } from "@ngrx/store";
 import { TodoState } from "./todo.reducer";
 import { Category } from "../../common/models/category.model";
 import { Folder } from "../../common/models/folder.model";
+import { TPriority } from "../../common/models/priority.model";
 
 export enum todoActionsType {
   loadTodo = '[Todo] loadTodo todo item',
@@ -21,7 +22,9 @@ export enum todoActionsType {
   deleteFolderWithAllItems = '[Folder] delete Folder with all items',
 
   deleteCategory = '[Category] delete Category item',
-  deleteCategoryWithAllItems = '[Todo] delete Category with all items'
+  deleteCategoryWithAllItems = '[Todo] delete Category with all items',
+
+  changeTodoPriority = '[Todo] change todo priority'
 };
 
 export class TodoCreateAction implements Action {
@@ -30,6 +33,7 @@ export class TodoCreateAction implements Action {
     name: string;
     currentCategoryId: number | null;
     currentFolderId: number | null;
+    date: Date;
   }) { }
 }
 export class TodoDeleteAction implements Action {
@@ -123,10 +127,18 @@ export class TodoDeleteCategoryWithAllItemsAction implements Action {
   }) { }
 }
 
+export class ChangeTodoPriority implements Action {
+  readonly type = todoActionsType.changeTodoPriority;
+  constructor(public payload: {
+    id: number;
+    priority: TPriority;
+  }) { }
+}
+
 export type TodoActions = TodoCreateAction |
   TodoDeleteAction | TodoToggleAction |
   TodoEditAction | TodoLoadStateAction |
   TodoCategoryCreateAction | TodoCategoryFolderCreateAction |
   TodoDeleteFolderAction | TodoDeleteCategoryAction |
   TodoDeleteCategoryWithAllItemsAction | TodoDeleteFolderWithAllItemsAction |
-  TodoEditFolderAction | TodoCategoryEditAction;
+  TodoEditFolderAction | TodoCategoryEditAction | ChangeTodoPriority;

@@ -23,6 +23,13 @@ import { LocalstorageService } from './common/services/localstorage.service';
 import { TodoPipe } from './common/pipes/todo/todo.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { ActionsService } from './common/services/actions.service';
+import { CreateItemsComponent } from './ui/todo-create-form-ui/create-items.component';
+import { SwipeService } from './common/services/swipe.service';
+import { PriorityComponent } from './ui/priority/priority.component';
+import { OverlayModule } from "@angular/cdk/overlay";
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -39,6 +46,8 @@ import { ActionsService } from './common/services/actions.service';
     FolderListItemUiComponent,
     TodoPipe,
     SwipeComponent,
+    CreateItemsComponent,
+    PriorityComponent,
   ],
   imports: [
     CommonModule,
@@ -46,9 +55,12 @@ import { ActionsService } from './common/services/actions.service';
     RouterModule.forChild(todoRoutes),
     FormsModule,
     DragDropModule,
+    OverlayModule,
     ModalModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule,
+    AngularSvgIconModule.forRoot()
   ],
   exports: [
     TodoWidgetComponent,
@@ -57,7 +69,8 @@ import { ActionsService } from './common/services/actions.service';
     ModalService,
     CategoryService,
     LocalstorageService,
-    ActionsService
+    ActionsService,
+    SwipeService
   ]
 })
 export class TodoModule { }

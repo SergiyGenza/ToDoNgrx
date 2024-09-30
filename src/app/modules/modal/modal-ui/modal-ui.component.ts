@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { Folder } from '../../todo/common/models/folder.model';
 import { Todo } from '../../todo/common/models/todo.model';
 import { Category } from '../../todo/common/models/category.model';
@@ -28,6 +28,11 @@ export class ModalUiComponent {
   constructor(
     private elementRef: ElementRef,
   ) { }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  public handleEscapeKey(event: KeyboardEvent): void {
+    this.close();
+  }
 
   public close(): void {
     this.elementRef.nativeElement.remove();

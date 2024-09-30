@@ -1,0 +1,18 @@
+<div class="priority-wrapper">
+  @for(p of priorities; track p) {
+  <div class="priority" [ngClass]="{ 
+        'high': p.priority === 'high' && priority === 'high', 
+        'medium': p.priority === 'medium' && priority === 'medium', 
+        'low': p.priority === 'low' && priority === 'low', 
+        'none': p.priority === 'none' && priority === 'none' 
+      }" (click)="onPriorityChange(p.priority)">
+    <svg-icon 
+      src="../../../../../assets/icons/priority_svgrepo.com.svg"
+      [svgStyle]="{ 'width.px':20,  'fill':p.color }">
+    </svg-icon>
+  </div>
+  }
+  <div class="priority" (click)="cancelPriorityPick.emit()">
+    <svg-icon src="../../../../../assets/icons/cansel.svg" [svgStyle]="{ 'width.px':18,  'fill':'#A79700' }"></svg-icon>
+  </div>
+</div>

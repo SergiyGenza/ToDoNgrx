@@ -1,17 +1,18 @@
-<div class="todo-item-wrapper">
+<div class="todo-item-wrapper" [class]="listClasses">
   <label class="round-checkbox-container">
-    <input type="checkbox" [checked]="todo?.completed" (click)="onToggle()" />
-    <span class="checkmark"></span>
+    <input type="checkbox" [checked]="todo?.completed" (click)="this.toggle.emit();" />
+    <span class="checkmark">
+      <svg-icon
+        [src]="'../../../../../assets/icons/check.svg'"
+        [svgStyle]="{ 'width.px':20, 'height.px':20}">
+      </svg-icon>
+    </span>
   </label>
   <div class="todo-item__text">
-    <del *ngIf="todo?.completed else completed"><span>{{todo?.name}}</span></del>
-    <ng-template #completed>
-      <span>{{todo?.name}}</span>
-    </ng-template>
+    @if (todo?.completed){
+    <del><span>{{todo?.name}}</span></del>
+    } @else {
+    <span>{{todo?.name}}</span>
+    }
   </div>
- 
-
-  <!-- <label for="checkbox">
-    <input type="checkbox" [checked]="todo?.completed" (click)="onToggle()">
-  </label> -->
 </div>

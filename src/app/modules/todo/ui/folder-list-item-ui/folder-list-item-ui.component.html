@@ -1,15 +1,12 @@
 <div class="wrapper-title folder">
   <span>{{folder.name}}</span>
   <div (click)="isOpen = !isOpen">
-    <!-- <app-svg-icon
-      [svgPath]="'../../../../../assets/icons/arrow-up_svgrepo.com.svg'"
-      [height]="'20'"
-      [width]="'20'">
-    </app-svg-icon> -->
-    <img src="../../../../../assets/icons/arrow-up_svgrepo.com.png" alt="">
+    <svg-icon 
+      [src]="'../../../../../assets/icons/arrow-up_svgrepo.com.png'" 
+      [svgStyle]="{ 'width.px':20}">
+    </svg-icon>
   </div>
 </div>
-<app-todo-list-ui
-  *ngIf="isOpen"
-  [todoList]="todoList$ | async | todo:folder">
-</app-todo-list-ui>
+@if (isOpen) {
+<app-todo-list-ui [todoList]="todoList$ | async | todo:folder"></app-todo-list-ui>
+}

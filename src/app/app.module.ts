@@ -6,13 +6,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TodoModule } from './modules/todo/todo.module';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from './modules/auth/auth/auth.module';
-import { AngularFireModule } from '@angular/fire/compat/firebase.app.module';
-import { firebaseConfig } from './environment/environment'
 
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { AuthService } from './modules/auth/services/auth.service';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
   declarations: [
@@ -33,8 +27,6 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     AuthModule,
   ],
   providers: [
-    // provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    // provideFirestore(() => getFirestore()),
   ],
   bootstrap: [AppComponent]
 })

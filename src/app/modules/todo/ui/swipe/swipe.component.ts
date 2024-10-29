@@ -104,25 +104,25 @@ export class SwipeComponent implements OnInit, OnDestroy, OnChanges {
       case ('high'):
         this.priorityType = 'high';
         this.iconsColor = '#830000';
-        this.offsetY = -19;
+        this.offsetY = -20;
         break
       case ('medium'):
         this.priorityType = 'medium';
         this.iconsColor = '#B58D00';
-        this.offsetY = -59;
+        this.offsetY = -60;
         break
       case ('low'):
         this.priorityType = 'low';
         this.iconsColor = '#7E6FD9';
-        this.offsetY = -99;
+        this.offsetY = -100;
         break
       case ('none'):
         this.priorityType = 'none';
         this.iconsColor = '#676127';
-        this.offsetY = -139;
+        this.offsetY = -140;
         break
       default:
-        this.offsetY = -139;
+        this.offsetY = -140;
     }
   }
 

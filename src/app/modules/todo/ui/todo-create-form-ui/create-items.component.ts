@@ -39,7 +39,7 @@ export class CreateItemsComponent {
   createCategoryEmitter = new EventEmitter<CategoryCreate>();
 
   public form: FormGroup = categoryForm;
-  public maxHeigth: number = 74;
+  public maxHeigth: number = 34;
   public formType: string = 'category';
   public placeholder: string = 'Add category';
 

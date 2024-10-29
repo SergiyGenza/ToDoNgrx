@@ -10,12 +10,18 @@ import { Folder } from 'src/app/modules/todo/common/models/folder.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormItemComponent implements OnChanges, OnInit {
-  @Input() form!: FormGroup;
-  @Input() placeholder!: string;
-  @Input() categoriesList!: Category[] | null | undefined;
-  @Input() currentCategory?: Category | null;
-  @Input() maxHeigth!: number;
-  @Output() result = new EventEmitter<FormGroup>();
+  @Input()
+  form!: FormGroup;
+  @Input()
+  placeholder!: string;
+  @Input()
+  categoriesList!: Category[] | null | undefined;
+  @Input()
+  currentCategory?: Category | null;
+  @Input()
+  maxHeigth!: number;
+  @Output()
+  result = new EventEmitter<FormGroup>();
 
   public activeCategory?: Category | null = null;
   public activeFolder!: Folder | null;
@@ -42,6 +48,7 @@ export class FormItemComponent implements OnChanges, OnInit {
       this.form.reset();
       this.activeCategory = null;
       this.activeFolder = null;
+      this.currentFoldersList = null;
     }
   }
 

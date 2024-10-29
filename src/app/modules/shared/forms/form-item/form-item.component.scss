@@ -4,8 +4,13 @@
   width: 100%;
 }
 
+.btn-change-type {
+  min-width: 88px;
+}
+
 form {
-  width: 100%;
+  flex-grow: 1;
+  width: 0;
 }
 
 .flex {

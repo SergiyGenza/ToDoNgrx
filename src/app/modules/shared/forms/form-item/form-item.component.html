@@ -1,5 +1,9 @@
 <div class="flex" [style.maxHeight.px]="maxHeigth">
-  <form id="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <button class="btn btn-primary btn-change-type" (click)="onFormTypeChange()">
+    {{formType}}
+  </button>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form__content">
       <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name">
       @if (form.controls['currentCategoryId']) {

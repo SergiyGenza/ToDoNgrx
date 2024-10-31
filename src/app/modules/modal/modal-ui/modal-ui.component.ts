@@ -2,14 +2,11 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from
 import { Folder } from '../../todo/common/models/folder.model';
 import { Todo } from '../../todo/common/models/todo.model';
 import { Category } from '../../todo/common/models/category.model';
-import { EditFormComponent } from '../../shared/forms/edit-form/edit-form.component';
 
 @Component({
-    selector: 'app-modal-ui',
-    templateUrl: './modal-ui.component.html',
-    styleUrls: ['./modal-ui.component.scss'],
-    standalone: true,
-    imports: [EditFormComponent]
+  selector: 'app-modal-ui',
+  templateUrl: './modal-ui.component.html',
+  styleUrls: ['./modal-ui.component.scss']
 })
 export class ModalUiComponent {
   @Input() size? = 'md';

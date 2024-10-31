@@ -25,7 +25,6 @@ input {
 .container {
   max-width: 630px;
   margin: 0 auto;
-  padding: 0 0.5rem 0 0.5rem;
 }
 
 .wrapper-title> :first-child {
@@ -135,7 +134,7 @@ input {
 .low input:checked~.checkmark,
 .none input:checked~.checkmark {
   border: none;
-  background-color: var(--checked-bg-color) !important;
+  background-color: var(--checked-bg-color);
 }
 
 .action-icons-bar.task-item__tool-bar.high {

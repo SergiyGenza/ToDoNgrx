@@ -1,16 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from 'src/app/modules/todo/common/models/category.model';
 import { EditItem } from 'src/app/modules/todo/common/models/edit-item.model';
 import { Folder } from 'src/app/modules/todo/common/models/folder.model';
 import { Todo } from 'src/app/modules/todo/common/models/todo.model';
 
 @Component({
-    selector: 'app-edit-form',
-    templateUrl: './edit-form.component.html',
-    styleUrl: './edit-form.component.scss',
-    standalone: true,
-    imports: [ReactiveFormsModule]
+  selector: 'app-edit-form',
+  templateUrl: './edit-form.component.html',
+  styleUrl: './edit-form.component.scss'
 })
 export class EditFormComponent implements OnInit {
   @Input() public modalType?: string;

@@ -9,13 +9,13 @@
        <!-- swipe content -->
       <ng-content></ng-content>
   </div>
-  <div [class]="['action-icons-bar', style.bar, config.priorityType]">
+  <div [class]="['action-icons-bar', style.bar, priorityType]">
     <div [classList]="style.barItem">
       @if(todo) {
       <div class="action_priority" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
         <svg-icon 
           [src]="'../../../../../assets/icons/priority_svgrepo.com.svg'" 
-          [svgStyle]="{ 'width.px':20, 'fill': config.iconsColor}">
+          [svgStyle]="{ 'width.px':20, 'fill': iconsColor}">
         </svg-icon>
          <ng-template cdkConnectedOverlay 
                       [cdkConnectedOverlayOrigin]="trigger"
@@ -23,9 +23,16 @@
                       cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
                       [cdkConnectedOverlayHasBackdrop]="true"
                       (backdropClick)="isPriorityBarOpen = false"
-                      [cdkConnectedOverlayPositions]="[cdkConnectedOverlayPositions]">
+                      [cdkConnectedOverlayPositions]="[{
+                        originX: 'start',
+                        originY: 'center',
+                        overlayX: 'center',
+                        overlayY: 'center',
+                        offsetY: offsetY,
+                        offsetX: -38,
+                      }]">
           <app-priority
-            [priority]="config.priorityType"
+            [priority]="priorityType"
             (changePriority)="changePriority($event)"
             (cancelPriorityPick)="this.isPriorityBarOpen = false">
           </app-priority>
@@ -35,7 +42,7 @@
       <div class="">
         <svg-icon 
           [src]="'../../../../../assets/icons/edit_svgrepo.com.svg'" 
-          [svgStyle]="{ 'width.px':20, 'fill': config.iconsColor}">
+          [svgStyle]="{ 'width.px':20, 'fill': iconsColor}">
         </svg-icon>
       </div>
     </div>
@@ -43,13 +50,13 @@
       <div class="">
         <svg-icon 
           [src]="'../../../../../assets/icons/trash-bin_svgrepo.com.svg'" 
-          [svgStyle]="{ 'width.px':20, 'fill': config.iconsColor}">
+          [svgStyle]="{ 'width.px':20, 'fill': iconsColor}">
         </svg-icon>
       </div>
       <div class="">
         <svg-icon 
           [src]="'../../../../../assets/icons/heart-dark_svgrepo.com.svg'" 
-          [svgStyle]="{ 'width.px':20, 'fill': config.iconsColor}">
+          [svgStyle]="{ 'width.px':20, 'fill': iconsColor}">
         </svg-icon>
       </div>
     </div>

@@ -7,9 +7,8 @@ type Items = Todo[] | null | undefined;
 type SearchItem = string | string[] | Category | Folder | null;
 type Result = Todo[] | undefined | null;
 @Pipe({
-    name: 'todo',
-    pure: true,
-    standalone: true,
+  name: 'todo',
+  pure: true,
 })
 export class TodoPipe implements PipeTransform {
   transform(todoList: Items, todoSearchItem: SearchItem): Result {

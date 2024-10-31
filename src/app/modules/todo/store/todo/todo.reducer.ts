@@ -1,5 +1,4 @@
 import { Category } from "../../common/models/category.model";
-import { Folder } from "../../common/models/folder.model";
 import { Todo } from "../../common/models/todo.model";
 import { TodoActions, todoActionsType } from "./todo.actions";
 
@@ -8,7 +7,7 @@ export const TODO_REDUCER_NODE = 'todo';
 export interface TodoState {
   idIncrement: number;
   todoList: Todo[];
-  categoriesList: Category[];
+  categoriesList: Category[]
 }
 
 export const initialTodoState: TodoState = {
@@ -17,7 +16,7 @@ export const initialTodoState: TodoState = {
   categoriesList: [],
 }
 
-export const todoReducer = (state = initialTodoState, action: TodoActions): TodoState => {
+export const todoReducer = (state = initialTodoState, action: TodoActions) => {
   switch (action.type) {
     case todoActionsType.createTodo:
       return {
@@ -33,7 +32,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
             currentCategoryId: action.payload.currentCategoryId,
             priority: 'none',
             date: action.payload.date
-          } as Todo
+          }
         ]
       };
     case todoActionsType.deleteTodo:
@@ -71,7 +70,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
             id: state.idIncrement,
             name: action.payload.name,
             foldersList: [],
-          } as Category
+          }
         ]
       }
     case todoActionsType.editCategory:
@@ -105,9 +104,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
               name: action.payload.folderName,
               favourite: false,
               todoItems: [],
-              currentCategoryId: action.payload.currentCategoryId // Додано це поле
-            } as Folder // Явне приведення до типу Folder
-          ]
+            }]
         } : category)
       }
     case todoActionsType.editFolder:
@@ -149,6 +146,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
           };
         })
       }
+
     case todoActionsType.deleteCategoryWithAllItems:
       return {
         ...state,

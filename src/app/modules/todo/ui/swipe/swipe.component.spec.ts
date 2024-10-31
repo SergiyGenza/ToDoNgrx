@@ -8,8 +8,8 @@ describe('SwipeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [SwipeComponent]
-})
+      declarations: [ SwipeComponent ]
+    })
     .compileComponents();
 
     fixture = TestBed.createComponent(SwipeComponent);

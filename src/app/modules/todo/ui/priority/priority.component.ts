@@ -1,15 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Priority, TPriority } from '../../common/models/priority.model';
-import { NgClass } from '@angular/common';
-import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
-    selector: 'app-priority',
-    templateUrl: './priority.component.html',
-    styleUrl: './priority.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [NgClass, SvgIconComponent]
+  selector: 'app-priority',
+  templateUrl: './priority.component.html',
+  styleUrl: './priority.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PriorityComponent {
   @Input()

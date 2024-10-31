@@ -6,20 +6,22 @@ import { AuthComponent } from './auth.component';
 import { AuthService } from '../services/auth.service';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { environment } from 'environment/environment';
+import { firebaseConfig } from 'src/app/environment/environment';
 
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        // RouterModule.forChild(authRoutes),
-        AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFirestoreModule,
-        AuthComponent,
-    ],
-    providers: [
-        AuthService
-    ]
+  declarations: [
+    AuthComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(authRoutes),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+  ],
+  providers: [
+    AuthService
+  ]
 })
 export class AuthModule { }

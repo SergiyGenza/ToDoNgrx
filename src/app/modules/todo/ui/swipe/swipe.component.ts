@@ -6,7 +6,8 @@ import { Category } from '../../common/models/category.model';
 import { SwipeService } from '../../common/services/swipe.service';
 import { TPriority } from '../../common/models/priority.model';
 import { Subscription } from 'rxjs';
-import { SwipeComponentStyles, stylesList } from '../../common/models/swipe-component-styles';
+import { SwipeComponentConfig, SwipeComponentStyles, STYLESLIST } from '../../common/models/swipe-items.model';
+import { ConnectedPosition } from '@angular/cdk/overlay';
 
 
 interface Position {
@@ -30,17 +31,27 @@ export class SwipeComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChild
     ('modalTemplate', { static: true }) modalTemplate!: TemplateRef<any>;
 
-  sub!: Subscription;
-
   isPriorityBarOpen: boolean = false;
   setPosition: Position = { x: 0, y: 0 };
   dragArea!: CdkDragEnd;
-  offsetX!: number;
-  offsetY!: number;
 
-  priorityType: TPriority = "none";
+  config: SwipeComponentConfig = {
+    priorityType: "none",
+    iconsColor: '#676127',
+    offsetY: 140
+  }
+
+  cdkConnectedOverlayPositions: ConnectedPosition = {
+    originX: 'start',
+    originY: 'center',
+    overlayX: 'center',
+    overlayY: 'center',
+    offsetY: this.config.offsetY,
+    offsetX: -44,
+  }
+
   style!: SwipeComponentStyles;
-  iconsColor: string = '#676127';
+  sub!: Subscription;
 
   constructor(
     private swipeService: SwipeService
@@ -48,14 +59,14 @@ export class SwipeComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.todo) {
-      this.setPriorityBarY();
+      this.swipeService.setPriorityBarY(this.todo.priority);
     }
   }
 
   ngOnInit(): void {
     this.setClasses();
 
-    this.sub = this.swipeService.closeAll.subscribe(isOpen => {
+    this.sub = this.swipeService.closeAll.subscribe((isOpen: boolean) => {
       if (!isOpen && this.dragArea) {
         this.dragArea.source.reset();
       }
@@ -99,40 +110,13 @@ export class SwipeComponent implements OnInit, OnDestroy, OnChanges {
     this.swipeService.changePriority(this.todo, value);
   }
 
-  private setPriorityBarY(): void {
-    switch (this.todo.priority) {
-      case ('high'):
-        this.priorityType = 'high';
-        this.iconsColor = '#830000';
-        this.offsetY = -20;
-        break
-      case ('medium'):
-        this.priorityType = 'medium';
-        this.iconsColor = '#B58D00';
-        this.offsetY = -60;
-        break
-      case ('low'):
-        this.priorityType = 'low';
-        this.iconsColor = '#7E6FD9';
-        this.offsetY = -100;
-        break
-      case ('none'):
-        this.priorityType = 'none';
-        this.iconsColor = '#676127';
-        this.offsetY = -140;
-        break
-      default:
-        this.offsetY = -140;
-    }
-  }
-
   private setClasses(): void {
     if (this.todo) {
-      this.style = stylesList[0];
+      this.style = STYLESLIST[0];
     } else if (this.folder) {
-      this.style = stylesList[1];
+      this.style = STYLESLIST[1];
     } else if (this.category) {
-      this.style = stylesList[2];
+      this.style = STYLESLIST[2];
     }
   }
 

@@ -8,8 +8,8 @@ describe('ModalUiComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalUiComponent ]
-    })
+    imports: [ModalUiComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(ModalUiComponent);

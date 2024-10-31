@@ -1,12 +1,15 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { Category } from '../../common/models/category.model';
 import { LocalstorageService } from '../../common/services/localstorage.service';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgClass } from '@angular/common';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
-  selector: 'app-todo-header-bar-ui',
-  templateUrl: './todo-header-bar-ui.component.html',
-  styleUrls: ['./todo-header-bar-ui.component.scss']
+    selector: 'app-todo-header-bar-ui',
+    templateUrl: './todo-header-bar-ui.component.html',
+    styleUrls: ['./todo-header-bar-ui.component.scss'],
+    standalone: true,
+    imports: [NgClass, SvgIconComponent]
 })
 export class TodoHeaderBarUiComponent {
   @Input() categoriesList?: Category[] | null;

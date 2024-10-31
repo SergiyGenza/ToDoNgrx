@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { TodoForm, FolderForm, CategoryForm } from 'src/app/modules/todo/common/models/forms.model';
 import { Category, CategoryCreate } from 'src/app/modules/todo/common/models/category.model';
 import { Folder, FolderCreate } from 'src/app/modules/todo/common/models/folder.model';
 import { TodoCreate } from 'src/app/modules/todo/common/models/todo.model';
+import { NgTemplateOutlet, NgClass } from '@angular/common';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 const todoForm = new FormGroup<TodoForm>({
   name: new FormControl<string>('', { nonNullable: true, validators: Validators.required }),
@@ -21,10 +23,12 @@ const categoryForm = new FormGroup<CategoryForm>({
 });
 
 @Component({
-  selector: 'app-form-item',
-  templateUrl: './form-item.component.html',
-  styleUrl: './form-item.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-form-item',
+    templateUrl: './form-item.component.html',
+    styleUrl: './form-item.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [ReactiveFormsModule, NgTemplateOutlet, SvgIconComponent, NgClass]
 })
 export class FormItemComponent implements OnChanges, OnInit {
   @Input()

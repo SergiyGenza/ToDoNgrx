@@ -8,8 +8,8 @@ describe('FolderListItemUiComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FolderListItemUiComponent ]
-    })
+    imports: [FolderListItemUiComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(FolderListItemUiComponent);

@@ -1,11 +1,11 @@
 <div class="todo-widget-wrapper container">
-  <app-create-items
+  <app-form-item 
     [categoriesList]="categoriesList$ | async"
     [currentCategory]="currentCategory"
     (createTotoEmitter)="onTodoCreate($event)"
     (createCategoryEmitter)="onCategoryCreate($event)"
     (createFolderEmitter)="onFolderCreate($event)">
-  </app-create-items>
+  </app-form-item>
 
   <app-todo-header-bar-ui
     [categoriesList]="categoriesList$ | async"

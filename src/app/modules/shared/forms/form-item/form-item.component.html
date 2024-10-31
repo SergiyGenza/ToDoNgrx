@@ -1,5 +1,9 @@
 <div class="flex" [style.maxHeight.px]="maxHeigth">
-  <form id="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <button class="btn btn-primary btn-change-type" (click)="onFormTypeChange()">
+    {{formType}}
+  </button>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form__content">
       <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name">
       @if (form.controls['currentCategoryId']) {
@@ -22,17 +26,19 @@
 
 <ng-template #categoriesPick>
   <ul class="categories-list">
-    <button type="button" role="button" class="btn btn__pick-item"
-            [ngClass]="{'btn__no-item': !!!activeCategory}"
-            (click)="clearCategoryPick()">
-            None
-    </button>
+    <li>
+      <button type="button" role="button" class="btn btn__pick-item"
+              [ngClass]="{'btn__no-item': !!!activeCategory}"
+              (click)="clearCategoryPick()">
+                    None
+      </button>
+    </li>
     @for(category of categoriesList; track category.id) {
     <li>
       <button type="button" role="text" class="btn btn__pick-item"
-        [class.active]="category.id === activeCategory?.id"
-        (click)="onCategotyPick(category)">
-        {{category.name}}
+              [class.active]="category.id === activeCategory?.id"
+              (click)="onCategotyPick(category)">
+              {{category.name}}
       </button>
     </li>
     }
@@ -40,22 +46,29 @@
 </ng-template>
 
 <ng-template #folderPick>
-  <div class="devider"></div>
-  <ul class="folder-list">
-    <button type="button" class="btn btn__pick-item" 
-            [ngClass]="{'btn__no-item': !!!this.activeFolder}"
-            (click)="onFolderPick(null)">
-            None
-    </button>
-    @for(folder of currentFoldersList; track folder.id) {
-    <li>
-      <button type="button" class="btn btn__pick-item"
-              [disabled]="this.activeCategory === null"
-              [class.active]="isFolderActive(folder)" 
-              (click)="onFolderPick(folder)">
-              {{folder.name}}
-      </button>
-    </li>
+  <div [style.maxHeight.px]="42" class="folder">
+    @if (activeCategory) {
+      <div class="devider"></div>
     }
-  </ul>
+    <ul class="folder-list">
+      @if (currentFoldersList?.length! == 0) {
+        <button type="button" class="btn btn__pick-item" 
+                [ngClass]="{'btn__no-item': !!!this.activeFolder}"
+                (click)="onFolderPick(null)">
+                None
+        </button>
+      }
+      @for(folder of currentFoldersList; track folder.id) {
+      <li>
+        <button type="button" class="btn btn__pick-item"
+                [disabled]="this.activeCategory === null"
+                [class.active]="isFolderActive(folder)" 
+                (click)="onFolderPick(folder)">
+                {{folder.name}}
+        </button>
+      </li>
+      }
+    </ul>
+  </div>
+
 </ng-template>

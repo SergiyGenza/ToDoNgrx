@@ -11,17 +11,15 @@ import { environment } from 'environment/environment';
 
 
 @NgModule({
-  declarations: [
-    AuthComponent
-  ],
-  imports: [
-    CommonModule,
-    // RouterModule.forChild(authRoutes),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-  ],
-  providers: [
-    AuthService
-  ]
+    imports: [
+        CommonModule,
+        // RouterModule.forChild(authRoutes),
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule,
+        AuthComponent,
+    ],
+    providers: [
+        AuthService
+    ]
 })
 export class AuthModule { }

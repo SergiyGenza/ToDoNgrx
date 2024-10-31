@@ -1,3 +1,5 @@
+import { TPriority } from "./priority.model";
+
 export interface SwipeComponentStyles {
   type: string;
   wrapper: string;
@@ -6,7 +8,7 @@ export interface SwipeComponentStyles {
   barItem: string;
 }
 
-export const stylesList: SwipeComponentStyles[] = [
+export const STYLESLIST: SwipeComponentStyles[] = [
   {
     type: 'task-item',
     wrapper: 'task-item__swipe-wrapper',
@@ -26,5 +28,34 @@ export const stylesList: SwipeComponentStyles[] = [
     bar: 'category-item__tool-bar',
     barItem: 'category-item__tool-bar__item',
     priority: 'none',
+  }
+]
+
+export interface SwipeComponentConfig {
+  priorityType: TPriority;
+  iconsColor: string;
+  offsetY: number;
+}
+
+export const SWIPECOMPONENTCONFIGLIST: SwipeComponentConfig[] = [
+  {
+    priorityType: 'high',
+    iconsColor: '#830000',
+    offsetY: -20
+  },
+  {
+    priorityType: 'medium',
+    iconsColor: '#B58D00',
+    offsetY: -60
+  },
+  {
+    priorityType: 'low',
+    iconsColor: '#7E6FD9',
+    offsetY: -100
+  },
+  {
+    priorityType: 'none',
+    iconsColor: '#676127',
+    offsetY: -140
   }
 ]

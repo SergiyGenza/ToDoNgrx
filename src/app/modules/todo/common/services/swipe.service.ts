@@ -6,6 +6,7 @@ import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 import { TPriority } from '../models/priority.model';
 import { Todo } from '../models/todo.model';
 import { BehaviorSubject } from 'rxjs';
+import { SwipeComponentConfig, SWIPECOMPONENTCONFIGLIST } from '../models/swipe-items.model';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,21 @@ export class SwipeService {
     this.actionsService.changeTodoPriority(todo, priority);
     this.setPriorityBarStatus(false);
     this.resetPosition();
+  }
+
+  public setPriorityBarY(priority: TPriority): SwipeComponentConfig {
+    switch (priority) {
+      case ('high'):
+        return SWIPECOMPONENTCONFIGLIST[0];
+      case ('medium'):
+        return SWIPECOMPONENTCONFIGLIST[1];
+      case ('low'):
+        return SWIPECOMPONENTCONFIGLIST[2];
+      case ('none'):
+        return SWIPECOMPONENTCONFIGLIST[3];
+      default:
+        return SWIPECOMPONENTCONFIGLIST[3];
+    }
   }
 
   private setPriorityBarStatus(value: boolean) {
@@ -108,7 +124,7 @@ export class SwipeService {
     modalRef.subscribe(action);
   }
 
-  setDragAreaPos(posX: number, posY: number = 0) {
+  private setDragAreaPos(posX: number, posY: number = 0) {
     this.dragArea.source.setFreeDragPosition({ x: posX, y: posY });
   }
 

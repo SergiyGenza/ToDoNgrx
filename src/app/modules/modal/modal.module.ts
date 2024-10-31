@@ -5,16 +5,13 @@ import { ModalUiComponent } from './modal-ui/modal-ui.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    ModalUiComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SharedModule
-  ],
-  exports: [
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+        ModalUiComponent
+    ],
+    exports: []
 })
 export class ModalModule {}

@@ -9,19 +9,17 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
 @NgModule({
-  declarations: [
-    FormItemComponent,
-    EditFormComponent
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AngularSvgIconModule.forRoot()
-  ],
-  exports: [
-    FormItemComponent,
-    EditFormComponent
-  ]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        AngularSvgIconModule.forRoot(),
+        FormItemComponent,
+        EditFormComponent
+    ],
+    exports: [
+        FormItemComponent,
+        EditFormComponent
+    ]
 })
 export class SharedModule { }

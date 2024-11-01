@@ -1,39 +1,14 @@
-svg {
-  width: 28px;
-  height: 28px;
-}
-
 .title-wrapper {}
 
 .category {
   &__title {}
 
-  &__open-content {
-    display: flex;
-  }
+  &__open-content {}
 
   &__open-content svg,
-  &__create-folder svg {
-    cursor: pointer;
-  }
+  &__create-folder svg {}
 }
 
 .category-item {
   padding-bottom: 0.5rem;
-}
-
-button {
-  padding: 0.3rem 0.2rem;
-  background-color: green;
-  color: white;
-  font-size: 16px;
-
-}
-
-.arrow-down {
-  transform: rotate(-90deg);
-}
-
-.arrow-up {
-  transform: rotate(90deg);
 }

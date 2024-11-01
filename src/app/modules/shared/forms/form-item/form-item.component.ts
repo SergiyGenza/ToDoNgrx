@@ -79,6 +79,7 @@ export class FormItemComponent implements OnChanges, OnInit {
             currentFolderId: currentFolderId.value,
             currentCategoryId: currentCategoryId.value,
             priority: "none",
+            favourite: false,
             date: new Date()
           });
           break;

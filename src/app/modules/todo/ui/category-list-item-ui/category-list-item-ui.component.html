@@ -1,8 +1,8 @@
 <div class="category-item">
   <div class="wrapper-title category">
     <span class="category__title">{{category.name}}</span>
-      <svg-icon class="category__open-content" role="btn" 
-                [ngClass]="{'arrow-up': !showContent, 'arrow-down': showContent}" 
+      <svg-icon class="category__open-content arrow" role="btn" 
+                [ngClass]="{'arrow__up': !showContent, 'arrow__down': showContent}" 
                 [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'"
                 [svgStyle]="{ 'width.px':30, 'height.px':30 }"
                 (click)="showContent = !showContent">

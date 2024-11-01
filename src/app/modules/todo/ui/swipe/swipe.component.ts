@@ -18,12 +18,12 @@ interface Position {
 }
 
 @Component({
-    selector: 'app-swipe',
-    templateUrl: './swipe.component.html',
-    styleUrls: ['./swipe.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [CdkDrag, CdkOverlayOrigin, SvgIconComponent, CdkConnectedOverlay, PriorityComponent]
+  selector: 'app-swipe',
+  templateUrl: './swipe.component.html',
+  styleUrls: ['./swipe.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CdkDrag, CdkOverlayOrigin, SvgIconComponent, CdkConnectedOverlay, PriorityComponent]
 })
 export class SwipeComponent implements OnInit, OnDestroy, OnChanges {
   @Input()
@@ -61,9 +61,11 @@ export class SwipeComponent implements OnInit, OnDestroy, OnChanges {
     private swipeService: SwipeService
   ) { }
 
+  // need ref
   ngOnChanges(changes: SimpleChanges): void {
     if (this.todo) {
-      this.swipeService.setPriorityBarY(this.todo.priority);
+      this.config = this.swipeService.setPriorityBarY(this.todo.priority);
+      this.cdkConnectedOverlayPositions.offsetY = this.config.offsetY;
     }
   }
 

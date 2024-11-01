@@ -5,39 +5,49 @@
             (click)="onAllCategoriesPick()">All
     </button>
     <button class="btn btn-primary btn__favourite"
-            [ngClass]="{'active': false}"
-            (click)="onAllCategoriesPick()">
-      <svg-icon 
-        [src]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'" 
-        [svgStyle]="{ 'width.px':20, 'height.px':20}">
-      </svg-icon>
+            [ngClass]="{'active': filters?.favourite}"
+            (click)="toogleFavouriteFilter()">
+            <svg-icon 
+              [src]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'" 
+              [svgStyle]="{ 'width.px':20, 'height.px':20}">
+            </svg-icon>
     </button>
   </div>
   <div class="btns-bar__group">
+    @if (categoriesList!.length){
     <svg-icon 
       [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
       [svgStyle]="{ 'width.px':32, 'height.px':32}">
     </svg-icon>
-    @if (categoriesList){
     <div class="btns-bar__group__ categoty-group">
       @for (category of categoriesList; track category.id) {
       <button class="btn btn-primary" 
-              [ngClass]="{'active': currentCategory?.name == category.name}"
+              [ngClass]="{'active': currentCategory?.name === category.name}"
               (click)="onCategoryPick(category)">
               {{category.name}}
       </button>}
     </div>
-    }
     <svg-icon data-atribute="reverse"
-      [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
-      [svgStyle]="{ 'width.px':32, 'height.px':32}">
+              [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
+              [svgStyle]="{ 'width.px':32, 'height.px':32}">
     </svg-icon>
+    }
   </div>
-  <button class="btn btn-primary" role="menu">
-    <svg-icon 
-      [src]="'../../../../../assets/icons/filters_svgrepo.com.svg'" 
-      [svgStyle]="{ 'width.px':18}">
-    </svg-icon>
+  <button class="btn btn-primary" role="menu"
+          [ngClass]="{'active': filters?.priority}">
+          <svg-icon 
+            [src]="'../../../../../assets/icons/check.svg'" 
+            [svgStyle]="{ 'width.px':18, 'stroke': 'white'}"
+            (click)="toogleByStatus()">
+          </svg-icon>
+  </button>
+  <button class="btn btn-primary" role="menu"
+          [ngClass]="{'active': filters?.priority}">
+          <svg-icon 
+            [src]="'../../../../../assets/icons/filters_svgrepo.com.svg'" 
+            [svgStyle]="{ 'width.px':18}"
+            (click)="tooglePriorityFilter()">
+          </svg-icon>
   </button>
   <button class="btn btn-primary" (click)="clearAllData()">
     del

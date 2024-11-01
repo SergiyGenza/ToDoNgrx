@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Todo } from '../../common/models/todo.model';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { TodoListUiComponent } from '../todo-list-ui/todo-list-ui.component';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
 
 @Component({
@@ -12,11 +12,11 @@ import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
     templateUrl: './folder-list-item-ui.component.html',
     styleUrls: ['./folder-list-item-ui.component.scss'],
     standalone: true,
-    imports: [SvgIconComponent, TodoListUiComponent, AsyncPipe, TodoPipe]
+  imports: [SvgIconComponent, TodoListUiComponent, AsyncPipe, TodoPipe, NgClass]
 })
 export class FolderListItemUiComponent {
   @Input() todoList$: Observable<Todo[]> | undefined;
   @Input() folder!: Folder;
 
-  isOpen: boolean = true;
+  public showContent: boolean = true;
 }

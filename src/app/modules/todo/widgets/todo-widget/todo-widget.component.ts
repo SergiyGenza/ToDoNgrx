@@ -40,8 +40,8 @@ export class TodoWidgetComponent {
     private actionsService: ActionsService,
   ) {
     localStorageService.initTodos();
-    
     this.currentCategory = localStorageService.loadCurrentCategoryFromStorage();
+
     this.filters = this.todoStore$.pipe(select(filtersSelector));
     this.todoList$ = combineLatest([
       this.filters,
@@ -49,7 +49,6 @@ export class TodoWidgetComponent {
     ]).pipe(
       map(([filters, todos]) => this.applyFilters(filters, todos))
     )
-
     this.categoriesList$ = this.todoStore$.pipe(select(categoriesListSelector));
   }
 
@@ -78,28 +77,23 @@ export class TodoWidgetComponent {
   }
 
   private applyFilters(filters: TFilter, todos: Todo[]): Todo[] {
-    if (!todos.length) {
-      return todos;
+    if (todos.length) {
+      let filteredTodos: Todo[] = todos;
+      if (filters.favourite) {
+        filteredTodos = filteredTodos.filter(todo => todo.favourite);
+      }
+      if (filters.priority) {
+        const priorityOrder: { [key in TPriority]: number } = {
+          none: 0,
+          low: 1,
+          medium: 2,
+          high: 3,
+        };
+        filteredTodos.sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
+      }
+      return filteredTodos;
     }
-
-    const priorityOrder: { [key in TPriority]: number } = {
-      none: 0,
-      low: 1,
-      medium: 2,
-      high: 3,
-    };
-
-    let filteredTodos: Todo[] = todos;
-
-    if (filters.favourite) {
-      filteredTodos = filteredTodos.filter(todo => todo.favourite);
-    }
-
-    if (filters.priority) {
-      filteredTodos.sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
-    }
-
-    return filteredTodos;
+    return todos;
   }
 
 }

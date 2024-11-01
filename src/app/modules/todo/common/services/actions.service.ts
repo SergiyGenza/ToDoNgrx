@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
-import { ChangeTodoPriority, TodoCategoryCreateAction, TodoCategoryEditAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteCategoryAction, TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction, TodoToggleAction } from '../../store/todo/todo.actions';
 import { Todo, TodoCreate } from '../models/todo.model';
 import { Folder, FolderCreate } from '../models/folder.model';
 import { Category, CategoryCreate } from '../models/category.model';
 import { TPriority } from '../models/priority.model';
+import {
+  ChangeTodoPriority, TodoCategoryCreateAction, TodoCategoryEditAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteCategoryAction,
+  TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction, TodoToggleAction, ToggleTodoFavouriteStatus
+} from '../../store/todo/todo.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -84,4 +87,7 @@ export class ActionsService {
     this.todoStore$.dispatch(new ChangeTodoPriority({ id, priority }));
   }
 
+  public todoFavouriteStatusToggle(id: number): void {
+    this.todoStore$.dispatch(new ToggleTodoFavouriteStatus({ id }));
+  }
 }

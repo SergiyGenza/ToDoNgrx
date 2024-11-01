@@ -5,8 +5,8 @@
             (click)="onAllCategoriesPick()">All
     </button>
     <button class="btn btn-primary btn__favourite"
-            [ngClass]="{'active': false}"
-            (click)="onAllCategoriesPick()">
+            [ngClass]="{'active': filters?.favourite}"
+            (click)="toogleFavouriteFilter()">
       <svg-icon 
         [src]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'" 
         [svgStyle]="{ 'width.px':20, 'height.px':20}">

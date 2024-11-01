@@ -21,7 +21,6 @@ export class SwipeService {
     private modalService: ModalService
   ) { }
 
-
   public swipe(dragArea: CdkDragEnd, modalTemplate: TemplateRef<any>, actionItem: Items) {
     this.dragArea = dragArea;
     const action = this.getPositionAction(dragArea.source.getFreeDragPosition());
@@ -43,7 +42,6 @@ export class SwipeService {
   public resetPosition() {
     if (this.dragArea) {
       console.log(this.dragArea.source.getFreeDragPosition());
-
       this.dragArea.source.reset();
     }
   }
@@ -140,7 +138,7 @@ export class SwipeService {
         this.onDelete(modalTemplate, actionItem);
         break;
       case 'D':
-        console.log('favourite');
+        this.toogleFavourite(actionItem.todo!.id)
         break;
       default:
         break;
@@ -193,5 +191,9 @@ export class SwipeService {
     console.log('');
 
     return '';
+  }
+
+  private toogleFavourite(id: number) {
+    this.actionsService.todoFavouriteStatusToggle(id);
   }
 }

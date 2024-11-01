@@ -10,7 +10,9 @@
   <app-todo-header-bar-ui
     [categoriesList]="categoriesList$ | async"
     [currentCategory]="currentCategory"
-    (currentCategoryEmmiter)="onCategoryPick($event)">
+    [filters]="filters | async"
+    (currentCategoryEmmiter)="onCategoryPick($event)"
+    (showFavouriteEmmiter)="onFavouriteToggle($event)">
   </app-todo-header-bar-ui>
 
   <div class="content">
@@ -24,7 +26,7 @@
     </app-swipe>
     }
     @if (!!!this.currentCategory) {
-    <app-todo-list-ui [todoList]="todoList$ | async | todo:null"></app-todo-list-ui>
+    <app-todo-list-ui [todoList]="todoList$ | async | todo:null "></app-todo-list-ui>
     }
   </div>
 </div>

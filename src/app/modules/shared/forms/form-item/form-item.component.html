@@ -1,8 +1,8 @@
 <div class="flex" [style.maxHeight.px]="maxHeigth">
-  <button class="btn btn-primary btn-change-type" (click)="onFormTypeChange()">
-    {{formType}}
+  <button class="btn btn-primary btn-change-type" 
+          (click)="onFormTypeChange()">
+          {{formType}}
   </button>
-
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form__content">
       <input required type="text" name="text" placeholder="{{placeholder}}" formControlName="name">
@@ -17,10 +17,10 @@
   <button type="submit" class="btn btn__big btn__add-todo" 
           [disabled]="!this.form.valid"
           (click)="onSubmit()">
-    <svg-icon 
-      [src]="'../../../../../assets/icons/plus.svg'"
-      [svgStyle]="{ 'width.px':20}">
-    </svg-icon>
+          <svg-icon 
+            [src]="'../../../../../assets/icons/plus.svg'"
+            [svgStyle]="{ 'width.px':20}">
+          </svg-icon>
   </button>
 </div>
 
@@ -30,7 +30,7 @@
       <button type="button" role="button" class="btn btn__pick-item"
               [ngClass]="{'btn__no-item': !!!activeCategory}"
               (click)="clearCategoryPick()">
-                    None
+              None
       </button>
     </li>
     @for(category of categoriesList; track category.id) {
@@ -46,27 +46,21 @@
 </ng-template>
 
 <ng-template #folderPick>
-  <div [style.maxHeight.px]="42" class="folder">
-    @if (activeCategory) {
-      <div class="devider"></div>
-    }
+  <div class="folder" [style.maxHeight.px]="42" >
+    <div class="devider"></div>
     <ul class="folder-list">
-      @if (currentFoldersList?.length! == 0) {
-        <button type="button" class="btn btn__pick-item" 
-                [ngClass]="{'btn__no-item': !!!this.activeFolder}"
-                (click)="onFolderPick(null)">
-                None
-        </button>
-      }
+      <li><button type="button" class="btn btn__pick-item" 
+                  [ngClass]="{'btn__no-item': !!!this.activeFolder}"
+                  (click)="onFolderPick(null)">
+                  None
+      </button></li>
       @for(folder of currentFoldersList; track folder.id) {
-      <li>
-        <button type="button" class="btn btn__pick-item"
-                [disabled]="this.activeCategory === null"
-                [class.active]="isFolderActive(folder)" 
-                (click)="onFolderPick(folder)">
-                {{folder.name}}
-        </button>
-      </li>
+      <li><button type="button" class="btn btn__pick-item"
+                  [disabled]="this.activeCategory === null"
+                  [class.active]="isFolderActive(folder)" 
+                  (click)="onFolderPick(folder)">
+                  {{folder.name}}
+      </button></li>
       }
     </ul>
   </div>

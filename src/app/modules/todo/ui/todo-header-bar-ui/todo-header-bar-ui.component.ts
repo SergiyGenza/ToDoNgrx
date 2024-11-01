@@ -22,7 +22,9 @@ export class TodoHeaderBarUiComponent {
   @Output()
   currentCategoryEmmiter = new EventEmitter<Category | null>();
   @Output()
-  showFavouriteEmmiter = new EventEmitter();
+  favouriteFilterEmmiter = new EventEmitter<boolean>();
+  @Output()
+  priotityFilterEmmiter = new EventEmitter();
 
   // need ref
   constructor(
@@ -46,7 +48,11 @@ export class TodoHeaderBarUiComponent {
     this._document.defaultView!.location.reload();
   }
 
-  public toogleFavouriteFilter(): void  {
-    this.showFavouriteEmmiter.emit(!this.filters?.favourite);
+  public toogleFavouriteFilter(): void {
+    this.favouriteFilterEmmiter.emit(!this.filters?.favourite);
+  }
+
+  public tooglePriorityFilter(): void {
+    this.priotityFilterEmmiter.emit(!this.filters?.priority);
   }
 }

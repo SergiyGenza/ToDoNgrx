@@ -4,7 +4,7 @@ import { CategoryFilterPipe } from '../../common/pipes/category/category-filter.
 import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
 import { Store, select } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
-import { ToogleFavouriteFilter } from '../../store/todo/todo.actions';
+import { ToogleFavouriteFilter, ToogleProirityFilter } from '../../store/todo/todo.actions';
 import { categoriesListSelector, filtersSelector, todoListSelector } from '../../store/todo/todo.selectors';
 import { combineLatest, map, Observable } from 'rxjs';
 import { LocalstorageService } from '../../common/services/localstorage.service';
@@ -71,9 +71,12 @@ export class TodoWidgetComponent {
       : this.localStorageService.setCurrentCategoryInLocalstorage(null);
   }
 
-  public onFavouriteToggle(favourite: boolean) {
-    console.log(favourite);
+  public onFavouriteFilterToggle(favourite: boolean) {
     this.todoStore$.dispatch(new ToogleFavouriteFilter({ favourite }));
+  }
+
+  public onPriorityFilterToogle(priority: boolean) {
+    this.todoStore$.dispatch(new ToogleProirityFilter({ priority }));
   }
 
   private applyFilters(filters: TFilter, todos: Todo[]): Todo[] {
@@ -89,7 +92,8 @@ export class TodoWidgetComponent {
           medium: 2,
           high: 3,
         };
-        filteredTodos.sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
+        filteredTodos = [...filteredTodos].sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
+
       }
       return filteredTodos;
     }

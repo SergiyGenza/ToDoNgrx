@@ -198,7 +198,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
         ...state,
         filters: {
           ...state.filters,
-          favourite: action.payload.priority,
+          priority: action.payload.priority,
         }
       };
     default:

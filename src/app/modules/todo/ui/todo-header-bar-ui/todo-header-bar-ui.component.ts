@@ -24,7 +24,9 @@ export class TodoHeaderBarUiComponent {
   @Output()
   favouriteFilterEmmiter = new EventEmitter<boolean>();
   @Output()
-  priotityFilterEmmiter = new EventEmitter();
+  priotityFilterEmmiter = new EventEmitter<boolean>();
+  @Output()
+  statusFilterEmmiter = new EventEmitter<boolean>();
 
   // need ref
   constructor(
@@ -54,5 +56,9 @@ export class TodoHeaderBarUiComponent {
 
   public tooglePriorityFilter(): void {
     this.priotityFilterEmmiter.emit(!this.filters?.priority);
+  }
+
+  public toogleByStatus(): void {
+    this.statusFilterEmmiter.emit(!this.filters?.status);
   }
 }

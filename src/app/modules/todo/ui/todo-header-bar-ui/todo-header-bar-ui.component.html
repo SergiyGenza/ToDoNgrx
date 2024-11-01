@@ -36,6 +36,14 @@
   <button class="btn btn-primary" role="menu"
           [ngClass]="{'active': filters?.priority}">
           <svg-icon 
+            [src]="'../../../../../assets/icons/check.svg'" 
+            [svgStyle]="{ 'width.px':18, 'stroke': 'white'}"
+            (click)="toogleByStatus()">
+          </svg-icon>
+  </button>
+  <button class="btn btn-primary" role="menu"
+          [ngClass]="{'active': filters?.priority}">
+          <svg-icon 
             [src]="'../../../../../assets/icons/filters_svgrepo.com.svg'" 
             [svgStyle]="{ 'width.px':18}"
             (click)="tooglePriorityFilter()">

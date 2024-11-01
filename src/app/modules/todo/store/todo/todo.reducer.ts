@@ -20,6 +20,7 @@ export const initialTodoState: TodoState = {
   filters: {
     favourite: false,
     priority: false,
+    status: false,
   }
 }
 
@@ -185,7 +186,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
           favourite: !todo.favourite,
         } : todo)
       };
-    case todoActionsType.changeFavouriteFilter:
+    case todoActionsType.toggleFavouriteFilter:
       return {
         ...state,
         filters: {
@@ -193,12 +194,20 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
           favourite: action.payload.favourite,
         }
       };
-    case todoActionsType.changePriorityFilter:
+    case todoActionsType.togglePriorityFilter:
       return {
         ...state,
         filters: {
           ...state.filters,
           priority: action.payload.priority,
+        }
+      };
+    case todoActionsType.toggleStatusFilter:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          status: action.payload.status,
         }
       };
     default:

@@ -4,7 +4,7 @@ import { CategoryFilterPipe } from '../../common/pipes/category/category-filter.
 import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
 import { Store, select } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
-import { ToogleFavouriteFilter, ToogleProirityFilter } from '../../store/todo/todo.actions';
+import { ToogleFavouriteFilter, ToogleProirityFilter, ToogleStatusFilter } from '../../store/todo/todo.actions';
 import { categoriesListSelector, filtersSelector, todoListSelector } from '../../store/todo/todo.selectors';
 import { combineLatest, map, Observable } from 'rxjs';
 import { LocalstorageService } from '../../common/services/localstorage.service';
@@ -75,16 +75,19 @@ export class TodoWidgetComponent {
     this.todoStore$.dispatch(new ToogleFavouriteFilter({ favourite }));
   }
 
-  public onPriorityFilterToogle(priority: boolean) {
+  public onPriorityFilterToggle(priority: boolean) {
     this.todoStore$.dispatch(new ToogleProirityFilter({ priority }));
+  }
+
+  public onStatusFilterToggle(status: boolean) {
+    this.todoStore$.dispatch(new ToogleStatusFilter({ status }));
   }
 
   private applyFilters(filters: TFilter, todos: Todo[]): Todo[] {
     if (todos.length) {
       let filteredTodos: Todo[] = todos;
-      if (filters.favourite) {
-        filteredTodos = filteredTodos.filter(todo => todo.favourite);
-      }
+      if (filters.status) filteredTodos = filteredTodos.filter(todo => !todo.completed);
+      if (filters.favourite) filteredTodos = filteredTodos.filter(todo => todo.favourite);
       if (filters.priority) {
         const priorityOrder: { [key in TPriority]: number } = {
           none: 0,

@@ -13,7 +13,8 @@
     [filters]="filters | async"
     (currentCategoryEmmiter)="onCategoryPick($event)"
     (favouriteFilterEmmiter)="onFavouriteFilterToggle($event)"
-    (priotityFilterEmmiter)="onPriorityFilterToogle($event)">
+    (priotityFilterEmmiter)="onPriorityFilterToggle($event)"
+    (statusFilterEmmiter)="onStatusFilterToggle($event)">
   </app-todo-header-bar-ui>
 
   <div class="content">

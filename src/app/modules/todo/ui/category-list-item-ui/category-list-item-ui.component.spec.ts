@@ -8,8 +8,8 @@ describe('CategoryListItemUiComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CategoryListItemUiComponent ]
-    })
+    imports: [CategoryListItemUiComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CategoryListItemUiComponent);

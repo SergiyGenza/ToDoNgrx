@@ -25,6 +25,7 @@ input {
 .container {
   max-width: 630px;
   margin: 0 auto;
+  padding: 0 0.5rem 0 0.5rem;
 }
 
 .wrapper-title> :first-child {
@@ -151,4 +152,19 @@ input {
 
 .action-icons-bar.task-item__tool-bar.none {
   background-color: var(--none-actions-bar-bg-color) !important;
+}
+
+// arrow icons
+.arrow {
+  display: flex;
+  transition: 0.3s ease-out;
+  cursor: pointer;
+
+  &__down {
+    transform: rotate(-90deg);
+  }
+
+  &__up {
+    transform: rotate(90deg);
+  }
 }

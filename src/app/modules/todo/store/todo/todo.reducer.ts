@@ -1,4 +1,6 @@
 import { Category } from "../../common/models/category.model";
+import { TFilter } from "../../common/models/filters.model";
+import { Folder } from "../../common/models/folder.model";
 import { Todo } from "../../common/models/todo.model";
 import { TodoActions, todoActionsType } from "./todo.actions";
 
@@ -7,16 +9,22 @@ export const TODO_REDUCER_NODE = 'todo';
 export interface TodoState {
   idIncrement: number;
   todoList: Todo[];
-  categoriesList: Category[]
+  categoriesList: Category[];
+  filters: TFilter;
 }
 
 export const initialTodoState: TodoState = {
   idIncrement: 1,
   todoList: [],
   categoriesList: [],
+  filters: {
+    favourite: false,
+    priority: false,
+    status: false,
+  }
 }
 
-export const todoReducer = (state = initialTodoState, action: TodoActions) => {
+export const todoReducer = (state = initialTodoState, action: TodoActions): TodoState => {
   switch (action.type) {
     case todoActionsType.createTodo:
       return {
@@ -27,12 +35,13 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           {
             id: state.idIncrement,
             name: action.payload.name,
-            completed: false,
             currentFolderId: action.payload.currentFolderId,
             currentCategoryId: action.payload.currentCategoryId,
+            date: action.payload.date,
+            completed: false,
+            favourite: false,
             priority: 'none',
-            date: action.payload.date
-          }
+          } as Todo
         ]
       };
     case todoActionsType.deleteTodo:
@@ -70,7 +79,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
             id: state.idIncrement,
             name: action.payload.name,
             foldersList: [],
-          }
+          } as Category
         ]
       }
     case todoActionsType.editCategory:
@@ -104,7 +113,9 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
               name: action.payload.folderName,
               favourite: false,
               todoItems: [],
-            }]
+              currentCategoryId: action.payload.currentCategoryId // Додано це поле
+            } as Folder // Явне приведення до типу Folder
+          ]
         } : category)
       }
     case todoActionsType.editFolder:
@@ -146,7 +157,6 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           };
         })
       }
-
     case todoActionsType.deleteCategoryWithAllItems:
       return {
         ...state,
@@ -167,6 +177,38 @@ export const todoReducer = (state = initialTodoState, action: TodoActions) => {
           }
           return todo;
         })
+      };
+    case todoActionsType.toggleTodoFavouriteStatus:
+      return {
+        ...state,
+        todoList: state.todoList.map(todo => todo.id === action.payload.id ? {
+          ...todo,
+          favourite: !todo.favourite,
+        } : todo)
+      };
+    case todoActionsType.toggleFavouriteFilter:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          favourite: action.payload.favourite,
+        }
+      };
+    case todoActionsType.togglePriorityFilter:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          priority: action.payload.priority,
+        }
+      };
+    case todoActionsType.toggleStatusFilter:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          status: action.payload.status,
+        }
       };
     default:
       return state

@@ -8,8 +8,8 @@ describe('TodoHeaderBarUiComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TodoHeaderBarUiComponent ]
-    })
+    imports: [TodoHeaderBarUiComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(TodoHeaderBarUiComponent);

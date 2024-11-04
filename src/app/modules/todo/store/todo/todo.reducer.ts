@@ -11,6 +11,7 @@ export interface TodoState {
   todoList: Todo[];
   categoriesList: Category[];
   filters: TFilter;
+  activeCategory: Category | null;
 }
 
 export const initialTodoState: TodoState = {
@@ -21,7 +22,8 @@ export const initialTodoState: TodoState = {
     favourite: false,
     priority: false,
     status: false,
-  }
+  },
+  activeCategory: null
 }
 
 export const todoReducer = (state = initialTodoState, action: TodoActions): TodoState => {
@@ -113,8 +115,8 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
               name: action.payload.folderName,
               favourite: false,
               todoItems: [],
-              currentCategoryId: action.payload.currentCategoryId // Додано це поле
-            } as Folder // Явне приведення до типу Folder
+              currentCategoryId: action.payload.currentCategoryId
+            } as Folder
           ]
         } : category)
       }
@@ -191,7 +193,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
         ...state,
         filters: {
           ...state.filters,
-          favourite: action.payload.favourite,
+          favourite: !state.filters.favourite,
         }
       };
     case todoActionsType.togglePriorityFilter:
@@ -199,7 +201,7 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
         ...state,
         filters: {
           ...state.filters,
-          priority: action.payload.priority,
+          priority: !state.filters.priority,
         }
       };
     case todoActionsType.toggleStatusFilter:
@@ -207,8 +209,13 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
         ...state,
         filters: {
           ...state.filters,
-          status: action.payload.status,
+          status: !state.filters.status,
         }
+      };
+    case todoActionsType.changeActiveCategory:
+      return {
+        ...state,
+        activeCategory: action.payload.activeCategory
       };
     default:
       return state

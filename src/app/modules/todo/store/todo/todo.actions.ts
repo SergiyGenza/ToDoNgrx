@@ -31,6 +31,8 @@ export enum todoActionsType {
   toggleFavouriteFilter = '[Filter Favourite] change fav filter',
   togglePriorityFilter = '[Filter Priority] change prio filter',
   toggleStatusFilter = '[Filter Status] change status filter',
+
+  changeActiveCategory = '[Category] Active Category changed',
 };
 
 export class TodoCreateAction implements Action {
@@ -150,24 +152,21 @@ export class ToggleTodoFavouriteStatus implements Action {
 
 export class ToogleFavouriteFilter implements Action {
   readonly type = todoActionsType.toggleFavouriteFilter;
-  constructor(public payload: {
-    favourite: boolean;
-  }) { }
 }
 
 export class ToogleProirityFilter implements Action {
   readonly type = todoActionsType.togglePriorityFilter;
-  constructor(public payload: {
-    priority: boolean;
-  }) { }
 }
 export class ToogleStatusFilter implements Action {
   readonly type = todoActionsType.toggleStatusFilter;
-  constructor(public payload: {
-    status: boolean;
-  }) { }
 }
 
+export class ChangeActiveCategory implements Action {
+  readonly type = todoActionsType.changeActiveCategory;
+  constructor(public payload: {
+    activeCategory: Category | null;
+  }) { }
+}
 
 export type TodoActions = TodoCreateAction |
   TodoDeleteAction | TodoToggleAction |
@@ -177,4 +176,4 @@ export type TodoActions = TodoCreateAction |
   TodoDeleteCategoryWithAllItemsAction | TodoDeleteFolderWithAllItemsAction |
   TodoEditFolderAction | TodoCategoryEditAction | ChangeTodoPriority |
   ToggleTodoFavouriteStatus | ToogleFavouriteFilter | ToogleProirityFilter |
-  ToogleStatusFilter;
+  ToogleStatusFilter | ChangeActiveCategory;

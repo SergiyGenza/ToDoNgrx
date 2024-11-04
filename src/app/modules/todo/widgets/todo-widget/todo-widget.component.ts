@@ -4,8 +4,7 @@ import { CategoryFilterPipe } from '../../common/pipes/category/category-filter.
 import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
 import { Store, select } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
-import { ToogleFavouriteFilter, ToogleProirityFilter, ToogleStatusFilter } from '../../store/todo/todo.actions';
-import { categoriesListSelector, filtersSelector, todoListSelector } from '../../store/todo/todo.selectors';
+import { categoriesListSelector, filtersSelector, todoListSelector, activeCategorySelector } from '../../store/todo/todo.selectors';
 import { combineLatest, map, Observable } from 'rxjs';
 import { LocalstorageService } from '../../common/services/localstorage.service';
 import { ActionsService } from '../../common/services/actions.service';
@@ -29,27 +28,28 @@ import { TPriority } from '../../common/models/priority.model';
     TodoListUiComponent, AsyncPipe, CategoryFilterPipe, TodoPipe]
 })
 export class TodoWidgetComponent {
+  public filters$: Observable<TFilter>;
   public todoList$: Observable<Todo[]>;
   public categoriesList$: Observable<Category[]>;
-  public currentCategory: Category | null;
-  public filters: Observable<TFilter>;
+  public activeCategory$: Observable<Category | null>;
 
   constructor(
+    localStorageService: LocalstorageService,
     private todoStore$: Store<TodoState>,
-    private localStorageService: LocalstorageService,
     private actionsService: ActionsService,
   ) {
     localStorageService.initTodos();
-    this.currentCategory = localStorageService.loadCurrentCategoryFromStorage();
 
-    this.filters = this.todoStore$.pipe(select(filtersSelector));
+    this.activeCategory$ = this.todoStore$.pipe(select(activeCategorySelector));
+    this.categoriesList$ = this.todoStore$.pipe(select(categoriesListSelector));
+    this.filters$ = this.todoStore$.pipe(select(filtersSelector));
+
     this.todoList$ = combineLatest([
-      this.filters,
+      this.filters$,
       this.todoStore$.pipe(select(todoListSelector))
     ]).pipe(
       map(([filters, todos]) => this.applyFilters(filters, todos))
     )
-    this.categoriesList$ = this.todoStore$.pipe(select(categoriesListSelector));
   }
 
   public onTodoCreate(todo: TodoCreate) {
@@ -62,25 +62,6 @@ export class TodoWidgetComponent {
 
   public onCategoryCreate(category: CategoryCreate) {
     this.actionsService.categoryCreate(category);
-  }
-
-  public onCategoryPick(pickedCategory: Category | null): void {
-    this.currentCategory = pickedCategory
-    pickedCategory
-      ? this.localStorageService.setCurrentCategoryInLocalstorage(pickedCategory)
-      : this.localStorageService.setCurrentCategoryInLocalstorage(null);
-  }
-
-  public onFavouriteFilterToggle(favourite: boolean) {
-    this.todoStore$.dispatch(new ToogleFavouriteFilter({ favourite }));
-  }
-
-  public onPriorityFilterToggle(priority: boolean) {
-    this.todoStore$.dispatch(new ToogleProirityFilter({ priority }));
-  }
-
-  public onStatusFilterToggle(status: boolean) {
-    this.todoStore$.dispatch(new ToogleStatusFilter({ status }));
   }
 
   private applyFilters(filters: TFilter, todos: Todo[]): Todo[] {
@@ -96,7 +77,6 @@ export class TodoWidgetComponent {
           high: 3,
         };
         filteredTodos = [...filteredTodos].sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
-
       }
       return filteredTodos;
     }

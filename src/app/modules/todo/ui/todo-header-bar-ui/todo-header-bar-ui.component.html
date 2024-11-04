@@ -1,12 +1,12 @@
 <div class="btns-bar container">
   <div class="btns-bar__left">
     <button class="btn btn-primary"
-            [ngClass]="{'active': currentCategory === null}"
-            (click)="onAllCategoriesPick()">All
+            [ngClass]="{'active': (currentCategory$ | async) === null}"
+            (click)="onCategoryPick(null)">All
     </button>
     <button class="btn btn-primary btn__favourite"
-            [ngClass]="{'active': filters?.favourite}"
-            (click)="toogleFavouriteFilter()">
+            [ngClass]="{'active': (filters$ | async)?.favourite}"
+            (click)="onFavouriteFilterToggle()">
             <svg-icon 
               [src]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'" 
               [svgStyle]="{ 'width.px':20, 'height.px':20}">
@@ -22,7 +22,7 @@
     <div class="btns-bar__group__ categoty-group">
       @for (category of categoriesList; track category.id) {
       <button class="btn btn-primary" 
-              [ngClass]="{'active': currentCategory?.name === category.name}"
+              [ngClass]="{'active': (currentCategory$ | async)?.name === category.name}"
               (click)="onCategoryPick(category)">
               {{category.name}}
       </button>}
@@ -33,16 +33,16 @@
     </svg-icon>}
   </div>
   <button class="btn btn-primary" role="menu"
-          [ngClass]="{'active': filters?.status}"
-          (click)="toogleByStatus()">
+          [ngClass]="{'active': (filters$ | async)!.status}"
+          (click)="onStatusFilterToggle()">
           <svg-icon 
             [src]="'../../../../../assets/icons/check.svg'" 
             [svgStyle]="{ 'width.px':18, 'stroke': 'white'}">
           </svg-icon>
   </button>
   <button class="btn btn-primary" role="menu"
-          [ngClass]="{'active': filters?.priority}"
-          (click)="tooglePriorityFilter()">
+          [ngClass]="{'active': (filters$ | async)!.priority}"
+          (click)="onPriorityFilterToggle()">
           <svg-icon 
             [src]="'../../../../../assets/icons/filters_svgrepo.com.svg'" 
             [svgStyle]="{ 'width.px':18}"
@@ -51,6 +51,6 @@
   </button>
   <button class="btn btn-primary" 
           (click)="clearAllData()">
-    del
+          del
   </button>
 </div>

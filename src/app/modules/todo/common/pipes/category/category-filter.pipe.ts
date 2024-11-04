@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Category } from '../../models/category.model';
+import { combineLatest, map, Observable, of } from 'rxjs';
 
 @Pipe({
     name: 'categoryFilter',
@@ -7,10 +8,23 @@ import { Category } from '../../models/category.model';
     standalone: true,
 })
 export class CategoryFilterPipe implements PipeTransform {
-  transform(categoryList: Category[] | null, currentCategory: Category | null): Category[] | null {
-    currentCategory
-      ? categoryList = categoryList!.filter(items => items.name === currentCategory?.name)
-      : categoryList;
-    return categoryList;
+  transform(categoryList$: Observable<Category[] | null>, currentCategory$: Observable<Category | null>): Observable<Category[] | null> {
+    if (!categoryList$ || !currentCategory$) {
+      return of(null);
+    }
+
+    return combineLatest([categoryList$, currentCategory$]).pipe(
+      map(([categoryList, currentCategory]) => {
+        if (!categoryList) {
+          return null;
+        }
+
+        if (!currentCategory) {
+          return categoryList;
+        }
+
+        return categoryList.filter(item => item.name === currentCategory.name);
+      })
+    );
   }
 }

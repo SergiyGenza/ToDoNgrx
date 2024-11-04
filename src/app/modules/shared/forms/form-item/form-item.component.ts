@@ -23,12 +23,12 @@ const categoryForm = new FormGroup<CategoryForm>({
 });
 
 @Component({
-    selector: 'app-form-item',
-    templateUrl: './form-item.component.html',
-    styleUrl: './form-item.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [ReactiveFormsModule, NgTemplateOutlet, SvgIconComponent, NgClass]
+  selector: 'app-form-item',
+  templateUrl: './form-item.component.html',
+  styleUrl: './form-item.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [ReactiveFormsModule, NgTemplateOutlet, SvgIconComponent, NgClass]
 })
 export class FormItemComponent implements OnChanges, OnInit {
   @Input()
@@ -49,9 +49,8 @@ export class FormItemComponent implements OnChanges, OnInit {
   public maxHeigth: number = 34;
 
   public activeCategory?: Category | null = null;
-  public activeFolder!: Folder | null;
-  public currentFoldersList!: Folder[] | null;
-
+  public activeFolder: Folder | null = null;
+  public currentFoldersList: Folder[] | null = null
 
   constructor() { }
 
@@ -63,15 +62,14 @@ export class FormItemComponent implements OnChanges, OnInit {
     if (changes['currentCategory']) {
       this.activeCategory = this.currentCategory;
       this.currentFoldersList = this.activeCategory?.foldersList ?? null;
-      this.clearControls();
-      this.setDefaultData();
+      this.setDefaultDataControls();
     }
   }
 
+  // mb try observable to detect changes;
   public onSubmit() {
     if (this.form.valid) {
       const { name, currentFolderId, currentCategoryId } = this.form.controls;
-
       switch (this.formType) {
         case 'todo':
           this.createTotoEmitter.emit({
@@ -96,10 +94,16 @@ export class FormItemComponent implements OnChanges, OnInit {
           });
           break;
       }
-
-      this.clearValues();
       this.form.reset();
+      this.clearValues();
     }
+  }
+
+  public onCategotyPick(category: Category): void {
+    this.patchControlValue('currentCategoryId', category.id);
+    this.activeCategory = category;
+    this.activeFolder = null;
+    this.currentFoldersList = category.foldersList;
   }
 
   public clearCategoryPick(): void {
@@ -107,16 +111,9 @@ export class FormItemComponent implements OnChanges, OnInit {
     this.clearValues();
   }
 
-  public onCategotyPick(category: Category): void {
-    this.activeCategory = category;
-    this.activeFolder = null;
-    this.currentFoldersList = category.foldersList;
-    this.patchControlValue('currentCategoryId', category.id);
-  }
-
   public onFolderPick(folder: Folder | null): void {
-    this.activeFolder = folder;
     this.patchControlValue('currentFolderId', folder?.id ?? null);
+    this.activeFolder = folder;
   }
 
   public isFolderActive(folder: Folder): boolean {
@@ -126,32 +123,31 @@ export class FormItemComponent implements OnChanges, OnInit {
   public onFormTypeChange(): void {
     switch (this.formType) {
       case 'category':
-        this.updateForm('folder', folderForm, 'Add folder', 74);
+        this.changeForm('folder', folderForm, 'Add folder', 74);
         break;
       case 'todo':
-        this.updateForm('category', categoryForm, 'Add category', 34);
+        this.changeForm('category', categoryForm, 'Add category', 34);
         break;
       case 'folder':
       default:
-        this.updateForm('todo', todoForm, 'Add todo', 116);
+        this.changeForm('todo', todoForm, 'Add todo', 116);
         break;
     }
   }
 
-  private updateForm(formType: string, form: FormGroup, placeholder: string, maxHeight: number): void {
+  private changeForm(formType: string, form: FormGroup, placeholder: string, maxHeight: number): void {
     this.formType = formType;
-    this.form = form;
     this.placeholder = placeholder;
     this.maxHeigth = maxHeight;
+
+    let name = this.form.controls['name'].value;
+    this.form = form;
+    this.patchControlValue('name', name);
   }
 
-  private setDefaultData(): void {
-    this.patchControlValue('currentCategoryId', this.activeCategory?.id ?? null);
-  }
-
-  private clearControls(): void {
-    this.patchControlValue('currentCategoryId', null);
+  private setDefaultDataControls(): void {
     this.patchControlValue('currentFolderId', null);
+    this.patchControlValue('currentCategoryId', this.activeCategory?.id ?? null);
   }
 
   private clearValues(): void {

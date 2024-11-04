@@ -30,26 +30,27 @@
     <svg-icon data-atribute="reverse"
               [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
               [svgStyle]="{ 'width.px':32, 'height.px':32}">
-    </svg-icon>
-    }
+    </svg-icon>}
   </div>
   <button class="btn btn-primary" role="menu"
-          [ngClass]="{'active': filters?.priority}">
+          [ngClass]="{'active': filters?.status}"
+          (click)="toogleByStatus()">
           <svg-icon 
             [src]="'../../../../../assets/icons/check.svg'" 
-            [svgStyle]="{ 'width.px':18, 'stroke': 'white'}"
-            (click)="toogleByStatus()">
+            [svgStyle]="{ 'width.px':18, 'stroke': 'white'}">
           </svg-icon>
   </button>
   <button class="btn btn-primary" role="menu"
-          [ngClass]="{'active': filters?.priority}">
+          [ngClass]="{'active': filters?.priority}"
+          (click)="tooglePriorityFilter()">
           <svg-icon 
             [src]="'../../../../../assets/icons/filters_svgrepo.com.svg'" 
             [svgStyle]="{ 'width.px':18}"
-            (click)="tooglePriorityFilter()">
+            >
           </svg-icon>
   </button>
-  <button class="btn btn-primary" (click)="clearAllData()">
+  <button class="btn btn-primary" 
+          (click)="clearAllData()">
     del
   </button>
 </div>

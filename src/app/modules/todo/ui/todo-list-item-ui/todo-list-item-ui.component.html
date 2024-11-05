@@ -2,8 +2,9 @@
   <label class="round-checkbox-container">
     <input type="checkbox" [checked]="todo?.completed" (click)="this.toggle.emit()" />
     <span class="checkmark">
-      <svg-icon [src]="'../../../../../assets/icons/check.svg'"
-                [svgStyle]="{ 'width.px':20, 'height.px':20, 'stroke': 'black'}">
+      <svg-icon 
+        [src]="'../../../../../assets/icons/check.svg'"
+        [svgStyle]="{ 'width.px':20, 'height.px':20, 'stroke': 'black'}">
       </svg-icon>
     </span>
   </label>
@@ -14,4 +15,18 @@
     <span>{{todo?.name}}</span>
     }
   </div>
+  <button class="btn-info"
+          (click)="openInfo = !openInfo">
+          <svg-icon 
+            [src]="'../../../../../assets/icons/info-icon.svg'"
+            [svgStyle]="{ 'width.px':24, 'height.px':24, 'fill': 'black'}">
+          </svg-icon>
+  </button>
 </div>
+@if (openInfo) {
+<div class="todo-item-info" [class]="listClasses">
+  <p>some info</p>
+  <p>is favourite:  {{this.todo?.priority}}</p>
+  <p>date: {{this.todo?.date | date}}</p>
+</div>
+}

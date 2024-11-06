@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { Store, select } from '@ngrx/store';
-import { TodoState } from '../../store/todo/todo.reducer';
-import { categoriesListSelector, filtersSelector, todoListSelector, activeCategorySelector } from '../../store/todo/todo.selectors';
 import { combineLatest, map, Observable } from 'rxjs';
 import { LocalstorageService } from '../../common/services/localstorage.service';
-import { ActionsService } from '../../common/services/actions.service';
+import { StoreService } from '../../common/services/store.service';
 import { CategoryFilterPipe } from '../../common/pipes/category/category-filter.pipe';
 import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
 import { FormItemComponent } from '../../../shared/forms/form-item/form-item.component';
@@ -35,33 +32,32 @@ export class TodoWidgetComponent {
 
   constructor(
     localStorageService: LocalstorageService,
-    private todoStore$: Store<TodoState>,
-    private actionsService: ActionsService,
+    private storeService: StoreService,
   ) {
     localStorageService.initTodos();
 
-    this.activeCategory$ = this.todoStore$.pipe(select(activeCategorySelector));
-    this.categoriesList$ = this.todoStore$.pipe(select(categoriesListSelector));
-    this.filters$ = this.todoStore$.pipe(select(filtersSelector));
+    this.filters$ = this.storeService.getStoreFilters();
+    this.activeCategory$ = this.storeService.getStoreActiveCategory();
+    this.categoriesList$ = this.storeService.getStoreCategoriesList();
 
     this.todoList$ = combineLatest([
       this.filters$,
-      this.todoStore$.pipe(select(todoListSelector))
+      this.storeService.getStoreTodoList()
     ]).pipe(
       map(([filters, todos]) => this.applyFilters(filters, todos))
     )
   }
 
   public onTodoCreate(todo: TodoCreate): void {
-    this.actionsService.todoCreate(todo);
+    this.storeService.todoCreate(todo);
   }
 
   public onFolderCreate(folder: FolderCreate): void {
-    this.actionsService.folderCreate(folder);
+    this.storeService.folderCreate(folder);
   }
 
   public onCategoryCreate(category: CategoryCreate): void {
-    this.actionsService.categoryCreate(category);
+    this.storeService.categoryCreate(category);
   }
 
   private applyFilters(filters: TFilter, todos: Todo[]): Todo[] {

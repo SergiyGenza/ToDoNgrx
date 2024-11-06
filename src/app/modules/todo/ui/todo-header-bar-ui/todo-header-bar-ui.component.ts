@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core';
 import { DOCUMENT, NgClass } from '@angular/common';
-import { Store } from '@ngrx/store';
-import { TodoState } from '../../store/todo/todo.reducer';
-import { ChangeActiveCategory, ToogleFavouriteFilter, ToogleProirityFilter, ToogleStatusFilter } from '../../store/todo/todo.actions';
 import { LocalstorageService } from '../../common/services/localstorage.service';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { Category } from '../../common/models/category.model';
 import { TFilter } from '../../common/models/filters.model';
+import { StoreService } from '../../common/services/store.service';
 
 @Component({
   selector: 'app-todo-header-bar-ui',
@@ -25,28 +23,28 @@ export class TodoHeaderBarUiComponent {
   filters!: TFilter | null;
 
   constructor(
-    private todoStore$: Store<TodoState>,
+    private storeService: StoreService,
     // need only for testing
     private localStorageService: LocalstorageService,
     @Inject(DOCUMENT) private _document: Document,
     //
   ) { }
 
-  public onCategoryPick(activeCategory: Category | null): void {
-    if (this.filters?.favourite) this.todoStore$.dispatch(new ToogleFavouriteFilter());
-    this.todoStore$.dispatch(new ChangeActiveCategory({ activeCategory }));
+  public onPriorityFilterToggle(): void {
+    this.storeService.priorityFilterToggle();
+  }
+  
+  public onStatusFilterToggle(): void {
+    this.storeService.statusFilterToggle();
   }
 
   public onFavouriteFilterToggle(): void {
-    this.todoStore$.dispatch(new ToogleFavouriteFilter());
+    this.storeService.favouriteFilterToogle();
   }
 
-  public onPriorityFilterToggle(): void {
-    this.todoStore$.dispatch(new ToogleProirityFilter());
-  }
-
-  public onStatusFilterToggle(): void {
-    this.todoStore$.dispatch(new ToogleStatusFilter());
+  public onCategoryPick(activeCategory: Category | null): void {
+    if (this.filters?.favourite) this.onFavouriteFilterToggle();
+    this.storeService.categoryPick(activeCategory);
   }
 
   // reload page after data delete

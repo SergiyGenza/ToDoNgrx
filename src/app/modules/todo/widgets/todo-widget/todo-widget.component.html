@@ -10,13 +10,15 @@
   <app-todo-header-bar-ui 
     [categoriesList]="categoriesList$ | async"
     [activeCategory]="activeCategory$ | async"
-    [filters]="filters$ | async"></app-todo-header-bar-ui>
+    [filters]="filters$ | async">
+  </app-todo-header-bar-ui>
 
   <div class="content">
     @if(!(filters$ | async)!.favourite ) {
       @for (category of (categoriesList$ | categoryFilter:activeCategory$ | async); track category.id){
       <app-swipe [category]="category">
-        <app-category-list-item-ui [currentCategory]="activeCategory$ | async" [todoList$]="todoList$" [category]="category">
+        <app-category-list-item-ui 
+          [currentCategory]="activeCategory$ | async" [todoList$]="todoList$" [category]="category">
         </app-category-list-item-ui>
       </app-swipe>}
       @if ((this.activeCategory$ | async) == null) {

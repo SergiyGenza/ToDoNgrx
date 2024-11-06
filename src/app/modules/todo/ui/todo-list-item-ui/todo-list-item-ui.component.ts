@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Todo } from '../../common/models/todo.model';
 import { SvgIconComponent } from 'angular-svg-icon';
-import { DatePipe } from '@angular/common';
+import { SwipeComponentConfig, SWIPECOMPONENTCONFIGLIST } from '../../common/models/swipe-items.model';
 
 @Component({
   selector: 'app-todo-list-item-ui',
@@ -18,10 +19,10 @@ export class TodoListItemUiComponent implements OnChanges {
   toggle = new EventEmitter<void>();
 
   listClasses!: string[];
-  openInfo: boolean = false;
+  config: SwipeComponentConfig | undefined;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.listClasses = [this.todo?.priority!];
+    this.config = SWIPECOMPONENTCONFIGLIST.find(i => i.priorityType === this.todo?.priority);
   }
-
 }

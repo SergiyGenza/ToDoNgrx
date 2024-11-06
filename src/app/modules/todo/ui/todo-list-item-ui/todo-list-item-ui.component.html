@@ -15,18 +15,10 @@
     <span>{{todo?.name}}</span>
     }
   </div>
-  <button class="btn-info"
-          (click)="openInfo = !openInfo">
-          <svg-icon 
-            [src]="'../../../../../assets/icons/info-icon.svg'"
-            [svgStyle]="{ 'width.px':24, 'height.px':24, 'fill': 'black'}">
-          </svg-icon>
-  </button>
+  @if (todo?.favourite) {
+    <svg-icon
+      [src]="'../../../../../assets/icons/heart-dark_svgrepo.com.svg'"
+      [svgStyle]="{ 'width.px':20, 'fill': config?.iconsColor}">
+    </svg-icon>
+  }
 </div>
-@if (openInfo) {
-<div class="todo-item-info" [class]="listClasses">
-  <p>some info</p>
-  <p>is favourite:  {{this.todo?.priority}}</p>
-  <p>date: {{this.todo?.date | date}}</p>
-</div>
-}

@@ -12,6 +12,7 @@ export interface TodoState {
   categoriesList: Category[];
   filters: TFilter;
   activeCategory: Category | null;
+  formType: 'category' | 'folder' | 'todo';
 }
 
 export const initialTodoState: TodoState = {
@@ -23,7 +24,8 @@ export const initialTodoState: TodoState = {
     priority: false,
     status: false,
   },
-  activeCategory: null
+  activeCategory: null,
+  formType: 'category'
 }
 
 export const todoReducer = (state = initialTodoState, action: TodoActions): TodoState => {
@@ -217,6 +219,11 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
         ...state,
         activeCategory: action.payload.activeCategory
       };
+    case todoActionsType.changeFormType:
+      return {
+        ...state,
+        formType: action.payload.formType
+      }
     default:
       return state
   }

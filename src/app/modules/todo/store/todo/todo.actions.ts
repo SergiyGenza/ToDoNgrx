@@ -32,7 +32,8 @@ export enum todoActionsType {
   togglePriorityFilter = '[Filter Priority] change prio filter',
   toggleStatusFilter = '[Filter Status] change status filter',
 
-  changeActiveCategory = '[Category] Active Category changed',
+  changeActiveCategory = '[Active Category] Active Category changed',
+  changeFormType = '[Form Type] Form Type changed'
 };
 
 export class TodoCreateAction implements Action {
@@ -168,6 +169,13 @@ export class ChangeActiveCategory implements Action {
   }) { }
 }
 
+export class ChangeFormType implements Action {
+  readonly type = todoActionsType.changeFormType;
+  constructor(public payload: {
+    formType: 'category' | 'folder' | 'todo';
+  }) { }
+}
+
 export type TodoActions = TodoCreateAction |
   TodoDeleteAction | TodoToggleAction |
   TodoEditAction | TodoLoadStateAction |
@@ -176,4 +184,4 @@ export type TodoActions = TodoCreateAction |
   TodoDeleteCategoryWithAllItemsAction | TodoDeleteFolderWithAllItemsAction |
   TodoEditFolderAction | TodoCategoryEditAction | ChangeTodoPriority |
   ToggleTodoFavouriteStatus | ToogleFavouriteFilter | ToogleProirityFilter |
-  ToogleStatusFilter | ChangeActiveCategory;
+  ToogleStatusFilter | ChangeActiveCategory | ChangeFormType;

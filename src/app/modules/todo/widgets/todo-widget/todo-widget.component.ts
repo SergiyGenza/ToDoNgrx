@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { CategoryFilterPipe } from '../../common/pipes/category/category-filter.pipe';
-import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
 import { Store, select } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
 import { categoriesListSelector, filtersSelector, todoListSelector, activeCategorySelector } from '../../store/todo/todo.selectors';
 import { combineLatest, map, Observable } from 'rxjs';
 import { LocalstorageService } from '../../common/services/localstorage.service';
 import { ActionsService } from '../../common/services/actions.service';
+import { CategoryFilterPipe } from '../../common/pipes/category/category-filter.pipe';
+import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
 import { FormItemComponent } from '../../../shared/forms/form-item/form-item.component';
 import { TodoHeaderBarUiComponent } from '../../ui/todo-header-bar-ui/todo-header-bar-ui.component';
 import { CategoryListItemUiComponent } from '../../ui/category-list-item-ui/category-list-item-ui.component';
@@ -52,15 +52,15 @@ export class TodoWidgetComponent {
     )
   }
 
-  public onTodoCreate(todo: TodoCreate) {
+  public onTodoCreate(todo: TodoCreate): void {
     this.actionsService.todoCreate(todo);
   }
 
-  public onFolderCreate(folder: FolderCreate) {
+  public onFolderCreate(folder: FolderCreate): void {
     this.actionsService.folderCreate(folder);
   }
 
-  public onCategoryCreate(category: CategoryCreate) {
+  public onCategoryCreate(category: CategoryCreate): void {
     this.actionsService.categoryCreate(category);
   }
 

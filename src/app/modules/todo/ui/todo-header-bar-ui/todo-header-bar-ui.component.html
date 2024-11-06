@@ -1,11 +1,11 @@
 <div class="btns-bar container">
   <div class="btns-bar__left">
     <button class="btn btn-primary"
-            [ngClass]="{'active': (currentCategory$ | async) === null}"
+            [ngClass]="{'active': activeCategory === null && !filters!.favourite}"
             (click)="onCategoryPick(null)">All
     </button>
     <button class="btn btn-primary btn__favourite"
-            [ngClass]="{'active': (filters$ | async)?.favourite}"
+            [ngClass]="{'active': filters!.favourite}"
             (click)="onFavouriteFilterToggle()">
             <svg-icon 
               [src]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'" 
@@ -22,7 +22,7 @@
     <div class="btns-bar__group__ categoty-group">
       @for (category of categoriesList; track category.id) {
       <button class="btn btn-primary" 
-              [ngClass]="{'active': (currentCategory$ | async)?.name === category.name}"
+              [ngClass]="{'active': activeCategory?.name === category.name && !filters?.favourite}"
               (click)="onCategoryPick(category)">
               {{category.name}}
       </button>}
@@ -33,7 +33,7 @@
     </svg-icon>}
   </div>
   <button class="btn btn-primary" role="menu"
-          [ngClass]="{'active': (filters$ | async)!.status}"
+          [ngClass]="{'active': filters!.status}"
           (click)="onStatusFilterToggle()">
           <svg-icon 
             [src]="'../../../../../assets/icons/check.svg'" 
@@ -41,7 +41,7 @@
           </svg-icon>
   </button>
   <button class="btn btn-primary" role="menu"
-          [ngClass]="{'active': (filters$ | async)!.priority}"
+          [ngClass]="{'active': filters!.priority}"
           (click)="onPriorityFilterToggle()">
           <svg-icon 
             [src]="'../../../../../assets/icons/filters_svgrepo.com.svg'" 

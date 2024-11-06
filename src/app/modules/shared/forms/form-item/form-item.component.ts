@@ -22,6 +22,12 @@ const categoryForm = new FormGroup<CategoryForm>({
   name: new FormControl('', { nonNullable: true, validators: Validators.required })
 });
 
+// const config: formConfig[] = [
+//   {},
+//   {},
+//   {}
+// ]
+
 @Component({
   selector: 'app-form-item',
   templateUrl: './form-item.component.html',
@@ -37,12 +43,13 @@ export class FormItemComponent implements OnChanges, OnInit {
   public currentCategory?: Category | null;
 
   @Output()
-  createTotoEmitter = new EventEmitter<TodoCreate>();
+  createTodoEmitter = new EventEmitter<TodoCreate>();
   @Output()
   createFolderEmitter = new EventEmitter<FolderCreate>();
   @Output()
   createCategoryEmitter = new EventEmitter<CategoryCreate>();
 
+  // config
   public formType: string = 'category';
   public form: FormGroup = categoryForm;
   public placeholder: string = 'Add category';
@@ -72,7 +79,7 @@ export class FormItemComponent implements OnChanges, OnInit {
       const { name, currentFolderId, currentCategoryId } = this.form.controls;
       switch (this.formType) {
         case 'todo':
-          this.createTotoEmitter.emit({
+          this.createTodoEmitter.emit({
             name: name.value,
             currentFolderId: currentFolderId.value,
             currentCategoryId: currentCategoryId.value,

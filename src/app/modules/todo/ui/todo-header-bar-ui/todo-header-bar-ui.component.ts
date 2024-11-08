@@ -1,64 +1,56 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
-import { Category } from '../../common/models/category.model';
-import { LocalstorageService } from '../../common/services/localstorage.service';
+import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core';
 import { DOCUMENT, NgClass } from '@angular/common';
+import { LocalstorageService } from '../../common/services/localstorage.service';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { Category } from '../../common/models/category.model';
 import { TFilter } from '../../common/models/filters.model';
+import { StoreService } from '../../common/services/store.service';
 
 @Component({
   selector: 'app-todo-header-bar-ui',
   templateUrl: './todo-header-bar-ui.component.html',
   styleUrls: ['./todo-header-bar-ui.component.scss'],
   standalone: true,
-  imports: [NgClass, SvgIconComponent]
+  imports: [NgClass, SvgIconComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoHeaderBarUiComponent {
   @Input()
   categoriesList?: Category[] | null;
   @Input()
-  currentCategory?: Category | null;
+  activeCategory!: Category | null;
   @Input()
   filters!: TFilter | null;
-  @Output()
-  currentCategoryEmmiter = new EventEmitter<Category | null>();
-  @Output()
-  favouriteFilterEmmiter = new EventEmitter<boolean>();
-  @Output()
-  priotityFilterEmmiter = new EventEmitter<boolean>();
-  @Output()
-  statusFilterEmmiter = new EventEmitter<boolean>();
 
-  // need ref
   constructor(
+    private storeService: StoreService,
+    // need only for testing
     private localStorageService: LocalstorageService,
     @Inject(DOCUMENT) private _document: Document,
+    //
   ) { }
 
-  public onCategoryPick(catagory: Category): void {
-    this.currentCategory = catagory;
-    this.currentCategoryEmmiter.emit(catagory);
+  public onPriorityFilterToggle(): void {
+    this.storeService.priorityFilterToggle();
+  }
+  
+  public onStatusFilterToggle(): void {
+    this.storeService.statusFilterToggle();
   }
 
-  public onAllCategoriesPick(): void {
-    this.currentCategory = null;
-    this.currentCategoryEmmiter.emit(null);
+  public onFavouriteFilterToggle(): void {
+    this.storeService.favouriteFilterToogle();
+  }
+
+  public onCategoryPick(activeCategory: Category | null): void {
+    if (this.filters?.favourite) this.onFavouriteFilterToggle();
+    this.storeService.categoryPick(activeCategory);
   }
 
   // reload page after data delete
+  // need only for testing
   public clearAllData(): void {
     this.localStorageService.clearAllData();
     this._document.defaultView!.location.reload();
-  }
-
-  public toogleFavouriteFilter(): void {
-    this.favouriteFilterEmmiter.emit(!this.filters?.favourite);
-  }
-
-  public tooglePriorityFilter(): void {
-    this.priotityFilterEmmiter.emit(!this.filters?.priority);
-  }
-
-  public toogleByStatus(): void {
-    this.statusFilterEmmiter.emit(!this.filters?.status);
   }
 }

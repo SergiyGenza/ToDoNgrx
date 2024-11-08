@@ -1,5 +1,5 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { ActionsService } from './actions.service';
+import { StoreService } from './store.service';
 import { ModalService } from 'src/app/modules/modal/services/modal.service';
 import { Items } from '../models/edit-item.model';
 import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
@@ -17,7 +17,7 @@ export class SwipeService {
   closeAll = new BehaviorSubject<boolean>(false);
 
   constructor(
-    private actionsService: ActionsService,
+    private storeService: StoreService,
     private modalService: ModalService
   ) { }
 
@@ -47,7 +47,7 @@ export class SwipeService {
   }
 
   public changePriority(todo: Todo, priority: TPriority): void {
-    this.actionsService.changeTodoPriority(todo, priority);
+    this.storeService.changeTodoPriority(todo, priority);
     this.setPriorityBarStatus(false);
     this.resetPosition();
   }
@@ -80,13 +80,13 @@ export class SwipeService {
       this.openModalAndHandleAction(modalTemplate, config, option => {
         switch (config.type) {
           case 'todoEdit':
-            this.actionsService.todoEdit(option);
+            this.storeService.todoEdit(option);
             break;
           case 'categoryEdit':
-            this.actionsService.categoryEdit(option);
+            this.storeService.categoryEdit(option);
             break;
           case 'folderEdit':
-            this.actionsService.folderEdit(option);
+            this.storeService.folderEdit(option);
             break;
         }
       });
@@ -97,20 +97,20 @@ export class SwipeService {
     const config = this.modalService.getModalConfig(item, 'Delete');
     if (config) {
       if (config.type === 'todoDelete') {
-        this.actionsService.todoDelete(item.todo!);
+        this.storeService.todoDelete(item.todo!);
         return;
       }
       this.openModalAndHandleAction(modalTemplate, config, option => {
         switch (config.type) {
           case 'categoryDelete':
             option
-              ? this.actionsService.deleteCategoryWithAllItems(item.category!)
-              : this.actionsService.deleteCategoryAction(item.category!);
+              ? this.storeService.deleteCategoryWithAllItems(item.category!)
+              : this.storeService.deleteCategoryAction(item.category!);
             break;
           case 'folderDelete':
             option
-              ? this.actionsService.deleteFolderWithAllItems(item.folder!)
-              : this.actionsService.deleteFolderAction(item.folder!);
+              ? this.storeService.deleteFolderWithAllItems(item.folder!)
+              : this.storeService.deleteFolderAction(item.folder!);
             break;
         }
       });
@@ -194,6 +194,6 @@ export class SwipeService {
   }
 
   private toogleFavourite(id: number) {
-    this.actionsService.todoFavouriteStatusToggle(id);
+    this.storeService.todoFavouriteStatusToggle(id);
   }
 }

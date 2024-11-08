@@ -12,14 +12,16 @@ import { SwipeComponentConfig, SWIPECOMPONENTCONFIGLIST } from '../models/swipe-
   providedIn: 'root'
 })
 export class SwipeService {
-  dragArea!: CdkDragEnd;
-  isPriorityBarOpen = false;
-  closeAll = new BehaviorSubject<boolean>(false);
+  public isPriorityBarOpen = false;
+  public closeAll = new BehaviorSubject<boolean>(false);
+  private dragArea!: CdkDragEnd;
 
   constructor(
     private actionsService: ActionsService,
     private modalService: ModalService
   ) { }
+
+  // need ref
 
   public swipe(dragArea: CdkDragEnd, modalTemplate: TemplateRef<any>, actionItem: Items) {
     this.dragArea = dragArea;
@@ -60,8 +62,6 @@ export class SwipeService {
         return SWIPECOMPONENTCONFIGLIST[1];
       case ('low'):
         return SWIPECOMPONENTCONFIGLIST[2];
-      case ('none'):
-        return SWIPECOMPONENTCONFIGLIST[3];
       default:
         return SWIPECOMPONENTCONFIGLIST[3];
     }
@@ -178,19 +178,19 @@ export class SwipeService {
     if (pos.x >= 20 && pos.x <= 44) {
       console.log('A');
       return 'A';
-    } else if (pos.x >= 45) {
+    } else if (pos.x >= 55) {
       console.log('B');
       return 'B';
-    } else if (pos.x <= -45) {
+    } else if (pos.x <= -55) {
       console.log('C');
       return 'C';
     } else if (pos.x <= -20 && pos.x >= -44) {
       console.log('D');
       return 'D';
     }
-    console.log('');
+    console.log('no action');
 
-    return '';
+    return 'no action';
   }
 
   private toogleFavourite(id: number) {

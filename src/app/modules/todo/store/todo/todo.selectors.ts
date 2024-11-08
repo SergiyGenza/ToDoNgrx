@@ -23,3 +23,11 @@ export const filtersSelector = createSelector(
   todoFeatureSelector,
   state => state.filters
 )
+export const activeCategorySelector = createSelector(
+  todoFeatureSelector,
+  state => state.activeCategory
+)
+export const formTypeSelector = createSelector(
+  todoFeatureSelector,
+  state => state.formType
+)

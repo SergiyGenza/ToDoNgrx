@@ -22,6 +22,9 @@ export class TodoHeaderBarUiComponent {
   @Input()
   filters!: TFilter | null;
 
+  public openFilters: boolean = false;
+
+  // need ref
   constructor(
     private storeService: StoreService,
     // need only for testing

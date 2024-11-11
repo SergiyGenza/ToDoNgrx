@@ -4,6 +4,7 @@ import { Category, CategoryCreate } from '../../common/models/category.model';
 import { FolderCreate } from '../../common/models/folder.model';
 import { TodoCreate } from '../../common/models/todo.model';
 import { CategoryForm, FolderForm, TodoForm } from '../../common/models/forms.model';
+import { FormItemComponent } from '../../../shared/forms/form-item/form-item.component';
 
 const todoForm = new FormGroup<TodoForm>({
   name: new FormControl<string>('', { nonNullable: true, validators: Validators.required }),
@@ -21,9 +22,11 @@ const categoryForm = new FormGroup<CategoryForm>({
 });
 
 @Component({
-  selector: 'app-create-items',
-  templateUrl: './create-items.component.html',
-  styleUrls: ['./create-items.component.scss']
+    selector: 'app-create-items',
+    templateUrl: './create-items.component.html',
+    styleUrls: ['./create-items.component.scss'],
+    standalone: true,
+    imports: [FormItemComponent]
 })
 export class CreateItemsComponent {
   @Input() 

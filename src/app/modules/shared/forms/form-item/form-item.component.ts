@@ -1,13 +1,17 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Category } from 'src/app/modules/todo/common/models/category.model';
 import { Folder } from 'src/app/modules/todo/common/models/folder.model';
+import { NgTemplateOutlet, NgClass } from '@angular/common';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
-  selector: 'app-form-item',
-  templateUrl: './form-item.component.html',
-  styleUrl: './form-item.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-form-item',
+    templateUrl: './form-item.component.html',
+    styleUrl: './form-item.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [ReactiveFormsModule, NgTemplateOutlet, SvgIconComponent, NgClass]
 })
 export class FormItemComponent implements OnChanges, OnInit {
   @Input() form!: FormGroup;

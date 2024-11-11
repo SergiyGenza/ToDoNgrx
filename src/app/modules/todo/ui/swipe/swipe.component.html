@@ -1,41 +1,55 @@
 <div [class]="['swipe-wrapper', style.type]">
-  <div [class]="style.wrapper" [cdkDragFreeDragPosition]="setPosition" cdkDrag cdkDragLockAxis="x"
-    cdkDragBoundary=".app-container" (cdkDragStarted)="dragStarted($event)" (cdkDragEnded)="dragEnd($event)" #dragarea>
-    <!-- swipe content -->
-    <ng-content></ng-content>
+  <div [class]="style.wrapper"
+       [cdkDragFreeDragPosition]="setPosition"
+       cdkDrag cdkDragLockAxis="x"
+       cdkDragBoundary=".app-container" 
+       (cdkDragStarted)="dragStarted($event)"
+       (cdkDragEnded)="dragEnd($event)"
+       #dragarea>
+       <!-- swipe content -->
+      <ng-content></ng-content>
   </div>
   <div [class]="['action-icons-bar', style.bar, config.priorityType]">
     <div [classList]="style.barItem">
       @if(todo) {
       <div class="action_priority" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
-        <svg-icon [src]="'../../../../../assets/icons/priority_svgrepo.com.svg'"
+        <svg-icon 
+          [src]="'../../../../../assets/icons/priority_svgrepo.com.svg'" 
           [svgStyle]="{ 'width.px':20, 'fill': config.iconsColor}">
         </svg-icon>
-        <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
-          [cdkConnectedOverlayOpen]="isPriorityBarOpen"
-          cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop" [cdkConnectedOverlayHasBackdrop]="true"
-          (backdropClick)="isPriorityBarOpen = false" [cdkConnectedOverlayPositions]="[cdkConnectedOverlayPositions]">
-          <app-priority [priority]="config.priorityType" (changePriority)="changePriority($event)"
+         <ng-template cdkConnectedOverlay 
+                      [cdkConnectedOverlayOrigin]="trigger"
+                      [cdkConnectedOverlayOpen]="isPriorityBarOpen"
+                      cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+                      [cdkConnectedOverlayHasBackdrop]="true"
+                      (backdropClick)="isPriorityBarOpen = false"
+                      [cdkConnectedOverlayPositions]="[cdkConnectedOverlayPositions]">
+          <app-priority
+            [priority]="config.priorityType"
+            (changePriority)="changePriority($event)"
             (cancelPriorityPick)="this.isPriorityBarOpen = false">
           </app-priority>
-        </ng-template>
-      </div>
+         </ng-template>
+        </div>
       }
       <div class="">
-        <svg-icon [src]="'../../../../../assets/icons/edit_svgrepo.com.svg'"
+        <svg-icon 
+          [src]="'../../../../../assets/icons/edit_svgrepo.com.svg'" 
           [svgStyle]="{ 'width.px':20, 'fill': config.iconsColor}">
         </svg-icon>
       </div>
     </div>
     <div [classList]="style.barItem">
       <div class="">
-        <svg-icon [src]="'../../../../../assets/icons/trash-bin_svgrepo.com.svg'"
+        <svg-icon 
+          [src]="'../../../../../assets/icons/trash-bin_svgrepo.com.svg'" 
           [svgStyle]="{ 'width.px':20, 'fill': config.iconsColor}">
         </svg-icon>
       </div>
       @if (todo) {
       <div class="">
-        <svg-icon [src]="'../../../../../assets/icons/heart-dark_svgrepo.com.svg'"
+        <svg-icon 
+          [src]="'../../../../../assets/icons/heart-dark_svgrepo.com.svg'" 
           [svgStyle]="{ 'width.px':20, 'fill': config.iconsColor}">
         </svg-icon>
       </div>
@@ -45,3 +59,4 @@
 </div>
 
 <ng-template #modalTemplate></ng-template>
+

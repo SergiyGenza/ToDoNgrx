@@ -1,9 +1,11 @@
 <div class="wrapper-title folder">
   <span class="title">{{folder.name}}</span>
-  <svg-icon class="arrow" [ngClass]="{'arrow__up': !showContent, 'arrow__down': showContent}"
-    [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" [svgStyle]="{ 'width.px':30, 'height.px':30 }"
-    (click)="showContent = !showContent">
-  </svg-icon>
+  <svg-icon class="arrow"
+            [ngClass]="{'arrow__up': !showContent, 'arrow__down': showContent}"
+            [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
+            [svgStyle]="{ 'width.px':30, 'height.px':30 }"
+            (click)="showContent = !showContent">
+</svg-icon>
 </div>
 @if (showContent) {
 <app-todo-list-ui [todoList]="todoList$ | async | todo:folder"></app-todo-list-ui>

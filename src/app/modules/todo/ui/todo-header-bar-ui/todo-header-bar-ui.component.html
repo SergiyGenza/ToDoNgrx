@@ -42,27 +42,38 @@
 </div>
 @if (openFilters){
 <div class="filter-options-bar">
-  <button class="btn btn-primary btn__favourite" [ngClass]="{'active': filters?.favourite}"
-      (click)="onFavouriteFilterToggle()">
-      <svg-icon [src]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'"
-        [svgStyle]="{ 'width.px':20, 'height.px':20}">
-      </svg-icon>
+  <button class="btn btn-primary"
+          (click)="clearAllData()">
+          del
   </button>
-  <button class="btn btn-primary" role="menu" [ngClass]="{'active': filters?.status}" (click)="onStatusFilterToggle()">
-    <svg-icon [src]="'../../../../../assets/icons/check.svg'" [svgStyle]="{ 'width.px':18, 'stroke': 'white'}"
-      >
-    </svg-icon>
+  <button class="btn btn-primary btn__favourite" 
+          [ngClass]="{'active': filters?.favourite}"
+          (click)="onFavouriteFilterToggle()">
+          <svg-icon 
+            [src]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'"
+            [svgStyle]="{ 'width.px':20, 'height.px':20}">
+          </svg-icon>
   </button>
-  <button class="btn btn-primary" role="menu" [ngClass]="{'active': filters?.priority}" (click)="onPriorityFilterToggle()">
-    <svg-icon [src]="'../../../../../assets/icons/priority_svgrepo.com.svg'" [svgStyle]="{ 'width.px':20, 'fill':'white'}"
-     >
-    </svg-icon>
+  <button class="btn btn-primary" role="menu" 
+          [ngClass]="{'active': filters?.status}"
+          (click)="onStatusFilterToggle()">
+          <svg-icon 
+            [src]="'../../../../../assets/icons/check.svg'" 
+            [svgStyle]="{ 'width.px':18, 'stroke': 'white'}">
+          </svg-icon>
   </button>
-  <!-- <div class="">
-
-  </div> -->
-  <button class="btn btn-primary" (click)="clearAllData()">
-    del
+  <button class="btn btn-primary" role="menu"
+          [ngClass]="{'active': filters?.priority}"
+          (click)="onPriorityFilterToggle()">
+          <svg-icon 
+            [src]="'../../../../../assets/icons/priority_svgrepo.com.svg'"
+            [svgStyle]="{ 'width.px':20, 'fill':'white'}">
+          </svg-icon>
+  </button>
+  <button class="btn btn-primary" role="menu"  
+          [ngClass]="{'active': filters?.alphabeticalSort}"
+          (click)="onAlphabeticalSortFilterToggle()">
+          A-z
   </button>
 </div>
 }

@@ -74,6 +74,9 @@ export class TodoWidgetComponent {
         };
         filteredTodos = [...filteredTodos].sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
       }
+      if (filters.alphabeticalSort) {
+        filteredTodos = [...filteredTodos].sort((a, b) => a.name.localeCompare(b.name));
+      }
       return filteredTodos;
     }
     return todos;

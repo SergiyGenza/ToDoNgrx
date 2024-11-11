@@ -45,6 +45,10 @@ export class TodoHeaderBarUiComponent {
     this.storeService.favouriteFilterToogle();
   }
 
+  public onAlphabeticalSortFilterToggle(): void {
+    this.storeService.alphabeticalSortFilterToggle();
+  }
+
   public onCategoryPick(activeCategory: Category | null): void {
     if (this.filters?.favourite) this.onFavouriteFilterToggle();
     this.storeService.categoryPick(activeCategory);

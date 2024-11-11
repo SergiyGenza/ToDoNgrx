@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { CategoryFilterPipe } from '../../common/pipes/category/category-filter.pipe';
-import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
-import { Store, select } from '@ngrx/store';
-import { TodoState } from '../../store/todo/todo.reducer';
-import { ToogleFavouriteFilter, ToogleProirityFilter, ToogleStatusFilter } from '../../store/todo/todo.actions';
-import { categoriesListSelector, filtersSelector, todoListSelector } from '../../store/todo/todo.selectors';
 import { combineLatest, map, Observable } from 'rxjs';
 import { LocalstorageService } from '../../common/services/localstorage.service';
-import { ActionsService } from '../../common/services/actions.service';
+import { StoreService } from '../../common/services/store.service';
+import { CategoryFilterPipe } from '../../common/pipes/category/category-filter.pipe';
+import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
 import { FormItemComponent } from '../../../shared/forms/form-item/form-item.component';
 import { TodoHeaderBarUiComponent } from '../../ui/todo-header-bar-ui/todo-header-bar-ui.component';
 import { CategoryListItemUiComponent } from '../../ui/category-list-item-ui/category-list-item-ui.component';
@@ -29,58 +25,39 @@ import { TPriority } from '../../common/models/priority.model';
     TodoListUiComponent, AsyncPipe, CategoryFilterPipe, TodoPipe]
 })
 export class TodoWidgetComponent {
+  public filters$: Observable<TFilter>;
   public todoList$: Observable<Todo[]>;
   public categoriesList$: Observable<Category[]>;
-  public currentCategory: Category | null;
-  public filters: Observable<TFilter>;
+  public activeCategory$: Observable<Category | null>;
 
   constructor(
-    private todoStore$: Store<TodoState>,
-    private localStorageService: LocalstorageService,
-    private actionsService: ActionsService,
+    localStorageService: LocalstorageService,
+    private storeService: StoreService,
   ) {
     localStorageService.initTodos();
-    this.currentCategory = localStorageService.loadCurrentCategoryFromStorage();
 
-    this.filters = this.todoStore$.pipe(select(filtersSelector));
+    this.filters$ = this.storeService.getStoreFilters();
+    this.activeCategory$ = this.storeService.getStoreActiveCategory();
+    this.categoriesList$ = this.storeService.getStoreCategoriesList();
+
     this.todoList$ = combineLatest([
-      this.filters,
-      this.todoStore$.pipe(select(todoListSelector))
+      this.filters$,
+      this.storeService.getStoreTodoList()
     ]).pipe(
       map(([filters, todos]) => this.applyFilters(filters, todos))
     )
-    this.categoriesList$ = this.todoStore$.pipe(select(categoriesListSelector));
   }
 
-  public onTodoCreate(todo: TodoCreate) {
-    this.actionsService.todoCreate(todo);
+  public onTodoCreate(todo: TodoCreate): void {
+    this.storeService.todoCreate(todo);
   }
 
-  public onFolderCreate(folder: FolderCreate) {
-    this.actionsService.folderCreate(folder);
+  public onFolderCreate(folder: FolderCreate): void {
+    this.storeService.folderCreate(folder);
   }
 
-  public onCategoryCreate(category: CategoryCreate) {
-    this.actionsService.categoryCreate(category);
-  }
-
-  public onCategoryPick(pickedCategory: Category | null): void {
-    this.currentCategory = pickedCategory
-    pickedCategory
-      ? this.localStorageService.setCurrentCategoryInLocalstorage(pickedCategory)
-      : this.localStorageService.setCurrentCategoryInLocalstorage(null);
-  }
-
-  public onFavouriteFilterToggle(favourite: boolean) {
-    this.todoStore$.dispatch(new ToogleFavouriteFilter({ favourite }));
-  }
-
-  public onPriorityFilterToggle(priority: boolean) {
-    this.todoStore$.dispatch(new ToogleProirityFilter({ priority }));
-  }
-
-  public onStatusFilterToggle(status: boolean) {
-    this.todoStore$.dispatch(new ToogleStatusFilter({ status }));
+  public onCategoryCreate(category: CategoryCreate): void {
+    this.storeService.categoryCreate(category);
   }
 
   private applyFilters(filters: TFilter, todos: Todo[]): Todo[] {
@@ -96,7 +73,9 @@ export class TodoWidgetComponent {
           high: 3,
         };
         filteredTodos = [...filteredTodos].sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
-
+      }
+      if (filters.alphabeticalSort) {
+        filteredTodos = [...filteredTodos].sort((a, b) => a.name.localeCompare(b.name));
       }
       return filteredTodos;
     }

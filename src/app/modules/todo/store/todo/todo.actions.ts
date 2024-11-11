@@ -31,6 +31,10 @@ export enum todoActionsType {
   toggleFavouriteFilter = '[Filter Favourite] change fav filter',
   togglePriorityFilter = '[Filter Priority] change prio filter',
   toggleStatusFilter = '[Filter Status] change status filter',
+  toggleAlphabeticaSortFilter = '[Filter Alphabetica Sort] change alphabetica sort filter',
+
+  changeActiveCategory = '[Active Category] Active Category changed',
+  changeFormType = '[Form Type] Form Type changed'
 };
 
 export class TodoCreateAction implements Action {
@@ -150,24 +154,32 @@ export class ToggleTodoFavouriteStatus implements Action {
 
 export class ToogleFavouriteFilter implements Action {
   readonly type = todoActionsType.toggleFavouriteFilter;
-  constructor(public payload: {
-    favourite: boolean;
-  }) { }
 }
 
 export class ToogleProirityFilter implements Action {
   readonly type = todoActionsType.togglePriorityFilter;
-  constructor(public payload: {
-    priority: boolean;
-  }) { }
 }
 export class ToogleStatusFilter implements Action {
   readonly type = todoActionsType.toggleStatusFilter;
+}
+
+export class ToggleAlphabeticaSortFilter implements Action {
+  readonly type = todoActionsType.toggleAlphabeticaSortFilter;
+}
+
+export class ChangeActiveCategory implements Action {
+  readonly type = todoActionsType.changeActiveCategory;
   constructor(public payload: {
-    status: boolean;
+    activeCategory: Category | null;
   }) { }
 }
 
+export class ChangeFormType implements Action {
+  readonly type = todoActionsType.changeFormType;
+  constructor(public payload: {
+    formType: 'category' | 'folder' | 'todo';
+  }) { }
+}
 
 export type TodoActions = TodoCreateAction |
   TodoDeleteAction | TodoToggleAction |
@@ -177,4 +189,4 @@ export type TodoActions = TodoCreateAction |
   TodoDeleteCategoryWithAllItemsAction | TodoDeleteFolderWithAllItemsAction |
   TodoEditFolderAction | TodoCategoryEditAction | ChangeTodoPriority |
   ToggleTodoFavouriteStatus | ToogleFavouriteFilter | ToogleProirityFilter |
-  ToogleStatusFilter;
+  ToogleStatusFilter | ChangeActiveCategory | ChangeFormType | ToggleAlphabeticaSortFilter;

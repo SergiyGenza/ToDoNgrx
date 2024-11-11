@@ -5,7 +5,6 @@
 /tmp
 /out-tsc
 /bazel-out
-/environment
 
 # Node
 /node_modules
@@ -46,3 +45,4 @@ firebase.json
 Thumbs.db
 
 # env
+environment.ts

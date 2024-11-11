@@ -4,6 +4,10 @@
 
 @import '~@angular/cdk/overlay-prebuilt.css';
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   margin: 0;
   padding: 1rem 0;

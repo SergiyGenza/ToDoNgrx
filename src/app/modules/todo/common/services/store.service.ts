@@ -8,7 +8,7 @@ import { TPriority } from '../models/priority.model';
 import {
   ChangeActiveCategory,
   ChangeTodoPriority, TodoCategoryCreateAction, TodoCategoryEditAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteCategoryAction,
-  TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction, TodoToggleAction, ToggleTodoFavouriteStatus,
+  TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction, TodoToggleAction, ToggleAlphabeticaSortFilter, ToggleTodoFavouriteStatus,
   ToogleFavouriteFilter,
   ToogleProirityFilter,
   ToogleStatusFilter
@@ -130,7 +130,11 @@ export class StoreService {
     this.todoStore$.dispatch(new ToogleProirityFilter());
   }
 
-  public statusFilterToggle() {
+  public statusFilterToggle(): void {
     this.todoStore$.dispatch(new ToogleStatusFilter());
+  }
+  
+  public alphabeticalSortFilterToggle(): void {
+    this.todoStore$.dispatch(new ToggleAlphabeticaSortFilter());
   }
 }

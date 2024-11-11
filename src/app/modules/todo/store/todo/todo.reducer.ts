@@ -23,6 +23,7 @@ export const initialTodoState: TodoState = {
     favourite: false,
     priority: false,
     status: false,
+    alphabeticalSort: false
   },
   activeCategory: null,
   formType: 'category'
@@ -212,6 +213,14 @@ export const todoReducer = (state = initialTodoState, action: TodoActions): Todo
         filters: {
           ...state.filters,
           status: !state.filters.status,
+        }
+      };
+    case todoActionsType.toggleAlphabeticaSortFilter:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          alphabeticalSort: !state.filters.alphabeticalSort
         }
       };
     case todoActionsType.changeActiveCategory:

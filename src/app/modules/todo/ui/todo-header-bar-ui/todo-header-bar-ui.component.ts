@@ -22,6 +22,9 @@ export class TodoHeaderBarUiComponent {
   @Input()
   filters!: TFilter | null;
 
+  public openFilters: boolean = false;
+
+  // need ref
   constructor(
     private storeService: StoreService,
     // need only for testing
@@ -40,6 +43,10 @@ export class TodoHeaderBarUiComponent {
 
   public onFavouriteFilterToggle(): void {
     this.storeService.favouriteFilterToogle();
+  }
+
+  public onAlphabeticalSortFilterToggle(): void {
+    this.storeService.alphabeticalSortFilterToggle();
   }
 
   public onCategoryPick(activeCategory: Category | null): void {

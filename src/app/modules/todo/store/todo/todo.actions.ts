@@ -3,6 +3,7 @@ import { TodoState } from "./todo.reducer";
 import { Category } from "../../common/models/category.model";
 import { Folder } from "../../common/models/folder.model";
 import { TPriority } from "../../common/models/priority.model";
+import { TFilter } from "../../common/models/filters.model";
 
 export enum todoActionsType {
   loadTodo = '[Todo] loadTodo todo item',
@@ -24,7 +25,16 @@ export enum todoActionsType {
   deleteCategory = '[Category] delete Category item',
   deleteCategoryWithAllItems = '[Todo] delete Category with all items',
 
-  changeTodoPriority = '[Todo] change todo priority'
+  changeTodoPriority = '[Todo] change todo priority',
+  toggleTodoFavouriteStatus = '[Todo] change todo favourite status',
+
+  toggleFavouriteFilter = '[Filter Favourite] change fav filter',
+  togglePriorityFilter = '[Filter Priority] change prio filter',
+  toggleStatusFilter = '[Filter Status] change status filter',
+  toggleAlphabeticaSortFilter = '[Filter Alphabetica Sort] change alphabetica sort filter',
+
+  changeActiveCategory = '[Active Category] Active Category changed',
+  changeFormType = '[Form Type] Form Type changed'
 };
 
 export class TodoCreateAction implements Action {
@@ -135,10 +145,48 @@ export class ChangeTodoPriority implements Action {
   }) { }
 }
 
+export class ToggleTodoFavouriteStatus implements Action {
+  readonly type = todoActionsType.toggleTodoFavouriteStatus;
+  constructor(public payload: {
+    id: number;
+  }) { }
+}
+
+export class ToogleFavouriteFilter implements Action {
+  readonly type = todoActionsType.toggleFavouriteFilter;
+}
+
+export class ToogleProirityFilter implements Action {
+  readonly type = todoActionsType.togglePriorityFilter;
+}
+export class ToogleStatusFilter implements Action {
+  readonly type = todoActionsType.toggleStatusFilter;
+}
+
+export class ToggleAlphabeticaSortFilter implements Action {
+  readonly type = todoActionsType.toggleAlphabeticaSortFilter;
+}
+
+export class ChangeActiveCategory implements Action {
+  readonly type = todoActionsType.changeActiveCategory;
+  constructor(public payload: {
+    activeCategory: Category | null;
+  }) { }
+}
+
+export class ChangeFormType implements Action {
+  readonly type = todoActionsType.changeFormType;
+  constructor(public payload: {
+    formType: 'category' | 'folder' | 'todo';
+  }) { }
+}
+
 export type TodoActions = TodoCreateAction |
   TodoDeleteAction | TodoToggleAction |
   TodoEditAction | TodoLoadStateAction |
   TodoCategoryCreateAction | TodoCategoryFolderCreateAction |
   TodoDeleteFolderAction | TodoDeleteCategoryAction |
   TodoDeleteCategoryWithAllItemsAction | TodoDeleteFolderWithAllItemsAction |
-  TodoEditFolderAction | TodoCategoryEditAction | ChangeTodoPriority;
+  TodoEditFolderAction | TodoCategoryEditAction | ChangeTodoPriority |
+  ToggleTodoFavouriteStatus | ToogleFavouriteFilter | ToogleProirityFilter |
+  ToogleStatusFilter | ChangeActiveCategory | ChangeFormType | ToggleAlphabeticaSortFilter;

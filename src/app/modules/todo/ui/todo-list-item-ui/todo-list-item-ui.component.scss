@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   min-height: 40px;
-  padding: 0px 10px;
+  padding: 0px 25px 0 10px;
   background-color: -var(--todo-bg-yellow);
 }
 
@@ -16,17 +16,17 @@
     white-space: nowrap;
     overflow: hidden;
     text-align: left;
+    padding-left: 36px;
   }
 }
 
 .round-checkbox-container {
   display: block;
   position: relative;
-  padding-left: 35px;
   margin-bottom: 12px;
-  cursor: pointer;
   font-size: 22px;
   user-select: none;
+  cursor: pointer;
 }
 
 .round-checkbox-container input {
@@ -45,10 +45,15 @@
   border-radius: 50%;
 }
 
-svg-icon {
+span.checkmark >svg-icon {
   display: none;
 }
 
 .round-checkbox-container input:checked~.checkmark svg-icon {
   display: block;
+}
+
+.todo-item-info {
+  text-align: left;
+  padding: 10px 10px;
 }

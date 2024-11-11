@@ -2,8 +2,8 @@ import { TPriority } from "./priority.model";
 
 export interface TodoCreate {
   name: string;
-  favourite?: boolean;
-  priority?: TPriority;
+  favourite: boolean;
+  priority: TPriority;
   currentFolderId: number | null;
   currentCategoryId: number | null;
   date: Date;

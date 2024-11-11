@@ -1,20 +1,50 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { TodoState } from '../../store/todo/todo.reducer';
-import { ChangeTodoPriority, TodoCategoryCreateAction, TodoCategoryEditAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteCategoryAction, TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction, TodoToggleAction } from '../../store/todo/todo.actions';
 import { Todo, TodoCreate } from '../models/todo.model';
 import { Folder, FolderCreate } from '../models/folder.model';
 import { Category, CategoryCreate } from '../models/category.model';
 import { TPriority } from '../models/priority.model';
+import {
+  ChangeActiveCategory,
+  ChangeTodoPriority, TodoCategoryCreateAction, TodoCategoryEditAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteCategoryAction,
+  TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction, TodoToggleAction, ToggleAlphabeticaSortFilter, ToggleTodoFavouriteStatus,
+  ToogleFavouriteFilter,
+  ToogleProirityFilter,
+  ToogleStatusFilter
+} from '../../store/todo/todo.actions';
+import { activeCategorySelector, categoriesListSelector, filtersSelector, todoListSelector } from '../../store/todo/todo.selectors';
+import { Observable } from 'rxjs';
+import { TFilter } from '../models/filters.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ActionsService {
+export class StoreService {
 
   constructor(
     private todoStore$: Store<TodoState>,
   ) { }
+
+  // get store items
+
+  public getStoreTodoList(): Observable<Todo[]> {
+    return this.todoStore$.pipe(select(todoListSelector))
+  }
+
+  public getStoreCategoriesList(): Observable<Category[]> {
+    return this.todoStore$.pipe(select(categoriesListSelector));
+  }
+
+  public getStoreActiveCategory(): Observable<Category | null> {
+    return this.todoStore$.pipe(select(activeCategorySelector));
+  }
+
+  public getStoreFilters(): Observable<TFilter> {
+    return this.todoStore$.pipe(select(filtersSelector));
+  }
+
+  // store actions
 
   // need ref
   public todoCreate(item: TodoCreate): void {
@@ -84,4 +114,27 @@ export class ActionsService {
     this.todoStore$.dispatch(new ChangeTodoPriority({ id, priority }));
   }
 
+  public todoFavouriteStatusToggle(id: number): void {
+    this.todoStore$.dispatch(new ToggleTodoFavouriteStatus({ id }));
+  }
+
+  public categoryPick(activeCategory: Category | null): void {
+    this.todoStore$.dispatch(new ChangeActiveCategory({ activeCategory }));
+  }
+
+  public favouriteFilterToogle(): void {
+    this.todoStore$.dispatch(new ToogleFavouriteFilter());
+  }
+
+  public priorityFilterToggle(): void {
+    this.todoStore$.dispatch(new ToogleProirityFilter());
+  }
+
+  public statusFilterToggle(): void {
+    this.todoStore$.dispatch(new ToogleStatusFilter());
+  }
+  
+  public alphabeticalSortFilterToggle(): void {
+    this.todoStore$.dispatch(new ToggleAlphabeticaSortFilter());
+  }
 }

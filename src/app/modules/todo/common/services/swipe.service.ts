@@ -1,25 +1,27 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { ActionsService } from './actions.service';
+import { StoreService } from './store.service';
 import { ModalService } from 'src/app/modules/modal/services/modal.service';
 import { Items } from '../models/edit-item.model';
 import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 import { TPriority } from '../models/priority.model';
 import { Todo } from '../models/todo.model';
 import { BehaviorSubject } from 'rxjs';
+import { SwipeComponentConfig, SWIPECOMPONENTCONFIGLIST } from '../models/swipe-items.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SwipeService {
-  dragArea!: CdkDragEnd;
-  isPriorityBarOpen = false;
-  closeAll = new BehaviorSubject<boolean>(false);
+  public isPriorityBarOpen = false;
+  public closeAll = new BehaviorSubject<boolean>(false);
+  private dragArea!: CdkDragEnd;
 
   constructor(
-    private actionsService: ActionsService,
+    private storeService: StoreService,
     private modalService: ModalService
   ) { }
 
+  // need ref
 
   public swipe(dragArea: CdkDragEnd, modalTemplate: TemplateRef<any>, actionItem: Items) {
     this.dragArea = dragArea;
@@ -42,15 +44,27 @@ export class SwipeService {
   public resetPosition() {
     if (this.dragArea) {
       console.log(this.dragArea.source.getFreeDragPosition());
-
       this.dragArea.source.reset();
     }
   }
 
   public changePriority(todo: Todo, priority: TPriority): void {
-    this.actionsService.changeTodoPriority(todo, priority);
+    this.storeService.changeTodoPriority(todo, priority);
     this.setPriorityBarStatus(false);
     this.resetPosition();
+  }
+
+  public setPriorityBarY(priority: TPriority): SwipeComponentConfig {
+    switch (priority) {
+      case ('high'):
+        return SWIPECOMPONENTCONFIGLIST[0];
+      case ('medium'):
+        return SWIPECOMPONENTCONFIGLIST[1];
+      case ('low'):
+        return SWIPECOMPONENTCONFIGLIST[2];
+      default:
+        return SWIPECOMPONENTCONFIGLIST[3];
+    }
   }
 
   private setPriorityBarStatus(value: boolean) {
@@ -66,13 +80,13 @@ export class SwipeService {
       this.openModalAndHandleAction(modalTemplate, config, option => {
         switch (config.type) {
           case 'todoEdit':
-            this.actionsService.todoEdit(option);
+            this.storeService.todoEdit(option);
             break;
           case 'categoryEdit':
-            this.actionsService.categoryEdit(option);
+            this.storeService.categoryEdit(option);
             break;
           case 'folderEdit':
-            this.actionsService.folderEdit(option);
+            this.storeService.folderEdit(option);
             break;
         }
       });
@@ -83,20 +97,20 @@ export class SwipeService {
     const config = this.modalService.getModalConfig(item, 'Delete');
     if (config) {
       if (config.type === 'todoDelete') {
-        this.actionsService.todoDelete(item.todo!);
+        this.storeService.todoDelete(item.todo!);
         return;
       }
       this.openModalAndHandleAction(modalTemplate, config, option => {
         switch (config.type) {
           case 'categoryDelete':
             option
-              ? this.actionsService.deleteCategoryWithAllItems(item.category!)
-              : this.actionsService.deleteCategoryAction(item.category!);
+              ? this.storeService.deleteCategoryWithAllItems(item.category!)
+              : this.storeService.deleteCategoryAction(item.category!);
             break;
           case 'folderDelete':
             option
-              ? this.actionsService.deleteFolderWithAllItems(item.folder!)
-              : this.actionsService.deleteFolderAction(item.folder!);
+              ? this.storeService.deleteFolderWithAllItems(item.folder!)
+              : this.storeService.deleteFolderAction(item.folder!);
             break;
         }
       });
@@ -108,7 +122,7 @@ export class SwipeService {
     modalRef.subscribe(action);
   }
 
-  setDragAreaPos(posX: number, posY: number = 0) {
+  private setDragAreaPos(posX: number, posY: number = 0) {
     this.dragArea.source.setFreeDragPosition({ x: posX, y: posY });
   }
 
@@ -124,7 +138,7 @@ export class SwipeService {
         this.onDelete(modalTemplate, actionItem);
         break;
       case 'D':
-        console.log('favourite');
+        this.toogleFavourite(actionItem.todo!.id)
         break;
       default:
         break;
@@ -164,18 +178,22 @@ export class SwipeService {
     if (pos.x >= 20 && pos.x <= 44) {
       console.log('A');
       return 'A';
-    } else if (pos.x >= 45) {
+    } else if (pos.x >= 55) {
       console.log('B');
       return 'B';
-    } else if (pos.x <= -45) {
+    } else if (pos.x <= -55) {
       console.log('C');
       return 'C';
     } else if (pos.x <= -20 && pos.x >= -44) {
       console.log('D');
       return 'D';
     }
-    console.log('');
+    console.log('no action');
 
-    return '';
+    return 'no action';
+  }
+
+  private toogleFavourite(id: number) {
+    this.storeService.todoFavouriteStatusToggle(id);
   }
 }

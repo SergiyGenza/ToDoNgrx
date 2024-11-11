@@ -1,45 +1,79 @@
 <div class="btns-bar container">
   <div class="btns-bar__left">
     <button class="btn btn-primary"
-            [ngClass]="{'active': currentCategory === null}"
-            (click)="onAllCategoriesPick()">All
+            [ngClass]="{'active': activeCategory === null && !filters!.favourite}"
+            (click)="onCategoryPick(null)">All
     </button>
-    <button class="btn btn-primary btn__favourite"
-            [ngClass]="{'active': false}"
-            (click)="onAllCategoriesPick()">
+    <button class="btn btn-primary">
       <svg-icon 
-        [src]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'" 
-        [svgStyle]="{ 'width.px':20, 'height.px':20}">
+        [src]="'../../../../../assets/icons/search.svg'" 
+        [svgStyle]="{ 'width.px':20, 'height.px':20, 'fill':'white'}">
       </svg-icon>
     </button>
   </div>
   <div class="btns-bar__group">
-    <svg-icon 
+    @if (categoriesList!.length){
+    <!-- <svg-icon 
       [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
       [svgStyle]="{ 'width.px':32, 'height.px':32}">
-    </svg-icon>
-    @if (categoriesList){
+    </svg-icon> -->
     <div class="btns-bar__group__ categoty-group">
       @for (category of categoriesList; track category.id) {
       <button class="btn btn-primary" 
-              [ngClass]="{'active': currentCategory?.name == category.name}"
+              [ngClass]="{'active': activeCategory?.name === category.name && !filters?.favourite}"
               (click)="onCategoryPick(category)">
               {{category.name}}
       </button>}
     </div>
+    <!-- <svg-icon data-atribute="reverse"
+              [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
+              [svgStyle]="{ 'width.px':32, 'height.px':32}">
+    </svg-icon> -->
     }
-    <svg-icon data-atribute="reverse"
-      [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
-      [svgStyle]="{ 'width.px':32, 'height.px':32}">
-    </svg-icon>
   </div>
-  <button class="btn btn-primary" role="menu">
-    <svg-icon 
-      [src]="'../../../../../assets/icons/filters_svgrepo.com.svg'" 
-      [svgStyle]="{ 'width.px':18}">
-    </svg-icon>
-  </button>
-  <button class="btn btn-primary" (click)="clearAllData()">
-    del
+  <button class="btn btn-primary" 
+          (click)="openFilters = !openFilters"
+          [ngClass]="{'active':openFilters}">
+          <svg-icon 
+            [src]="'../../../../../assets/icons/filters_svgrepo.com.svg'" 
+            [svgStyle]="{ 'width.px':18}">
+          </svg-icon>
   </button>
 </div>
+@if (openFilters){
+<div class="filter-options-bar">
+  <button class="btn btn-primary"
+          (click)="clearAllData()">
+          del
+  </button>
+  <button class="btn btn-primary btn__favourite" 
+          [ngClass]="{'active': filters?.favourite}"
+          (click)="onFavouriteFilterToggle()">
+          <svg-icon 
+            [src]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'"
+            [svgStyle]="{ 'width.px':20, 'height.px':20}">
+          </svg-icon>
+  </button>
+  <button class="btn btn-primary" role="menu" 
+          [ngClass]="{'active': filters?.status}"
+          (click)="onStatusFilterToggle()">
+          <svg-icon 
+            [src]="'../../../../../assets/icons/check.svg'" 
+            [svgStyle]="{ 'width.px':18, 'stroke': 'white'}">
+          </svg-icon>
+  </button>
+  <button class="btn btn-primary" role="menu"
+          [ngClass]="{'active': filters?.priority}"
+          (click)="onPriorityFilterToggle()">
+          <svg-icon 
+            [src]="'../../../../../assets/icons/priority_svgrepo.com.svg'"
+            [svgStyle]="{ 'width.px':20, 'fill':'white'}">
+          </svg-icon>
+  </button>
+  <button class="btn btn-primary" role="menu"  
+          [ngClass]="{'active': filters?.alphabeticalSort}"
+          (click)="onAlphabeticalSortFilterToggle()">
+          A-z
+  </button>
+</div>
+}

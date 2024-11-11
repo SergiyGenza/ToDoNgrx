@@ -11,3 +11,23 @@ export const categoriesListSelector = createSelector(
   todoFeatureSelector,
   state => state.categoriesList
 )
+export const favouriteFiltersSelector = createSelector(
+  todoFeatureSelector,
+  state => state.filters.favourite
+)
+export const priorityFiltersSelector = createSelector(
+  todoFeatureSelector,
+  state => state.filters.priority
+)
+export const filtersSelector = createSelector(
+  todoFeatureSelector,
+  state => state.filters
+)
+export const activeCategorySelector = createSelector(
+  todoFeatureSelector,
+  state => state.activeCategory
+)
+export const formTypeSelector = createSelector(
+  todoFeatureSelector,
+  state => state.formType
+)

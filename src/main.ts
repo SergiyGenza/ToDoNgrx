@@ -7,13 +7,13 @@ import { provideStoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { TODO_REDUCER_NODE, todoReducer } from './app/todo/store/todo/todo.reducer';
 import { AppComponent } from './app/app.component';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
-import { todoRoutes } from './app/todo/todo.routes';
+import { appRoutes } from './app/app.route';
 
 
 bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(BrowserModule, StoreModule.forRoot({}, {}), StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), connectInZone: true })),
-        provideRouter(todoRoutes),
+        provideRouter(appRoutes),
         provideAngularSvgIcon(),
         provideHttpClient(),
         provideStore(),

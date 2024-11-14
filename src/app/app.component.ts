@@ -9,5 +9,5 @@ import { RouterOutlet } from '@angular/router';
     imports: [RouterOutlet]
 })
 export class AppComponent {
-  title = 'todo-ngrx';
+  title = 'ToDoom';
 }

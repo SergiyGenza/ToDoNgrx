@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Category } from 'src/app/modules/todo/common/models/category.model';
-import { EditItem } from 'src/app/modules/todo/common/models/edit-item.model';
-import { Folder } from 'src/app/modules/todo/common/models/folder.model';
-import { Todo } from 'src/app/modules/todo/common/models/todo.model';
+import { Category } from 'src/app/todo/common/models/category.model';
+import { EditItem } from 'src/app/todo/common/models/edit-item.model';
+import { Folder } from 'src/app/todo/common/models/folder.model';
+import { Todo } from 'src/app/todo/common/models/todo.model';
 
 @Component({
     selector: 'app-edit-form',

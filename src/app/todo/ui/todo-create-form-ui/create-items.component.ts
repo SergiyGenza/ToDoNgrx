@@ -4,7 +4,7 @@ import { Category, CategoryCreate } from '../../common/models/category.model';
 import { FolderCreate } from '../../common/models/folder.model';
 import { TodoCreate } from '../../common/models/todo.model';
 import { CategoryForm, FolderForm, TodoForm } from '../../common/models/forms.model';
-import { FormItemComponent } from '../../../shared/forms/form-item/form-item.component';
+import { FormItemComponent } from '../../../../shared/forms/form-item/form-item.component';
 
 const todoForm = new FormGroup<TodoForm>({
   name: new FormControl<string>('', { nonNullable: true, validators: Validators.required }),

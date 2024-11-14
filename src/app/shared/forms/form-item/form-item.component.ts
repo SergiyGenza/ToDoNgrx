@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { TodoForm, FolderForm, CategoryForm } from 'src/app/modules/todo/common/models/forms.model';
-import { Category, CategoryCreate } from 'src/app/modules/todo/common/models/category.model';
-import { Folder, FolderCreate } from 'src/app/modules/todo/common/models/folder.model';
-import { TodoCreate } from 'src/app/modules/todo/common/models/todo.model';
 import { NgTemplateOutlet, NgClass } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { Category, CategoryCreate } from 'src/app/todo/common/models/category.model';
+import { FolderCreate, Folder } from 'src/app/todo/common/models/folder.model';
+import { TodoForm, FolderForm, CategoryForm } from 'src/app/todo/common/models/forms.model';
+import { TodoCreate } from 'src/app/todo/common/models/todo.model';
 
 const todoForm = new FormGroup<TodoForm>({
   name: new FormControl<string>('', { nonNullable: true, validators: Validators.required }),

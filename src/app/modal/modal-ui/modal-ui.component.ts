@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { Folder } from '../../todo/common/models/folder.model';
-import { Todo } from '../../todo/common/models/todo.model';
-import { Category } from '../../todo/common/models/category.model';
-import { EditFormComponent } from '../../shared/forms/edit-form/edit-form.component';
+import { EditFormComponent } from 'src/app/shared/forms/edit-form/edit-form.component';
+import { Category } from 'src/app/todo/common/models/category.model';
+import { Folder } from 'src/app/todo/common/models/folder.model';
+import { Todo } from 'src/app/todo/common/models/todo.model';
 
 @Component({
     selector: 'app-modal-ui',

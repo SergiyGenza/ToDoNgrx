@@ -1,4 +1,5 @@
-@import "../../../../../assets/styles/color-variables";
+
+@import "../../../../assets/styles//color-variables";
 
 :host {
   width: 100%;
@@ -38,7 +39,7 @@ input::placeholder {
 
 .btn {
   &__add-todo {
-    background-image: url(../../../../../assets/icons/plus.svg);
+    background-image: url(../../../../assets/icons/plus.svg);
     background-repeat: no-repeat, repeat;
     background-position: center;
     background-size: 20px 20px;

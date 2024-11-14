@@ -1,11 +1,12 @@
 import { ComponentFactoryResolver, Inject, Injectable, Injector, TemplateRef } from '@angular/core';
-import { ModalUiComponent } from '../modal-ui/modal-ui.component';
 import { DOCUMENT } from '@angular/common';
 import { Observable, Subject } from 'rxjs';
-import { Folder } from '../../todo/common/models/folder.model';
-import { Todo } from '../../todo/common/models/todo.model';
-import { Category } from '../../todo/common/models/category.model';
-import { Items } from '../../todo/common/models/edit-item.model';
+import { ModalUiComponent } from '../modal-ui/modal-ui.component';
+import { Category } from 'src/app/todo/common/models/category.model';
+import { Items } from 'src/app/todo/common/models/edit-item.model';
+import { Folder } from 'src/app/todo/common/models/folder.model';
+import { Todo } from 'src/app/todo/common/models/todo.model';
+
 
 @Injectable({
   providedIn: 'root'

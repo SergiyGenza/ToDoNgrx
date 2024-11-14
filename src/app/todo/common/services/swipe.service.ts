@@ -1,12 +1,13 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { StoreService } from './store.service';
-import { ModalService } from 'src/app/modules/modal/services/modal.service';
 import { Items } from '../models/edit-item.model';
 import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 import { TPriority } from '../models/priority.model';
 import { Todo } from '../models/todo.model';
 import { BehaviorSubject } from 'rxjs';
 import { SwipeComponentConfig, SWIPECOMPONENTCONFIGLIST } from '../models/swipe-items.model';
+import { StoreService } from './store.service';
+import { ModalService } from 'src/app/modal/services/modal.service';
+
 
 @Injectable({
   providedIn: 'root'

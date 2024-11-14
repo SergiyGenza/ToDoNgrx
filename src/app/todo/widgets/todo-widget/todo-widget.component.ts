@@ -5,7 +5,7 @@ import { LocalstorageService } from '../../common/services/localstorage.service'
 import { StoreService } from '../../common/services/store.service';
 import { CategoryFilterPipe } from '../../common/pipes/category/category-filter.pipe';
 import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
-import { FormItemComponent } from '../../../shared/forms/form-item/form-item.component';
+import { FormItemComponent } from 'src/app/shared/forms/form-item/form-item.component';
 import { TodoHeaderBarUiComponent } from '../../ui/todo-header-bar-ui/todo-header-bar-ui.component';
 import { CategoryListItemUiComponent } from '../../ui/category-list-item-ui/category-list-item-ui.component';
 import { SwipeComponent } from '../../ui/swipe/swipe.component';

@@ -13,10 +13,6 @@
   </div>
   <div class="btns-bar__group">
     @if (categoriesList!.length){
-    <!-- <svg-icon 
-      [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
-      [svgStyle]="{ 'width.px':32, 'height.px':32}">
-    </svg-icon> -->
     <div class="btns-bar__group__ categoty-group">
       @for (category of categoriesList; track category.id) {
       <button class="btn btn-primary" 
@@ -25,10 +21,6 @@
               {{category.name}}
       </button>}
     </div>
-    <!-- <svg-icon data-atribute="reverse"
-              [src]="'../../../../../assets/icons/category-arrow_svgrepo.com.svg'" 
-              [svgStyle]="{ 'width.px':32, 'height.px':32}">
-    </svg-icon> -->
     }
   </div>
   <button class="btn btn-primary" 

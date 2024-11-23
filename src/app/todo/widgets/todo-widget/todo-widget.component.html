@@ -1,33 +1,49 @@
-<div class="todo-widget-wrapper container">
-  <app-form-item 
-    [categoriesList]="categoriesList$ | async"
-    [currentCategory]="activeCategory$ | async"
-    (createTodoEmitter)="onTodoCreate($event)"
-    (createCategoryEmitter)="onCategoryCreate($event)"
+<div class="header">
+  <div class="header__title">
+    <button class="btn btn-primary" (click)="openSideBar = !openSideBar">side</button> 
+    <span>to DOom</span>
+  </div>
+  <app-form-item [categoriesList]="categoriesList$ | async" [currentCategory]="activeCategory$ | async"
+    (createTodoEmitter)="onTodoCreate($event)" (createCategoryEmitter)="onCategoryCreate($event)"
     (createFolderEmitter)="onFolderCreate($event)">
   </app-form-item>
-
-  <app-todo-header-bar-ui 
-    [categoriesList]="categoriesList$ | async"
-    [activeCategory]="activeCategory$ | async"
-    [filters]="filters$ | async">
-  </app-todo-header-bar-ui>
-
-  <div class="content">
-    @if(!(filters$ | async)!.favourite ) {
-      @for (category of (categoriesList$ | categoryFilter:activeCategory$ | async); track category.id){
-      <app-swipe [category]="category">
-        <app-category-list-item-ui 
-          [currentCategory]="activeCategory$ | async" [todoList$]="todoList$" [category]="category">
-        </app-category-list-item-ui>
-      </app-swipe>}
-      @if ((this.activeCategory$ | async) == null) {
-      <app-todo-list-ui [todoList]="todoList$ | async | todo:null"></app-todo-list-ui>
-      }
-    } @else {
-      <app-todo-list-ui [todoList]="todoList$ | async"></app-todo-list-ui>
-    }
+  <div class="header__profile">
+    <button class="btn btn__profile"></button>
   </div>
+</div>
+
+<div class="content">
+  <div class="sidebar">
+    @if (openSideBar){
+      <app-sidebar-ui
+      [categoriesList]="categoriesList$ | async"
+      [activeCategory]="activeCategory$ | async"
+      [filters]="filters$ | async">
+    </app-sidebar-ui>
+  }
+</div>
+
+<!-- <app-todo-header-bar-ui 
+  [categoriesList]="categoriesList$ | async"
+  [activeCategory]="activeCategory$ | async"
+  [filters]="filters$ | async">
+</app-todo-header-bar-ui> -->
+
+<div class="todos">
+  @if(!(filters$ | async)!.favourite ) {
+    @for (category of (categoriesList$ | categoryFilter:activeCategory$ | async); track category.id){
+      <app-swipe [category]="category">
+      <app-category-list-item-ui 
+      [currentCategory]="activeCategory$ | async" [todoList$]="todoList$" [category]="category">
+      </app-category-list-item-ui>
+    </app-swipe>}
+    @if ((this.activeCategory$ | async) == null) {
+      <app-todo-list-ui [todoList]="todoList$ | async | todo:null"></app-todo-list-ui>
+    }
+  } @else {
+    <app-todo-list-ui [todoList]="todoList$ | async"></app-todo-list-ui>
+  }
+</div>
 </div>
 
 <ng-template #modalTemplate>

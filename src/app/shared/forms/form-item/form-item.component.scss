@@ -1,8 +1,7 @@
-// @import "../../../../../assets/styles/color-variables";
 @import "../../../../assets/styles/color-variables";
 
 :host {
-  width: 100%;
+  width: 72%;
 }
 
 .btn-change-type {
@@ -11,13 +10,16 @@
 
 form {
   flex-grow: 1;
+  z-index: 100;
   width: 0;
+  background-color: #cbc697;
 }
 
 .flex {
   display: flex;
   justify-content: space-between;
   gap: 12px;
+  max-height: 34px;
   transition: max-height 0.3s ease-in-out;
   overflow: hidden;
 }
@@ -59,7 +61,6 @@ input::placeholder {
   margin-top: 4px;
 }
 
-
 .categories-list,
 .folder-list {
   display: flex;
@@ -80,6 +81,7 @@ input::placeholder {
   background-color: var(--btn-active);
 }
 
+
 .btn__pick-item {
   min-width: max-content;
 }
@@ -87,4 +89,12 @@ input::placeholder {
 button[type=submit] {
   width: 32px;
   padding: 6px 0;
+}
+
+@media screen and (max-width:600px) {
+  .btn__add-todo {
+    display: none;
+  }
+
+  
 }

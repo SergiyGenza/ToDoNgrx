@@ -1,7 +1,7 @@
 @import "../../../../assets/styles/color-variables";
 
 :host {
-  width: 72%;
+  width: 96.9%;
 }
 
 .btn-change-type {
@@ -91,7 +91,7 @@ button[type=submit] {
   padding: 6px 0;
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:767px) {
   .btn__add-todo {
     display: none;
   }

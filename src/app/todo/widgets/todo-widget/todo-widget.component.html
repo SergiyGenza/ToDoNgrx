@@ -1,3 +1,4 @@
+@if (openMobileForm){
 <div class="header">
   <div class="header__title">
     <button class="btn btn-primary" (click)="openSideBar = !openSideBar">side</button> 
@@ -10,18 +11,23 @@
   <div class="header__profile">
     <button class="btn btn__profile"></button>
   </div>
-</div>
+</div>}
+
+<app-sidebar-ui 
+  [categoriesList]="categoriesList$ | async" 
+  [activeCategory]="activeCategory$ | async"
+  [filters]="filters$ | async">
+</app-sidebar-ui>
 
 <div class="content">
   <div class="sidebar">
     @if (openSideBar){
-      <app-sidebar-ui
+    <app-sidebar-ui
       [categoriesList]="categoriesList$ | async"
       [activeCategory]="activeCategory$ | async"
       [filters]="filters$ | async">
-    </app-sidebar-ui>
-  }
-</div>
+    </app-sidebar-ui>}
+  </div>
 
 <!-- <app-todo-header-bar-ui 
   [categoriesList]="categoriesList$ | async"
@@ -45,6 +51,14 @@
   }
 </div>
 </div>
+
+@if(openMobileControls){
+<app-mobile-controls
+   [filters]="filters$ | async"
+   (openMobileForm)="openMobileForm = !openMobileForm">
+
+</app-mobile-controls>
+}
 
 <ng-template #modalTemplate>
   <div>some template</div>

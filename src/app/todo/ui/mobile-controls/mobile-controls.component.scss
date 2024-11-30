@@ -1,0 +1,32 @@
+:host {
+  position: fixed;
+  bottom: 0;
+  width: 96.9%;
+  background-color: #cbc697;
+}
+
+.mobile-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 66px;
+}
+
+.mobile-controls-filters {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn {
+  height: 50px;
+  width: 50px;
+  padding: 0;
+
+  &__search {}
+
+  &__add-todo {
+    border-radius: 50%;
+  }
+}
+
+.btn-primary {}

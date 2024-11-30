@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { Component, HostListener } from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { combineLatest, map, Observable } from 'rxjs';
 import { LocalstorageService } from '../../common/services/localstorage.service';
 import { StoreService } from '../../common/services/store.service';
@@ -16,6 +16,7 @@ import { Todo, TodoCreate } from '../../common/models/todo.model';
 import { FolderCreate } from '../../common/models/folder.model';
 import { TFilter } from '../../common/models/filters.model';
 import { TPriority } from '../../common/models/priority.model';
+import { MobileControlsComponent } from '../../ui/mobile-controls/mobile-controls.component';
 
 @Component({
   selector: 'app-todo-widget',
@@ -23,7 +24,7 @@ import { TPriority } from '../../common/models/priority.model';
   styleUrls: ['./todo-widget.component.scss'],
   standalone: true,
   imports: [FormItemComponent, TodoHeaderBarUiComponent, SwipeComponent, CategoryListItemUiComponent,
-    TodoListUiComponent, SidebarUiComponent, AsyncPipe, CategoryFilterPipe, TodoPipe]
+    TodoListUiComponent, SidebarUiComponent, MobileControlsComponent, AsyncPipe, CategoryFilterPipe, TodoPipe, NgClass]
 })
 export class TodoWidgetComponent {
   public filters$: Observable<TFilter>;
@@ -31,6 +32,9 @@ export class TodoWidgetComponent {
   public categoriesList$: Observable<Category[]>;
   public activeCategory$: Observable<Category | null>;
   public openSideBar: boolean = false;
+  public openMobileControls: boolean = false;
+  public openMobileForm: boolean = false;
+
 
   constructor(
     localStorageService: LocalstorageService,
@@ -48,6 +52,24 @@ export class TodoWidgetComponent {
     ]).pipe(
       map(([filters, todos]) => this.applyFilters(filters, todos))
     )
+  }
+
+  ngOnInit(): void {
+    this.checkScreenWidth();
+  }
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkScreenWidth();
+  }
+
+  checkScreenWidth() {
+    const isMobile = window.innerWidth > 768;
+    this.openMobileControls = !isMobile;
+    this.openMobileForm = isMobile;
+    // this.openFormMobile = isMobile;
+    // this.isCategoryPickMobile = isMobile;
   }
 
   public onTodoCreate(todo: TodoCreate): void {

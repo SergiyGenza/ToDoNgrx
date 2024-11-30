@@ -42,11 +42,23 @@
   padding: 0 calc(200px + 1rem);
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:767px) {
   .header {
     &__title {
       display: none;
     }
+
+    &__profile {
+      display: none;
+    }
+  }
+
+  .todos {
+    padding: 0 2rem 5rem;
+  }
+
+  .content {
+    padding-top: calc(66px + 1rem);
   }
 }
 

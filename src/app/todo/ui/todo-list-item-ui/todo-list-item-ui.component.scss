@@ -1,0 +1,59 @@
+@import "../../../../assets/styles/color-variables";
+
+.todo-item-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 40px;
+  padding: 0px 25px 0 10px;
+  background-color: -var(--todo-bg-yellow);
+}
+
+.todo-item {
+  &__text {
+    flex-basis: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    padding-left: 36px;
+  }
+}
+
+.round-checkbox-container {
+  display: block;
+  position: relative;
+  margin-bottom: 12px;
+  font-size: 22px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.round-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: -6px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+span.checkmark >svg-icon {
+  display: none;
+}
+
+.round-checkbox-container input:checked~.checkmark svg-icon {
+  display: block;
+}
+
+.todo-item-info {
+  text-align: left;
+  padding: 10px 10px;
+}

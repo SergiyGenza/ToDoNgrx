@@ -1,0 +1,28 @@
+<div class="mobile-header">
+  <button class="btn btn-primary" [ngClass]="{'active': activeCategory === null && !filters!.favourite}"
+    (click)="onCategoryPick(null)">
+    All
+  </button>
+  <button class="btn btn-primary btn__favourite" [ngClass]="{'active': filters?.favourite}"
+    (click)="onFavouriteFilterToggle()">
+    <svg-icon [src]="'../../../../../assets/icons/heart-white_svgrepo.com.svg'"
+      [svgStyle]="{ 'width.px':20, 'height.px':20}">
+    </svg-icon>
+  </button>
+  @if (categoriesList!.length){
+  <div class="category-group">
+    <button class="btn btn-primary category" [ngClass]="{'active': openCategoriesList}"
+      (click)="openCategoriesList = !openCategoriesList">
+      Categories
+    </button>
+    @if (openCategoriesList){
+    @for (category of categoriesList; track category.id) {
+    <button class="btn btn-primary category"
+      [ngClass]="{'active': activeCategory?.name === category.name && !filters?.favourite}"
+      (click)="onCategoryPick(category)">
+      {{category.name}}
+    </button>}
+    }
+  </div>
+  }
+</div>

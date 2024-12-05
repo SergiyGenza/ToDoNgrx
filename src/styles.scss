@@ -5,12 +5,13 @@
 @import '~@angular/cdk/overlay-prebuilt.css';
 
 html {
+  overflow-x: hidden;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  padding: 1rem 0;
   font-family: "Metrophobic", sans-serif;
   font-style: normal;
   background-color: var(--body-bg);
@@ -27,7 +28,7 @@ input {
 }
 
 .container {
-  max-width: 630px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 0.5rem 0 0.5rem;
 }
@@ -80,6 +81,10 @@ input {
   &__favourite {
     width: 40px;
   }
+
+  &__profile {
+    border-radius: 50%;
+  }
 }
 
 .btn-primary:active {
@@ -88,6 +93,10 @@ input {
 
 .btn:disabled {
   background-color: var(--btn-disabled);
+}
+
+.active {
+  background-color: var(--btn-active);
 }
 
 /* Priority classes */

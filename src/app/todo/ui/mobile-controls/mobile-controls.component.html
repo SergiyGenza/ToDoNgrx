@@ -1,0 +1,47 @@
+@if (openFilters) {
+<!-- need filter component -->
+<div class="mobile-controls-filters">
+  <!-- <ng-content select="[.filters]"></ng-content> -->
+  <button class="btn btn-primary" role="menu" [ngClass]="{'active': filters!.status}" (click)="onStatusFilterToggle()">
+    <svg-icon [src]="'../../../../../assets/icons/check.svg'" [svgStyle]="{ 'width.px':18, 'stroke': 'white'}">
+    </svg-icon>
+  </button>
+  <button class="btn btn-primary" role="menu" [ngClass]="{'active': filters!.priority}"
+    (click)="onPriorityFilterToggle()">
+    <svg-icon [src]="'../../../../../assets/icons/priority_svgrepo.com.svg'"
+      [svgStyle]="{ 'width.px':20, 'fill':'white'}">
+    </svg-icon>
+  </button>
+  <button class="btn btn-primary" role="menu" [ngClass]="{'active': filters!.alphabeticalSort}"
+    (click)="onAlphabeticalSortFilterToggle()">
+    A-z
+  </button>
+</div>
+}
+
+<div class="mobile-controls">
+  <div class="">
+    <button class="btn btn__search">
+      <svg-icon 
+        [src]="'../../../../assets/icons/search.svg'"
+        [svgStyle]="{ 'width.px':30, 'height.px':30, 'fill':'white'}">
+      </svg-icon>
+    </button>
+  </div>
+  <div class="">
+    <button type="submit" class="btn btn__add-todo" (click)="openMobileForm.emit()">
+      <svg-icon 
+        [src]="'../../../../assets/icons/plus.svg'" 
+        [svgStyle]="{ 'width.px':30}">
+      </svg-icon>
+    </button>
+  </div>
+  <div class="">
+    <button class="btn btn-primary" (click)="openFilters = !openFilters">
+      <svg-icon 
+        [src]="'../../../../../assets/icons/filters_svgrepo.com.svg'"
+        [svgStyle]="{ 'width.px':25}">
+      </svg-icon>
+    </button>
+  </div>
+</div>

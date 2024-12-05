@@ -1,0 +1,52 @@
+
+@import "../../../../assets/styles//color-variables";
+
+:host {
+  width: 100%;
+}
+
+form {
+  display: flex;
+  gap: 16px;
+}
+
+.form__content {
+  border: 1px solid var(--header-border-color);
+  border-radius: var(--border-radius);
+  flex-grow: 2;
+  padding: 4px;
+}
+
+input {
+  padding-left: 10px;
+  height: 24px;
+  width: 100%;
+  background-color: var(--input-bg);
+  border-radius: var(--border-radius);
+  color: black;
+  font-family: "Metrophobic";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.73px;
+  text-align: left;
+}
+
+input::placeholder {
+  color: var((--input-text-color));
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.btn {
+  &__add-todo {
+    background-image: url(../../../../assets/icons/plus.svg);
+    background-repeat: no-repeat, repeat;
+    background-position: center;
+    background-size: 20px 20px;
+  }
+}
+
+button[type=submit] {
+  width: 32px;
+  padding: 6px 0;
+}

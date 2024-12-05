@@ -1,19 +1,19 @@
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { isDevMode, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideState, provideStore, StoreModule } from '@ngrx/store';
 import { provideStoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { isDevMode, importProvidersFrom } from '@angular/core';
+import { TODO_REDUCER_NODE, todoReducer } from './app/todo/store/todo/todo.reducer';
 import { AppComponent } from './app/app.component';
-import { todoRoutes } from './app/modules/todo/todo.routes';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
-import { provideHttpClient } from '@angular/common/http';
-import { TODO_REDUCER_NODE, todoReducer } from './app/modules/todo/store/todo/todo.reducer';
+import { appRoutes } from './app/app.route';
 
 
 bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(BrowserModule, StoreModule.forRoot({}, {}), StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), connectInZone: true })),
-        provideRouter(todoRoutes),
+        provideRouter(appRoutes),
         provideAngularSvgIcon(),
         provideHttpClient(),
         provideStore(),

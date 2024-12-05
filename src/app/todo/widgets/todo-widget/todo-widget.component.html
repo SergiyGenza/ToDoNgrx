@@ -13,11 +13,11 @@
   </div>
 </div>}
 
-<app-sidebar-ui 
-  [categoriesList]="categoriesList$ | async" 
+<app-mobile-header
+   [categoriesList]="categoriesList$ | async"
   [activeCategory]="activeCategory$ | async"
-  [filters]="filters$ | async">
-</app-sidebar-ui>
+    [filters]="filters$ | async"
+></app-mobile-header>
 
 <div class="content">
   <div class="sidebar">

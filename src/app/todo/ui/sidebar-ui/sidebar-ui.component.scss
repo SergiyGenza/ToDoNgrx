@@ -1,6 +1,4 @@
-.mobile-header {
-  display: none;
-}
+
 
 .sidebar {
   display: flex;
@@ -56,27 +54,6 @@
 }
 
 @media screen and (max-width:767px) {
-  .mobile-header {
-    position: fixed;
-    top: 0;
-    display: flex;
-    justify-content: space-around;
-    width: 96.6%;
-    padding: 0.5rem 0;
-    z-index: 50;
-    background-color: #cbc697;
-  }
-
-  .btn {
-    height: 50px;
-    width: 50px;
-    padding: 0 1rem;
-  }
-
-  .btn.category {
-    min-width: max-content;
-  }
-
   .sidebar,
   .sidebar::before {
     display: none;

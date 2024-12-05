@@ -17,6 +17,7 @@ import { FolderCreate } from '../../common/models/folder.model';
 import { TFilter } from '../../common/models/filters.model';
 import { TPriority } from '../../common/models/priority.model';
 import { MobileControlsComponent } from '../../ui/mobile-controls/mobile-controls.component';
+import { MobileHeaderComponent } from '../../ui/mobile-header/mobile-header.component';
 
 @Component({
   selector: 'app-todo-widget',
@@ -24,7 +25,7 @@ import { MobileControlsComponent } from '../../ui/mobile-controls/mobile-control
   styleUrls: ['./todo-widget.component.scss'],
   standalone: true,
   imports: [FormItemComponent, TodoHeaderBarUiComponent, SwipeComponent, CategoryListItemUiComponent,
-    TodoListUiComponent, SidebarUiComponent, MobileControlsComponent, AsyncPipe, CategoryFilterPipe, TodoPipe, NgClass]
+    TodoListUiComponent, SidebarUiComponent, MobileControlsComponent, MobileHeaderComponent, AsyncPipe, CategoryFilterPipe, TodoPipe, NgClass]
 })
 export class TodoWidgetComponent {
   public filters$: Observable<TFilter>;

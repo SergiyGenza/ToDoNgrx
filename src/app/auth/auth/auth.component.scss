@@ -1,0 +1,17 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70dvh;
+}
+
+input {
+  padding: 1rem;
+  background-color: antiquewhite;
+}
+
+h3 {
+  font-size: large;
+  padding-bottom: 1rem;
+}

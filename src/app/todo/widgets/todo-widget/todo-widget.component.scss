@@ -64,6 +64,6 @@
 
 @media screen and (max-width: 415px) {
   .content {
-    padding: 0 30px;
+    padding: calc(66px + 1rem) 30px 0;
   }
 }

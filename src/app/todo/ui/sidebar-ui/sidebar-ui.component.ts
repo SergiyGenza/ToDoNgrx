@@ -4,6 +4,10 @@ import { TFilter } from '../../common/models/filters.model';
 import { StoreService } from '../../common/services/store.service';
 import { NgClass } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { FirebaseService } from '../../common/services/firebase.service';
+import { TodoState } from '../../store/todo/todo.reducer';
+import { Store } from '@ngrx/store';
+import { GetDataFromFirebase, ToogleProirityFilterF } from '../../store/todo/todo.actions';
 
 @Component({
   selector: 'app-sidebar-ui',
@@ -24,23 +28,32 @@ export class SidebarUiComponent {
   public openCategoriesList: boolean = false;
 
   constructor(
-    private storeService: StoreService
+    private todoStore$: Store<TodoState>,
+    private storeService: StoreService,
+    private firebaseService: FirebaseService
   ) { }
 
-  public onPriorityFilterToggle(): void {
-    this.storeService.priorityFilterToggle();
+  // або змінювати значення фільтра у методі і тоді передавати саме значення вперед
+
+  public onPriorityFilterToggle(filters: TFilter): void {
+    this.storeService.priorityFilterToggle(filters);
+
+    this.todoStore$.dispatch(ToogleProirityFilterF());
   }
 
-  public onStatusFilterToggle(): void {
+  public onStatusFilterToggle(filters: TFilter): void {
     this.storeService.statusFilterToggle();
+    // this.firebaseService.statusFilterToggle(filters)
   }
 
   public onFavouriteFilterToggle(): void {
     this.storeService.favouriteFilterToogle();
+    // this.firebaseService.favouriteFilterToogle(filters)
   }
 
-  public onAlphabeticalSortFilterToggle(): void {
+  public onAlphabeticalSortFilterToggle(filters: TFilter): void {
     this.storeService.alphabeticalSortFilterToggle();
+    // this.firebaseService.alphabeticalSortFilterToggle(filters)
   }
 
   public onCategoryPick(activeCategory: Category | null): void {

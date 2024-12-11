@@ -1,5 +1,11 @@
 import { TPriority } from "./priority.model";
 
+export interface FTodo extends Omit<TodoCreate, 'currentFolderId' | 'currentCategoryId'> {
+  fireId: string;
+  fCategoryId: string;
+  fFolderId: string;
+}
+
 export interface TodoCreate {
   name: string;
   favourite: boolean;

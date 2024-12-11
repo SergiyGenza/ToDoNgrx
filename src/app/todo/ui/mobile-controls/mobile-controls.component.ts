@@ -24,7 +24,7 @@ export class MobileControlsComponent {
   ) { }
 
   public onPriorityFilterToggle(): void {
-    this.storeService.priorityFilterToggle();
+    // this.storeService.priorityFilterToggle();
   }
 
   public onStatusFilterToggle(): void {

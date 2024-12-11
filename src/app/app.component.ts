@@ -23,8 +23,6 @@ export class AppComponent implements OnInit {
       } else {
         this.authService.currentUserSignal.set(null);
       }
-      console.log(user);
-
       console.log(
         this.authService.currentUserSignal()
       );

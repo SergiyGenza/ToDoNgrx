@@ -12,29 +12,28 @@ import { provideFirebaseApp } from '@angular/fire/app';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'environment/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideEffects } from '@ngrx/effects';
+import { TodoEffects } from './app/todo/store/todo/todo.effects';
 
 
 bootstrapApplication(AppComponent, {
     providers: [
-        provideRouter(appRoutes),
-        provideAngularSvgIcon(),
-        provideHttpClient(),
-        provideStore(),
-        provideState({ name: TODO_REDUCER_NODE, reducer: todoReducer }),
-        provideStoreDevtools({
-            maxAge: 25,
-            logOnly: !isDevMode(),
-            autoPause: true,
-            trace: false,
-            traceLimit: 75,
-            connectInZone: true
-        }),
-        importProvidersFrom(
-            BrowserModule, 
-            StoreModule.forRoot({}, {}),
-            StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), connectInZone: true }),
-        ),
-        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-        provideAuth(() => getAuth()),
-    ]
+    provideRouter(appRoutes),
+    provideAngularSvgIcon(),
+    provideHttpClient(),
+    provideStore(),
+    provideState({ name: TODO_REDUCER_NODE, reducer: todoReducer }),
+    provideStoreDevtools({
+        maxAge: 25,
+        logOnly: !isDevMode(),
+        autoPause: true,
+        trace: false,
+        traceLimit: 75,
+        connectInZone: true
+    }),
+    importProvidersFrom(BrowserModule, StoreModule.forRoot({}, {}), StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode(), connectInZone: true })),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideAuth(() => getAuth()),
+        provideEffects(TodoEffects)
+]
 }).catch(err => console.error(err));

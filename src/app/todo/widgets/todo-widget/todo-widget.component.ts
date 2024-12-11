@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { combineLatest, map, Observable } from 'rxjs';
 import { LocalstorageService } from '../../common/services/localstorage.service';
@@ -18,6 +18,15 @@ import { TFilter } from '../../common/models/filters.model';
 import { TPriority } from '../../common/models/priority.model';
 import { MobileControlsComponent } from '../../ui/mobile-controls/mobile-controls.component';
 import { MobileHeaderComponent } from '../../ui/mobile-header/mobile-header.component';
+import { FirebaseService } from '../../common/services/firebase.service';
+import { user, User } from '@angular/fire/auth';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { testData, testFireData } from 'src/test.data';
+import { GetDataFromFirebase } from '../../store/todo/todo.actions';
+import { TodoState } from '../../store/todo/todo.reducer';
+import { Store } from '@ngrx/store';
+
+const data = testData;
 
 @Component({
   selector: 'app-todo-widget',
@@ -36,12 +45,17 @@ export class TodoWidgetComponent {
   public openMobileControls: boolean = false;
   public openMobileForm: boolean = false;
 
+  private authService = inject(AuthService);
+  private userId!: string | null | undefined;
+
 
   constructor(
-    localStorageService: LocalstorageService,
+    // localStorageService: LocalstorageService,
     private storeService: StoreService,
+    private firebaseService: FirebaseService,
+    public todoStore$: Store<TodoState>,
   ) {
-    localStorageService.initTodos();
+    // localStorageService.initTodos();
 
     this.filters$ = this.storeService.getStoreFilters();
     this.activeCategory$ = this.storeService.getStoreActiveCategory();
@@ -56,9 +70,15 @@ export class TodoWidgetComponent {
   }
 
   ngOnInit(): void {
+    this.authService.user$.subscribe((user) => this.userId = user?.uid);
     this.checkScreenWidth();
+
+    this.storeService.getAllUsersData();
   }
 
+  save() {
+    this.firebaseService.saveData(data);
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
@@ -74,15 +94,18 @@ export class TodoWidgetComponent {
   }
 
   public onTodoCreate(todo: TodoCreate): void {
-    this.storeService.todoCreate(todo);
+    // this.storeService.todoCreate(todo);
+    this.firebaseService.createTodo(todo)
   }
 
   public onFolderCreate(folder: FolderCreate): void {
-    this.storeService.folderCreate(folder);
+    // this.storeService.folderCreate(folder);
+    this.firebaseService.createFolder(folder);
   }
 
   public onCategoryCreate(category: CategoryCreate): void {
-    this.storeService.categoryCreate(category);
+    // this.storeService.categoryCreate(category);
+    this.firebaseService.createCategory(category)
   }
 
   private applyFilters(filters: TFilter, todos: Todo[]): Todo[] {

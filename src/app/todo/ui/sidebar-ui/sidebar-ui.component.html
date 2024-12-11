@@ -44,18 +44,18 @@
     </button>
     @if (openFilters){
     <button class="btn btn-primary" role="menu" [ngClass]="{'active': filters?.status}"
-      (click)="onStatusFilterToggle()">
+      (click)="onStatusFilterToggle(filters!)">
       <svg-icon [src]="'../../../../../assets/icons/check.svg'" [svgStyle]="{ 'width.px':18, 'stroke': 'white'}">
       </svg-icon>
     </button>
     <button class="btn btn-primary" role="menu" [ngClass]="{'active': filters?.priority}"
-      (click)="onPriorityFilterToggle()">
+      (click)="onPriorityFilterToggle(filters!)">
       <svg-icon [src]="'../../../../../assets/icons/priority_svgrepo.com.svg'"
         [svgStyle]="{ 'width.px':20, 'fill':'white'}">
       </svg-icon>
     </button>
     <button class="btn btn-primary" role="menu" [ngClass]="{'active': filters?.alphabeticalSort}"
-      (click)="onAlphabeticalSortFilterToggle()">
+      (click)="onAlphabeticalSortFilterToggle(filters!)">
       A-z
     </button>
     }

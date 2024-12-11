@@ -1,4 +1,4 @@
-import { Action } from "@ngrx/store";
+import { Action, createAction, props } from "@ngrx/store";
 import { TodoState } from "./todo.reducer";
 import { Category } from "../../common/models/category.model";
 import { Folder } from "../../common/models/folder.model";
@@ -40,12 +40,25 @@ export enum todoActionsType {
 export class TodoCreateAction implements Action {
   readonly type = todoActionsType.createTodo;
   constructor(public payload: {
-    name: string;
-    currentCategoryId: number | null;
-    currentFolderId: number | null;
-    date: Date;
+name: string;
+currentCategoryId: number | null;
+currentFolderId: number | null;
+date: Date;
   }) { }
 }
+
+// export const TodoCreateAction = createAction(
+//   '[Todo] create todo item',
+//   props<{
+//     name: string;
+//     currentCategoryId: number | null;
+//     currentFolderId: number | null;
+//     date: Date
+//   }>
+// );
+
+
+
 export class TodoDeleteAction implements Action {
   readonly type = todoActionsType.deleteTodo;
   constructor(public payload: {
@@ -152,6 +165,7 @@ export class ToggleTodoFavouriteStatus implements Action {
   }) { }
 }
 
+// filters
 export class ToogleFavouriteFilter implements Action {
   readonly type = todoActionsType.toggleFavouriteFilter;
 }
@@ -167,6 +181,12 @@ export class ToggleAlphabeticaSortFilter implements Action {
   readonly type = todoActionsType.toggleAlphabeticaSortFilter;
 }
 
+export const ToogleProirityFilterF = createAction(
+  '[Filter] Toggle Priority Filter',
+  props<{ filters: TFilter }>
+);
+
+
 export class ChangeActiveCategory implements Action {
   readonly type = todoActionsType.changeActiveCategory;
   constructor(public payload: {
@@ -181,7 +201,12 @@ export class ChangeFormType implements Action {
   }) { }
 }
 
-export type TodoActions = TodoCreateAction |
+export const GetDataFromFirebase = createAction(
+  '[Get data]',
+)
+
+export type TodoActions =
+  TodoCreateAction |
   TodoDeleteAction | TodoToggleAction |
   TodoEditAction | TodoLoadStateAction |
   TodoCategoryCreateAction | TodoCategoryFolderCreateAction |

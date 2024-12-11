@@ -11,7 +11,6 @@ import { AuthService } from './auth/services/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'ToDoom';
-
   authService = inject(AuthService);
 
   ngOnInit(): void {
@@ -24,11 +23,11 @@ export class AppComponent implements OnInit {
       } else {
         this.authService.currentUserSignal.set(null);
       }
+      console.log(user);
+
       console.log(
         this.authService.currentUserSignal()
       );
     })
   }
-
-
 }

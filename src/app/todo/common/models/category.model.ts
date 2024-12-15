@@ -8,7 +8,7 @@ export interface FCategory {
 
 export interface CategoryCreate {
   name: string;
-  foldersList: Folder[];
+  foldersList: any[];
 }
 
 export interface Category extends CategoryCreate {

@@ -8,10 +8,10 @@ import { AsyncPipe, NgClass } from '@angular/common';
 import { TodoPipe } from '../../common/pipes/todo/todo.pipe';
 
 @Component({
-    selector: 'app-folder-list-item-ui',
-    templateUrl: './folder-list-item-ui.component.html',
-    styleUrls: ['./folder-list-item-ui.component.scss'],
-    standalone: true,
+  selector: 'app-folder-list-item-ui',
+  templateUrl: './folder-list-item-ui.component.html',
+  styleUrls: ['./folder-list-item-ui.component.scss'],
+  standalone: true,
   imports: [SvgIconComponent, TodoListUiComponent, AsyncPipe, TodoPipe, NgClass]
 })
 export class FolderListItemUiComponent {

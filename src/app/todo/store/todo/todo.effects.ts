@@ -51,7 +51,7 @@ export class TodoEffects {
   getData$ = createEffect(() =>
     this.actions.pipe(
       ofType(GetDataFromFirebase),
-      exhaustMap(() => this.firebaseService.getTodos()
+      exhaustMap(() => this.firebaseService.getAllDataFromCollecton()
         .pipe(
           map((res) => new TodoLoadStateAction({ state: res }))
         )

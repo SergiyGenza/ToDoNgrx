@@ -32,11 +32,7 @@
     </app-sidebar-ui>}
   </div>
 
-<!-- <app-todo-header-bar-ui 
-  [categoriesList]="categoriesList$ | async"
-  [activeCategory]="activeCategory$ | async"
-  [filters]="filters$ | async">
-</app-todo-header-bar-ui> -->
+<!-- app-todo-header-bar-ui -->
 
   <div class="todos">
     @if(!(filters$ | async)!.favourite ) {
@@ -49,7 +45,7 @@
           </app-category-list-item-ui>
         </app-swipe>}
       @if ((this.activeCategory$ | async) == null) {
-        <app-todo-list-ui [todoList]="todoList$ | async | todo:null"></app-todo-list-ui>
+        <app-todo-list-ui [todoList]="todoList$ | async | todo:null:'none'"></app-todo-list-ui>
       }
     } @else {
       <app-todo-list-ui [todoList]="todoList$ | async"></app-todo-list-ui>

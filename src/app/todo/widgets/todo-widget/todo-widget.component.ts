@@ -1,5 +1,5 @@
 import { Component, HostListener, inject } from '@angular/core';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe, KeyValuePipe, NgClass } from '@angular/common';
 import { combineLatest, map, Observable } from 'rxjs';
 import { LocalstorageService } from '../../common/services/localstorage.service';
 import { StoreService } from '../../common/services/store.service';
@@ -26,7 +26,8 @@ import { GetDataFromFirebase } from '../../store/todo/todo.actions';
 import { TodoState } from '../../store/todo/todo.reducer';
 import { Store } from '@ngrx/store';
 
-const data = testData;
+// const data = testData;
+const data = testFireData;
 
 @Component({
   selector: 'app-todo-widget',
@@ -34,7 +35,7 @@ const data = testData;
   styleUrls: ['./todo-widget.component.scss'],
   standalone: true,
   imports: [FormItemComponent, TodoHeaderBarUiComponent, SwipeComponent, CategoryListItemUiComponent,
-    TodoListUiComponent, SidebarUiComponent, MobileControlsComponent, MobileHeaderComponent, AsyncPipe, CategoryFilterPipe, TodoPipe, NgClass]
+    TodoListUiComponent, SidebarUiComponent, MobileControlsComponent, MobileHeaderComponent, AsyncPipe, KeyValuePipe, CategoryFilterPipe, TodoPipe, NgClass]
 })
 export class TodoWidgetComponent {
   public filters$: Observable<TFilter>;
@@ -58,26 +59,67 @@ export class TodoWidgetComponent {
     // localStorageService.initTodos();
 
     this.filters$ = this.storeService.getStoreFilters();
+    // this.activeCategory$ = this.storeService.getStoreActiveCategory();
+    // this.categoriesList$ = this.storeService.getStoreCategoriesList();
     this.activeCategory$ = this.storeService.getStoreActiveCategory();
-    this.categoriesList$ = this.storeService.getStoreCategoriesList();
+    this.categoriesList$ = this.firebaseService.getFireCategories()
+      .pipe(
+        map((categories: { [key: string]: Category }) => {
+          return Object.keys(categories).map(key => {
+            const category = categories[key];
+            if (category.foldersList && typeof category.foldersList === 'object') {
+              category.foldersList = Object.keys(category.foldersList)
+                .map((folderKey: any) => category.foldersList[folderKey]);
+            }
+            return category;
+          });
+        })
+      );
 
     this.todoList$ = combineLatest([
       this.filters$,
-      this.storeService.getStoreTodoList()
+      // this.storeService.getStoreTodoList()
+      this.firebaseService.getFireTodo()
+        .pipe(
+          map((todo: { [key: string]: Todo }) => {
+            if (todo) return Object.keys(todo).map(key => todo[key])
+            else return []
+          })
+        )
     ]).pipe(
       map(([filters, todos]) => this.applyFilters(filters, todos))
     )
   }
+
+  testFireCategories!: Observable<Category[]>;
+  testFireTodos!: Observable<Todo[]>
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => this.userId = user?.uid);
     this.checkScreenWidth();
 
     this.storeService.getAllUsersData();
+
+
+    // this.testFireCategories = 
+    // this.firebaseService.getFireCategories()
+    //   .pipe(
+    //     map((categories: { [key: string]: Category }) => {
+    //       return Object.keys(categories).map(key => categories[key]);
+    //     })
+    //   ).subscribe((s) => console.log(s))
+
+    // this.testFireTodos = 
+    // this.firebaseService.getFireTodo()
+    //   .pipe(
+    //     map((todo: { [key: string]: Todo }) => {
+    //       return Object.keys(todo).map(key => todo[key]);
+    //     })
+    //   ).subscribe((s) => console.log(s))
   }
 
   save() {
-    this.firebaseService.saveData(data);
+    this.firebaseService.saveTestData(data);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -95,17 +137,19 @@ export class TodoWidgetComponent {
 
   public onTodoCreate(todo: TodoCreate): void {
     // this.storeService.todoCreate(todo);
-    this.firebaseService.createTodo(todo)
+    // this.firebaseService.createTodo(todo)
+    this.firebaseService.createFireTodo(todo)
+
   }
 
   public onFolderCreate(folder: FolderCreate): void {
     // this.storeService.folderCreate(folder);
-    this.firebaseService.createFolder(folder);
+    this.firebaseService.createFireFolder(folder);
   }
 
   public onCategoryCreate(category: CategoryCreate): void {
     // this.storeService.categoryCreate(category);
-    this.firebaseService.createCategory(category)
+    this.firebaseService.createFireCategory(category)
   }
 
   private applyFilters(filters: TFilter, todos: Todo[]): Todo[] {

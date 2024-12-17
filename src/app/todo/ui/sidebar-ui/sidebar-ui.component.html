@@ -1,6 +1,6 @@
 <div class="sidebar">
   <input type="text" class="rounded-input" placeholder="search">
-  @if (categoriesList!.length){
+  @if (categoriesList){
   <div class="base">
     <button class="btn btn-primary" [ngClass]="{'active': activeCategory === null && !filters!.favourite}"
       (click)="onCategoryPick(null)">All
@@ -15,7 +15,7 @@
   }
 
   <div class="caterories list">
-    @if (categoriesList!.length){
+    @if (categoriesList){
     <div class="category-group">
       <button class="btn btn-primary" [ngClass]="{'active': openCategoriesList}"
         (click)="openCategoriesList = !openCategoriesList">

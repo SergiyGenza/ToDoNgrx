@@ -14,13 +14,15 @@
 </div>
 }
 
-<button (click)="save()">save</button>
+<!-- <button (click)="save()">save</button> -->
 
+@if(openMobileControls){
 <app-mobile-header
   [categoriesList]="categoriesList$ | async"
   [activeCategory]="activeCategory$ | async"
   [filters]="filters$ | async">
 </app-mobile-header>
+}
 
 <div class="content">
   <div class="sidebar">

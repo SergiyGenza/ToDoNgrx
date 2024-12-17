@@ -15,6 +15,10 @@ type ItemType = 'folder' | 'category' | 'todo' | 'none';
 })
 export class TodoPipe implements PipeTransform {
   transform(todoList: ItemList, todoSearchItem: SearchItem, itemType: ItemType = 'todo'): Result {
+    if (!todoList) {
+      return [];
+    }
+
     if (itemType === 'category' && typeof todoSearchItem === 'object') {
       return todoList!.filter(todo => {
         if (!todo.currentFolderId) {
@@ -27,6 +31,7 @@ export class TodoPipe implements PipeTransform {
         return todo!.currentFolderId === (todoSearchItem as Folder).id;
       })
     } else if (itemType === 'none') {
+
       return todoList!.filter(todo => {
         return todo.currentCategoryId == null;
       })

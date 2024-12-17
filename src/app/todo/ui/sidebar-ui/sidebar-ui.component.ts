@@ -18,7 +18,7 @@ import { GetDataFromFirebase, ToogleProirityFilterF } from '../../store/todo/tod
 })
 export class SidebarUiComponent {
   @Input()
-  categoriesList?: Category[] | null;
+  categoriesList!: Category[] | null;
   @Input()
   activeCategory!: Category | null;
   @Input()

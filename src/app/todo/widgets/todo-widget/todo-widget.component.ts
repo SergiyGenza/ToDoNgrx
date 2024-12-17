@@ -1,5 +1,5 @@
 import { Component, HostListener, inject } from '@angular/core';
-import { AsyncPipe, KeyValuePipe, NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { combineLatest, map, Observable } from 'rxjs';
 import { LocalstorageService } from '../../common/services/localstorage.service';
 import { StoreService } from '../../common/services/store.service';
@@ -35,7 +35,7 @@ const data = testFireData;
   styleUrls: ['./todo-widget.component.scss'],
   standalone: true,
   imports: [FormItemComponent, TodoHeaderBarUiComponent, SwipeComponent, CategoryListItemUiComponent,
-    TodoListUiComponent, SidebarUiComponent, MobileControlsComponent, MobileHeaderComponent, AsyncPipe, KeyValuePipe, CategoryFilterPipe, TodoPipe, NgClass]
+    TodoListUiComponent, SidebarUiComponent, MobileControlsComponent, MobileHeaderComponent, AsyncPipe, CategoryFilterPipe, TodoPipe, NgClass]
 })
 export class TodoWidgetComponent {
   public filters$: Observable<TFilter>;
@@ -97,9 +97,7 @@ export class TodoWidgetComponent {
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => this.userId = user?.uid);
     this.checkScreenWidth();
-
     this.storeService.getAllUsersData();
-
 
     // this.testFireCategories = 
     // this.firebaseService.getFireCategories()

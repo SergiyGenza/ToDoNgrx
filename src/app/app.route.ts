@@ -1,8 +1,10 @@
 import { Route } from "@angular/router";
+import { authGuard } from "./shared/common/guards/auth.guard";
 
 export const appRoutes: Route[] = [
   {
     path: '',
+    canActivate: [authGuard],
     loadComponent: () => import('../app/todo/widgets/todo-widget/todo-widget.component').then((c) => c.TodoWidgetComponent)
   },
   {

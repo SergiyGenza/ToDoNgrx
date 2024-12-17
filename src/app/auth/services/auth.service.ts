@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, User, user, UserCredential } from '@angular/fire/auth';
-import { from, Observable } from 'rxjs';
+import { combineLatest, from, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,14 @@ export class AuthService {
   private firebaseAuth = inject(Auth);
   public currentUserSignal = signal<any>(undefined);
   public user$: Observable<User | null> = user(this.firebaseAuth);
+
+  // need ref
+  public isAuthrozed: Observable<boolean> = combineLatest([this.user$])
+    .pipe(
+      map((u) => {
+        return !!u[0]
+      })
+    )
 
   public register(email: string, username: string, password: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password)

@@ -1,6 +1,6 @@
 <div class="sidebar">
   <input type="text" class="rounded-input" placeholder="search">
-  @if (categoriesList!.length){
+  @if (categoriesList){
   <div class="base">
     <button class="btn btn-primary" [ngClass]="{'active': activeCategory === null && !filters!.favourite}"
       (click)="onCategoryPick(null)">All
@@ -15,7 +15,7 @@
   }
 
   <div class="caterories list">
-    @if (categoriesList!.length){
+    @if (categoriesList){
     <div class="category-group">
       <button class="btn btn-primary" [ngClass]="{'active': openCategoriesList}"
         (click)="openCategoriesList = !openCategoriesList">
@@ -44,18 +44,18 @@
     </button>
     @if (openFilters){
     <button class="btn btn-primary" role="menu" [ngClass]="{'active': filters?.status}"
-      (click)="onStatusFilterToggle()">
+      (click)="onStatusFilterToggle(filters!)">
       <svg-icon [src]="'../../../../../assets/icons/check.svg'" [svgStyle]="{ 'width.px':18, 'stroke': 'white'}">
       </svg-icon>
     </button>
     <button class="btn btn-primary" role="menu" [ngClass]="{'active': filters?.priority}"
-      (click)="onPriorityFilterToggle()">
+      (click)="onPriorityFilterToggle(filters!)">
       <svg-icon [src]="'../../../../../assets/icons/priority_svgrepo.com.svg'"
         [svgStyle]="{ 'width.px':20, 'fill':'white'}">
       </svg-icon>
     </button>
     <button class="btn btn-primary" role="menu" [ngClass]="{'active': filters?.alphabeticalSort}"
-      (click)="onAlphabeticalSortFilterToggle()">
+      (click)="onAlphabeticalSortFilterToggle(filters!)">
       A-z
     </button>
     }

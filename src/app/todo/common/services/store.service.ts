@@ -7,7 +7,7 @@ import { Category, CategoryCreate } from '../models/category.model';
 import { TPriority } from '../models/priority.model';
 import {
   ChangeActiveCategory,
-  ChangeTodoPriority, TodoCategoryCreateAction, TodoCategoryEditAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteCategoryAction,
+  ChangeTodoPriority, GetDataFromFirebase, TodoCategoryCreateAction, TodoCategoryEditAction, TodoCategoryFolderCreateAction, TodoCreateAction, TodoDeleteAction, TodoDeleteCategoryAction,
   TodoDeleteCategoryWithAllItemsAction, TodoDeleteFolderAction, TodoDeleteFolderWithAllItemsAction, TodoEditAction, TodoEditFolderAction, TodoToggleAction, ToggleAlphabeticaSortFilter, ToggleTodoFavouriteStatus,
   ToogleFavouriteFilter,
   ToogleProirityFilter,
@@ -44,12 +44,18 @@ export class StoreService {
     return this.todoStore$.pipe(select(filtersSelector));
   }
 
+  // get all data from Firebase real-time database
+  public getAllUsersData(): void {
+    return this.todoStore$.dispatch(GetDataFromFirebase());
+  }
+
   // store actions
 
   // need ref
   public todoCreate(item: TodoCreate): void {
     const { name, currentFolderId, currentCategoryId, date } = item;
     this.todoStore$.dispatch(new TodoCreateAction({ name, currentCategoryId, currentFolderId, date }));
+    // this.todoStore$.dispatch(TodoCreateAction())
   }
 
   public todoEdit(item: Todo): void {
@@ -122,19 +128,25 @@ export class StoreService {
     this.todoStore$.dispatch(new ChangeActiveCategory({ activeCategory }));
   }
 
+  // filters
+
   public favouriteFilterToogle(): void {
     this.todoStore$.dispatch(new ToogleFavouriteFilter());
   }
 
-  public priorityFilterToggle(): void {
+  public priorityFilterToggle(filters: TFilter): void {
     this.todoStore$.dispatch(new ToogleProirityFilter());
   }
 
   public statusFilterToggle(): void {
     this.todoStore$.dispatch(new ToogleStatusFilter());
   }
-  
+
   public alphabeticalSortFilterToggle(): void {
+    this.todoStore$.dispatch(new ToggleAlphabeticaSortFilter());
+  }
+
+  public toogleFilters(): void {
     this.todoStore$.dispatch(new ToggleAlphabeticaSortFilter());
   }
 }

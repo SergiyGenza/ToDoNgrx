@@ -1,27 +1,42 @@
-<div class="container">
-  <div class="displayTableCell">
-    <div class="authBlock">
-      <h3>Sign In</h3>
+<div class="auth">
+  <div class="register">
+    <form class="authBlock" [formGroup]="registrForm">
+      <h3>Register</h3>
       <div class="formGroup">
-        <input type="text" class="formControl" placeholder="Username" #userName required />
-      </div>
-      <div class="formGroup">
-        <input type="password" class="formControl" placeholder="Password" #userPassword required />
+        <input type="text" class="formControl" placeholder="Username" required formControlName="userName" />
       </div>
       <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Log in"
-          (click)="authService.SignIn(userName.value, userPassword.value)" />
+        <input type="email" class="formControl" placeholder="email" required formControlName="email" />
       </div>
       <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
+        <input type="password" class="formControl" placeholder="Password" required formControlName="password" />
       </div>
-      <div class="forgotPassword">
-        <span routerLink="/forgot-password">Forgot Password?</span>
-      </div>
-    </div>
-    <div class="redirectToLogin">
-      <span>Don't have an account?<span class="redirect" routerLink="/register-user">
-          Sign Up</span></span>
-    </div>
+      <button class="btn" (click)="regist()">register</button>
+    </form>
   </div>
+
+  <div class="">
+    <button class="btn">Google</button>
+  </div>
+
+  <div class="">
+    or
+  </div>
+
+  <div class="login">
+    <form class="authBlock" [formGroup]="registrForm">
+      <h3>Log in</h3>
+      <div class="formGroup">
+        <input type="email" class="formControl" placeholder="email" required formControlName="email" />
+      </div>
+      <div class="formGroup">
+        <input type="password" class="formControl" placeholder="Password" required formControlName="password" />
+      </div>
+      <button class="btn" (click)="auth()"> log in</button>
+    </form>
+  </div>
+</div>
+
+<div class="">
+  <button (click)="logout()">Sign Out</button>
 </div>

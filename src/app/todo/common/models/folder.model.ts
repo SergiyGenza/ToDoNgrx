@@ -1,10 +1,13 @@
-import { TPriority } from "./priority.model";
+
 
 export interface FolderCreate {
   name: string;
-  favourite?: boolean;
   todoItems?: number[];
-  currentCategoryId: number | null;
+  currentCategoryId: number;
+}
+
+export interface FFolder extends FolderCreate {
+  id: string
 }
 
 export interface Folder extends FolderCreate {

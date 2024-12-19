@@ -9,7 +9,8 @@
       [svgStyle]="{ 'width.px':20, 'height.px':20}">
     </svg-icon>
   </button>
-  @if (categoriesList!.length){
+  
+  @if (categoriesList){
   <div class="category-group">
     <button class="btn btn-primary category" [ngClass]="{'active': openCategoriesList}"
       (click)="openCategoriesList = !openCategoriesList">

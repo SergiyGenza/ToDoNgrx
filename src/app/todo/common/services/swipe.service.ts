@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { SwipeComponentConfig, SWIPECOMPONENTCONFIGLIST } from '../models/swipe-items.model';
 import { StoreService } from './store.service';
 import { ModalService } from 'src/app/modal/services/modal.service';
+import { FirebaseService } from './firebase.service';
 
 
 @Injectable({
@@ -19,7 +20,8 @@ export class SwipeService {
 
   constructor(
     private storeService: StoreService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private firebaseService: FirebaseService
   ) { }
 
   // need ref
@@ -50,7 +52,8 @@ export class SwipeService {
   }
 
   public changePriority(todo: Todo, priority: TPriority): void {
-    this.storeService.changeTodoPriority(todo, priority);
+    // this.storeService.changeTodoPriority(todo, priority);
+    this.firebaseService.updateTodoPriorityStatus(todo.id, priority);
     this.setPriorityBarStatus(false);
     this.resetPosition();
   }
@@ -81,13 +84,16 @@ export class SwipeService {
       this.openModalAndHandleAction(modalTemplate, config, option => {
         switch (config.type) {
           case 'todoEdit':
-            this.storeService.todoEdit(option);
+            // this.storeService.todoEdit(option);
+            this.firebaseService.editTodo(option);
             break;
           case 'categoryEdit':
-            this.storeService.categoryEdit(option);
+            // this.storeService.categoryEdit(option);
+            this.firebaseService.editCategory(option);
             break;
           case 'folderEdit':
-            this.storeService.folderEdit(option);
+            // this.storeService.folderEdit(option);
+            this.firebaseService.editFolderInCategory(option);
             break;
         }
       });
@@ -98,15 +104,19 @@ export class SwipeService {
     const config = this.modalService.getModalConfig(item, 'Delete');
     if (config) {
       if (config.type === 'todoDelete') {
-        this.storeService.todoDelete(item.todo!);
+        // this.storeService.todoDelete(item.todo!);
+        this.firebaseService.deleteTodo(item.todo!.id);
         return;
       }
       this.openModalAndHandleAction(modalTemplate, config, option => {
         switch (config.type) {
           case 'categoryDelete':
             option
-              ? this.storeService.deleteCategoryWithAllItems(item.category!)
-              : this.storeService.deleteCategoryAction(item.category!);
+              ? this.firebaseService.deleteCategoryAndTodos(item.category!.id)
+              : this.firebaseService.clearCategoryReferences(item.category!.id);
+            // option
+            //   ? this.storeService.deleteCategoryWithAllItems(item.category!)
+            //   : this.storeService.deleteCategoryAction(item.category!);
             break;
           case 'folderDelete':
             option
@@ -194,7 +204,9 @@ export class SwipeService {
     return 'no action';
   }
 
-  private toogleFavourite(id: number) {
+  private toogleFavourite(id: any) {
     this.storeService.todoFavouriteStatusToggle(id);
+    this.firebaseService.toggleTodoFavouriteStatus(id);
+
   }
 }

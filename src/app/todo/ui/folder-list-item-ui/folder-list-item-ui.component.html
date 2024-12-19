@@ -8,5 +8,5 @@
 </svg-icon>
 </div>
 @if (showContent) {
-<app-todo-list-ui [todoList]="todoList$ | async | todo:folder"></app-todo-list-ui>
+<app-todo-list-ui [todoList]="todoList$ | async | todo:folder:'folder'"></app-todo-list-ui>
 }
